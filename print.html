@@ -204,7 +204,7 @@
 <p>看到这张图，你可能觉得奇怪，说好的是服务端负责游戏逻辑的呢，为什么客户端也有数据模型？其实这里的「客户端数据模型」只是「服务端数据模型」一个副本，虽然它们都有独立的游戏Tick，也共享很多相同的代码，但是最终逻辑还是以服务端为准。</p>
 <p>之前我们提到，客户端和服务端是独立运行的，但是它们不可避免的需要同步数据，而在Minecraft里，所有客户端和服务的的数据同步都是通过网络数据包实现的。在大部分时候原版已经实现了数据同步的方法，我们只需要调用设计好的方法就行，但是在一些情况下，原版没有提供这个功能，或者不适合使用原版提供的功能，我们就得自己创建和发送网络数据包来实现数据的同步。</p>
 <p>那么接下去的问题是，我们怎么在代码中区分我们是处于客户端还是服务端呢？</p>
-<p>Minecraft的<code>World</code>中有一个<code>isRemote</code>变量，当处于客户端是这个变量值为真，当处于服务端时这个变量值为假。</p>
+<p>Minecraft的<code>World</code>中有一个<code>isRemote</code>方法，当处于客户端是这个变量值为真，当处于服务端时这个变量值为假。</p>
 <hr />
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
 <p>线程是程序调度的单位之一，处于不同的线程意味着这两个的逻辑和数据是互相独立的，只能通过特定的方法同步数据。具体来说，服务端处于「Server thread」，客户端处于「Render thread」，如果你有观察过Minecraft启动时的输出日志，应该会看到这两个词。</p>
@@ -225,7 +225,7 @@
 <h2><a class="header" href="#注册" id="注册">注册</a></h2>
 <p>如果你想往Minecraft里添加一些内容，那么你必须做的一件事就是注册。注册是一种机制，告诉游戏本身，有哪东西可以使用。你注册时需要的东西基本上可以分成两个部分：一个注册名和一个实例。</p>
 <h2><a class="header" href="#resourcelocation" id="resourcelocation">ResourceLocation</a></h2>
-<p>你可以把ResourceLocation想成一种特殊格式的字符串，它大概长成这样:<code>minecraft:textures/block/stone.png</code>，一个ResouceLocation指定了资源包下的一个特定的文件。举例来说，前面这个这个ResourceLocation代表了原版资源包下的石头的材质图片。ResouceLocation分成两部分，冒号前面的叫做「域（domain）」，在原版中只有一个域即<code>minecraft</code>域，但是如果你开始开发mod，那么每个mod都会有一个或者多个域。冒号的后半部分是和<code>asserts</code>文件夹内的目录结构一一对应的。从某种程度上来说，ResourceLocation就是一个特殊的URL。</p>
+<p>你可以把ResourceLocation想成一种特殊格式的字符串，它大概长成这样:<code>minecraft:textures/block/stone.png</code>，一个ResouceLocation指定了资源包下的一个特定的文件。举例来说，前面这个这个ResourceLocation代表了原版资源包下的石头的材质图片。ResouceLocation分成两部分，冒号前面的叫做「域（domain）」，在原版中只有一个域即<code>minecraft</code>域，但是如果你开始开发mod，那么每个mod都会有一个或者多个域。冒号的后半部分是和<code>assets</code>文件夹内的目录结构一一对应的。从某种程度上来说，ResourceLocation就是一个特殊的URL。</p>
 <h2><a class="header" href="#模型和材质" id="模型和材质">模型和材质</a></h2>
 <p>在游戏中3d的对象都是基本上都有它的模型，模型和材质组合在一起规定了一个对象具体的样子。模型相当于是骨头，材质相当于是皮肤。在大部分时候，你的材质都是png图片，请注意保证你的材质背景是透明的，其次不要在材质中使用半透明像素，会有不可预知的问题。</p>
 <h1><a class="header" href="#环境配置" id="环境配置">环境配置</a></h1>
