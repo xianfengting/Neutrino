@@ -179,7 +179,7 @@
   return new ObsidianIngot();
 });
 </code></pre>
-<p>第一个参数很好理解<code>”obsidian_ingot”</code>就对应着注册名，第二个参数看上去非常复杂，但是其实也挺简单的。</p>
+<p>第一个参数很好理解<code>”obsidian_ingot”</code>就对应着注册名，请注意这里的注册名也不要用大写字母，第二个参数看上去非常复杂，但是其实也挺简单的。</p>
 <p>首先我们先来看一下<code>ITEMS</code>的<code>register</code>的函数签名。</p>
 <pre><code class="language-java">public &lt;I extends T&gt; RegistryObject&lt;I&gt; register(final String name, final Supplier&lt;? extends I&gt; sup)
 </code></pre>

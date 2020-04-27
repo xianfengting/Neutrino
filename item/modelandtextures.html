@@ -151,6 +151,52 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#物品材质与模型" id="物品材质与模型">物品材质与模型</a></h1>
+<p>在上一节中我们已经成功添加了我们的第一个物品，当然那个物品还很丑，在这一节中我们将会为它添加模型和材质。</p>
+<p>首先按照如下目录在<code>resources</code>创建文件夹。</p>
+<pre><code>resources
+├── META-INF
+│   └── mods.toml
+├── assets
+│   └── neutrino
+│       ├── models
+│       │   └── item
+│       └── textures
+│           └── item
+└── pack.mcmeta
+</code></pre>
+<p>其实<code>assets</code>下就是一个属于Mod的材质包，具体的目录结构等，读者可以自行寻找当前游戏版本的材质包制作教程学习。</p>
+<p>接下来我们来添加模型文件，首先在在<code>models</code>下的<code>item</code>里创建一个和你创建的物品相同注册名的json文件，在我们的例子里就是<code>obsidian_ingot.json</code>。</p>
+<p>内容如下:</p>
+<pre><code class="language-json">{
+  &quot;parent&quot;: &quot;item/generated&quot;,
+  &quot;textures&quot;: {
+    &quot;layer0&quot;: &quot;neutrino:item/obsidian_ingot&quot;
+  }
+}
+</code></pre>
+<p>这里的内容非常简单:<code>&quot;parent&quot;: &quot;item/generated”</code>指定了这个模型的「父模型」是什么，而<code>&quot;layer0&quot;: &quot;neutrino:item/obsidian_ingot”</code>指定了具体的材质。<code>neutrino:</code>代表这个是在我们自己的<code>assets</code>文件下，<code>item/obsidian_ingot</code>代表了是<code>textures/item/obsidian_ingot.png</code>这张图片。</p>
+<p>模型文件的详细格式大家可以自行阅读<a href="%5Bhttps://minecraft-zh.gamepedia.com/index.php?title=%E6%A8%A1%E5%9E%8B&amp;variant=zh%5D(https://minecraft-zh.gamepedia.com/index.php?title=%E6%A8%A1%E5%9E%8B&amp;variant=zh)">Wiki</a>。</p>
+<p>接下来我们在``textures/item/obsidian_ingot.png`下放入我们制作好的材质文件。</p>
+<img src="./modelandtextures.assets/obsidian_ingot.png" style="zoom:300%;" />
+<p>创建完成的目录树如下：</p>
+<pre><code>resources
+├── META-INF
+│   └── mods.toml
+├── assets
+│   └── neutrino
+│       ├── models
+│       │   └── item
+│       │       └── obsidian_ingot.json
+│       └── textures
+│           └── item
+│               └── obsidian_ingot.png
+└── pack.mcmeta
+
+</code></pre>
+<p>启动游戏之后你就可以看见我们创建的物品了。</p>
+<p><img src="modelandtextures.assets/image-20200427113433338.png" alt="image-20200427113433338" /></p>
+<h2><a class="header" href="#开发小课堂" id="开发小课堂">开发小课堂</a></h2>
+<p>一个方便的工具用来制作方块和物品等模型：<a href="https://blockbench.net/">BlockBench</a>。</p>
 
                     </main>
 
