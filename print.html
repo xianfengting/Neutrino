@@ -304,6 +304,77 @@
 <p>剩下值得一提的就是<code>build</code>目录，当你在Gradle面板里运行<code>build</code>任务，你的mod就会被打包好放在<code>build=&gt;libs</code>下。</p>
 <p>剩下所有带<code>gradle</code>相关的文件夹和文件都是Gradle所需要的运行和配置文件，请不要随便删除。</p>
 <h1><a class="header" href="#自定义mod信息" id="自定义mod信息">自定义mod信息</a></h1>
+<p>从这节起我们就会开始正式的写我们mod了！</p>
+<h2><a class="header" href="#更新mapping" id="更新mapping">更新Mapping</a></h2>
+<p>在开始之前我们需要更新一下Mapping文件，如果不知道Mapping文件的作用，请向前翻阅。再提醒一次，你可以在<a href="http://export.mcpbot.bspk.rs/">这里</a>找到最新的mapping文件。</p>
+<p>在我写这段时，1.15最新的mapping文件是<code>20200426-1.15.1</code>。</p>
+<p><img src="devenvironment/modinfo.assets/image-20200427082638163.png" alt="image-20200427082638163" /></p>
+<p>于是我们需要将<code>build.gradle</code>下的<code>mappings channel: 'snapshot', version: '20190719-1.14.3’</code>修改为<code>mappings channel: 'snapshot', version: '20200426-1.15.1’</code>。</p>
+<p><img src="devenvironment/modinfo.assets/image-20200427085305020.png" alt="image-20200427085305020" /></p>
+<p>然后点击右侧Gradle面板的重新导入按钮，重新导入项目，因为<code>build.gradle</code>文件非常的重要，请注意不要改错。</p>
+<p><img src="devenvironment/modinfo.assets/image-20200427082837751.png" alt="image-20200427082837751" /></p>
+<p>这个过程可能会涉及下载文件（但不会很多），有错误的可能性，出错了请检查你的<code>build.gradle</code>内容有没有填错，然后多试几次。</p>
+<h2><a class="header" href="#配置" id="配置">配置</a></h2>
+<p>首先我们先选中<code>java</code>文件夹下所有的目录和文件，然后右键删除Java包下的默认类。</p>
+<p><img src="devenvironment/modinfo.assets/image-20200427074821172.png" alt="image-20200427074821172" /></p>
+<p>然后再右键新建立一个包</p>
+<p><img src="devenvironment/modinfo.assets/image-20200427074901407.png" alt="image-20200427074901407" /></p>
+<p>在默认情况下你的包名应该是你的域名的倒写，因为我不想用自己的域名举例子，所以这里我填入的内容是<code>com.tutorial.neutrino</code>。</p>
+<p>创建完成以后右击创建一个Java类，名字叫做<code>Neutrino</code>，请注意大小写，在默认情况下Java的类名遵循「帕斯卡命名法」<sup class="footnote-reference"><a href="#1">1</a></sup>。</p>
+<p><img src="devenvironment/modinfo.assets/image-20200427075653910.png" alt="image-20200427075653910" /></p>
+<p><img src="devenvironment/modinfo.assets/image-20200427075739020.png" alt="image-20200427075739020" /></p>
+<p>创建完成后目录树如下：</p>
+<pre><code>java
+└── com
+    └── tutorial
+        └── neutrino
+            └── Neutrino.java
+</code></pre>
+<p>然后进入<code>Neutrino</code>在类名的上方添加一个<code>@Mod()</code>注释，其中填入的参数是你的<code>modId</code>，那么什么是你的<code>modId</code>呢？<code>modId</code>就是你mod名字的唯一标识符，请注意<code>modId</code>和你的mod名字并不是同一个东西，它不允许大写字母，也不允许空格等内容。在这里我们选用的<code>modId</code>是<code>neutrino</code>。添加完成后内容如下:</p>
+<pre><code class="language-java">@Mod(&quot;neutrino&quot;)
+public class Neutrino {
+}
+</code></pre>
+<p>接下来我们需要去修改处于<code>resources=&gt;META-INF</code>下的<code>mods.toml</code>。在默认情况下IntelliJ是没有对Toml文件语法高亮的，如果你需要像我一样的语法高亮可以去安装一个<code>Toml</code>插件，安装方式和你安装语言包是一样的。</p>
+<p><code>mods.toml</code>是我们mod信息的配置文件，在这里我们可以修改我们mod的名字，介绍等内容。其中有许多配置项，如果一个配置项的注释里含有<code>#mandatory</code>说明这个配置项是必须的，如果注射里写的的是<code>#optional</code>，说明这个配置项是可选的，你可以在配置项前面加上<code>#</code>来注释掉这个配置项。</p>
+<table><thead><tr><th align="center">配置项</th><th align="center">作用</th></tr></thead><tbody>
+<tr><td align="center">modLoader</td><td align="center">规定mod的Loader，大部分情况下不需要修改</td></tr>
+<tr><td align="center">loaderVersion</td><td align="center">规定了mod运行的Forge版本，大部分情况下不需要修改</td></tr>
+<tr><td align="center">issueTrackerURL</td><td align="center">可选，你的Mod Bug提交地址，按需修改</td></tr>
+<tr><td align="center">modId</td><td align="center">必填，这里需要填入你的<code>modId</code>，和代码中的要保持一致</td></tr>
+<tr><td align="center">version</td><td align="center">必填，一般情况下保持默认即可</td></tr>
+<tr><td align="center">displayName</td><td align="center">必填，显示名称，你的mod在Mod界面的显示名称</td></tr>
+<tr><td align="center">updateJSONURL</td><td align="center">可选，你的mod的更新链接</td></tr>
+<tr><td align="center">displayURL</td><td align="center">可选，你的mod介绍网页的链接</td></tr>
+<tr><td align="center">logoFile</td><td align="center">可选，你的Mod的Logo</td></tr>
+<tr><td align="center">credits</td><td align="center">可选，你的Mod的致谢名单</td></tr>
+<tr><td align="center">authors</td><td align="center">可选，你的mod的作者名单</td></tr>
+<tr><td align="center">description</td><td align="center">必填，你的mod在mod界面的介绍</td></tr>
+</tbody></table>
+<p>接下剩下的都是依赖，Forge官方的例子已经写的很清楚了，这里我们不多加说明</p>
+<p>我修改完的<code>mods.toml</code>如下:</p>
+<pre><code class="language-toml">modLoader=&quot;javafml&quot;
+loaderVersion=&quot;[31,)&quot; 
+[[mods]] #mandatory
+modId=&quot;neutrino&quot; 
+version=&quot;${file.jarVersion}&quot; 
+displayName=&quot;Neutrino&quot; 
+authors=&quot;FledgeShiu&quot; 
+description='''
+这是我们的教学mod！
+'''
+</code></pre>
+<p>现在我们已经修改完我们的mod信息了，现在让我打开游戏。</p>
+<p><img src="devenvironment/modinfo.assets/image-20200427084446741.png" alt="image-20200427084446741" /></p>
+<p>可以看见我们的Mod已经出现了！</p>
+<h2><a class="header" href="#开发小课堂" id="开发小课堂">开发小课堂</a></h2>
+<p>介于目标读者的水平，在这里特增「开发小课堂」环节。</p>
+<p>在这次开发小课堂中，我们来讲一讲「日志」，日志你在开发过程中最重要的Debug工具之一，在向别人提问时，你需要提供的三样东西中的其中一项，另外两项是完整的代码和问题清晰到位的问题描述。</p>
+<p>如果代码出了问题，你首先需要做的事就是阅读日志，什么你说全英文的看不懂怎么办？现在这么多翻译网站随便找一个把日志粘贴上去翻译啊。</p>
+<hr />
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>「帕斯卡命名法」的意思是：名字中所有的单词首字母都是大写，比如「HelloWorld」</p>
+</div>
 <h1><a class="header" href="#物品" id="物品">物品</a></h1>
 <h1><a class="header" href="#第一个物品" id="第一个物品">第一个物品</a></h1>
 <h1><a class="header" href="#物品材质与模型" id="物品材质与模型">物品材质与模型</a></h1>
