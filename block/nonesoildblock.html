@@ -151,7 +151,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#非实心方块与自定义模型" id="非实心方块与自定义模型">非实心方块与自定义模型</a></h1>
-<p>在这一节中，我们将创建一个讲创建一个有着特殊外形，且是透明的方块，这里我们以黑曜石框架举例。</p>
+<p>在这一节中，我们将创建一个有着特殊外形且是透明的方块，这里我们以黑曜石框架举例。</p>
 <p>首先我们创建一个叫做<code>ObsidianFrame</code>的类，内容如下：</p>
 <pre><code class="language-java">public class ObsidianFrame extends Block {
     public ObsidianFrame() {
@@ -159,7 +159,7 @@
     }
 }
 </code></pre>
-<p>可以看见这里最为特别的是调用了<code>noSoild</code>方法，这个方法是告知Minecraft我们的方块不是一个「实心」方块，需要特殊的渲染措施。之所以这么所做的原因是，Minecraft的世界里有非常多的方块，如果方块的每一个面都要渲染，包括哪些被遮挡的面和遮挡起来的方块，那么会非常的耗费性能，所以出于优化的考虑，Minecraft只会渲染那些没有被遮挡起来的面。而<code>noSoild</code>的作用就是告诉Minecraft，要渲染这个方块周围被遮挡起来方块的面。</p>
+<p>可以看见这里最为特别的是调用了<code>noSoild</code>方法，这个方法是告知Minecraft我们的方块不是一个「实心」方块，需要特殊的渲染措施。之所以这么所做，是因为Minecraft的世界里有非常多的方块，如果方块的每一个面都要渲染，包括那些被遮挡的面和遮挡起来的方块，那么会非常地耗费性能，所以出于优化的考虑，Minecraft只会渲染那些没有被遮挡起来的面。而<code>noSoild</code>的作用就是告诉Minecraft，要渲染这个方块周围被遮挡起来方块的面。</p>
 <p>如果不开启这个就会出现这样效果。</p>
 <p><img src="nonesoildblock.assets/image-20200428204119348.png" alt="image-20200428204119348" /></p>
 <p>如果对Minecraft方块渲染相关的内容感兴趣，可以阅读这篇博客<a href="https://greyminecraftcoder.blogspot.com/2020/04/block-rendering-1144.html">文章</a>，以及这个博客下其他文章（如果你打不开这个页面，说明你所在的国家或地区封锁了这个网站）。</p>

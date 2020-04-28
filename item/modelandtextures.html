@@ -176,7 +176,7 @@
 </code></pre>
 <p>这里的内容非常简单:<code>&quot;parent&quot;: &quot;item/generated”</code>指定了这个模型的「父模型」是什么，而<code>&quot;layer0&quot;: &quot;neutrino:item/obsidian_ingot”</code>指定了具体的材质。<code>neutrino:</code>代表这个是在我们自己的<code>assets</code>文件下，<code>item/obsidian_ingot</code>代表了是<code>textures/item/obsidian_ingot.png</code>这张图片。</p>
 <p>模型文件的详细格式大家可以自行阅读<a href="%5Bhttps://minecraft-zh.gamepedia.com/index.php?title=%E6%A8%A1%E5%9E%8B&amp;variant=zh%5D(https://minecraft-zh.gamepedia.com/index.php?title=%E6%A8%A1%E5%9E%8B&amp;variant=zh)">Wiki</a>。</p>
-<p>接下来我们在``textures/item/obsidian_ingot.png`下放入我们制作好的材质文件，请注意材质文件的比例是1:1，并且最好不要大于32x32像素。</p>
+<p>接下来我们在<code>textures/item/obsidian_ingot.png</code>下放入我们制作好的材质文件，请注意材质文件的比例是1:1，并且最好不要大于32x32像素。</p>
 <img src="./modelandtextures.assets/obsidian_ingot.png" style="zoom:300%;" />
 <p>这里的加载流程是：游戏先根据的你注册名获取相对应的模型文件，然后通过模型文件中的<code>textures</code>加载对应的材质文件。</p>
 <p>创建完成的目录树如下：</p>

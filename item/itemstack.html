@@ -160,7 +160,7 @@
 <p>还是以上图举例，这里就只有两种Item：苹果和铁剑。</p>
 <p>你可以想象ItemStack就是Item的一个包装，它比起Item额外提供了数量，NBT标签等属性。</p>
 <p>这里值得注意的是，ItemStack的数量为0，虽然代表是空了，这不代表它就变成null了，所以在你必须得用ItemStack下的<code>isEmpty()</code>方法来判断是否为空。</p>
-<p>ItemStack中所包含的Item其实是同一个实例，原因非常简单，如果不是同一个实例，会无谓的产生非常多相同的实例，处于优化的考虑，当然是共用一个实例合适，这同时意味着你可通过<code>result.getItem() == Items.AIR</code>来判断ItemStack存放了哪一个Item。</p>
+<p>ItemStack中所包含的Item其实是同一个实例，原因非常简单，如果不是同一个实例，会无谓地产生非常多相同的实例，处于优化的考虑，当然是共用一个实例合适，这同时意味着你可通过<code>result.getItem() == Items.AIR</code>来判断ItemStack存放了哪一个Item。</p>
 <p>至于更加详细的解释，<a href="https://harbinger.covertdragon.team/chapter-04/item-stack.html">harbinger</a>已经写的很清楚了。</p>
 
                     </main>

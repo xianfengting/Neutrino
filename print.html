@@ -381,7 +381,7 @@ description='''
 <p>从现在开始我们就要正式开始写代码了。首先有几件事要说明，本项目的代码都会开源，每节的代码链接我都会放在文章的后面，而为了之后修正和查看的方便性，我的代码中可能会有大量的重复的类，项目的组织也和正常项目大相径庭，大家请不要照抄，请大家务必手打代码，你复制粘贴代码是学不会的。</p>
 <p>首先我们得明确，创建一个物品需要哪几个步骤。答案是三步：创建自己的物品并继承原版的物品的类，实例化这个物品最后把这个物品注册进游戏。</p>
 <p>注意上面这些步骤是通用的，很多自定义内容的添加都是遵循着上面这个步骤。</p>
-<p>知道了上诉步骤之后，我们就开始添加我们的第一个物品吧，在这里我们将添加一个黑曜石碇。</p>
+<p>知道了上述步骤之后，我们就开始添加我们的第一个物品吧，在这里我们将添加一个黑曜石碇。</p>
 <p>首先我们需要创建一个要创建物品的类，并且让这个类继承原版的<code>Item</code>类（介于目标读者的水平，Item就是物品的英文）。</p>
 <pre><code class="language-java">public class ObsidianIngot extends Item {
     public ObsidianIngot() {
@@ -474,7 +474,7 @@ public class Neutrino {
 </code></pre>
 <p>这里的内容非常简单:<code>&quot;parent&quot;: &quot;item/generated”</code>指定了这个模型的「父模型」是什么，而<code>&quot;layer0&quot;: &quot;neutrino:item/obsidian_ingot”</code>指定了具体的材质。<code>neutrino:</code>代表这个是在我们自己的<code>assets</code>文件下，<code>item/obsidian_ingot</code>代表了是<code>textures/item/obsidian_ingot.png</code>这张图片。</p>
 <p>模型文件的详细格式大家可以自行阅读<a href="item/%5Bhttps://minecraft-zh.gamepedia.com/index.php?title=%E6%A8%A1%E5%9E%8B&amp;variant=zh%5D(https://minecraft-zh.gamepedia.com/index.php?title=%E6%A8%A1%E5%9E%8B&amp;variant=zh)">Wiki</a>。</p>
-<p>接下来我们在``textures/item/obsidian_ingot.png`下放入我们制作好的材质文件，请注意材质文件的比例是1:1，并且最好不要大于32x32像素。</p>
+<p>接下来我们在<code>textures/item/obsidian_ingot.png</code>下放入我们制作好的材质文件，请注意材质文件的比例是1:1，并且最好不要大于32x32像素。</p>
 <img src="item/./modelandtextures.assets/obsidian_ingot.png" style="zoom:300%;" />
 <p>这里的加载流程是：游戏先根据的你注册名获取相对应的模型文件，然后通过模型文件中的<code>textures</code>加载对应的材质文件。</p>
 <p>创建完成的目录树如下：</p>
@@ -506,10 +506,10 @@ public class Neutrino {
 <p>还是以上图举例，这里就只有两种Item：苹果和铁剑。</p>
 <p>你可以想象ItemStack就是Item的一个包装，它比起Item额外提供了数量，NBT标签等属性。</p>
 <p>这里值得注意的是，ItemStack的数量为0，虽然代表是空了，这不代表它就变成null了，所以在你必须得用ItemStack下的<code>isEmpty()</code>方法来判断是否为空。</p>
-<p>ItemStack中所包含的Item其实是同一个实例，原因非常简单，如果不是同一个实例，会无谓的产生非常多相同的实例，处于优化的考虑，当然是共用一个实例合适，这同时意味着你可通过<code>result.getItem() == Items.AIR</code>来判断ItemStack存放了哪一个Item。</p>
+<p>ItemStack中所包含的Item其实是同一个实例，原因非常简单，如果不是同一个实例，会无谓地产生非常多相同的实例，处于优化的考虑，当然是共用一个实例合适，这同时意味着你可通过<code>result.getItem() == Items.AIR</code>来判断ItemStack存放了哪一个Item。</p>
 <p>至于更加详细的解释，<a href="https://harbinger.covertdragon.team/chapter-04/item-stack.html">harbinger</a>已经写的很清楚了。</p>
 <h1><a class="header" href="#食物" id="食物">食物</a></h1>
-<p>在这一节中我们将会在Minecraft世界中添加一个新的食物：黑曜石苹果，吃了这个苹果以后你可回复饥饿但是会中毒。和很多人想象的不一样，食物并不是单独的一个东西，对于Minecraft来说，食物只是一种特殊的物品而已。</p>
+<p>在这一节中我们将会在Minecraft世界中添加一个新的食物：黑曜石苹果，吃了这个苹果以后你可以回复饥饿但是会中毒。和很多人想象的不一样，食物并不是单独的一个东西，对于Minecraft来说，食物只是一种特殊的物品而已。</p>
 <p>同样的我们先来创建一个类，让这个类继承<code>Item</code></p>
 <pre><code class="language-java">public class ObsidianApple extends Item {
     private static EffectInstance effectInstance = new EffectInstance(Effects.POISON, 3 * 20, 1);
@@ -526,8 +526,8 @@ public class Neutrino {
 
 </code></pre>
 <p>我们一行一行的解释。</p>
-<p>首先我们创建了一个<code>EffectInstance</code>，什么是<code>EffectInstance</code>？<code>EffectInstance</code>正如他名字暗示的那样是一个药水效果的实例。我们先来思考一下，原版的在玩家身上的药水效果都有哪些属性：效果的种类、时间以及药水等级。而<code>EffectInstance</code>就是这三种属性的一个集合。<code>new EffectInstance(Effects.POISON, 3 * 20, 1)</code>可以看到我们填入的三种属性分别是：原版的中毒药水效果（原版所有的药水效果都在<code>Effects</code>类内）、持续时间是<code>3*20</code>tick，药水等级为1。</p>
-<p>接下来我们创建了一个<code>Food</code>类型的变量，这个变量规定了这个这个食物的一些属性，比如：<code>saturation</code>方法设置了饱食度，<code>hunger</code>设置了回复的饥饿度，<code>effect</code>方法设置了吃食物时可能会有的药水效果，其中第二个参数代表出发效果的可能性（想想原版的生鸡肉），这里我们设置成<code>1</code>代表100%触发。这里其实用到称为「建造者模式」的设计模式，有兴趣的同学可以自己查阅。</p>
+<p>首先我们创建了一个<code>EffectInstance</code>，什么是<code>EffectInstance</code>？<code>EffectInstance</code>正如他名字暗示的那样是一个药水效果的实例。我们先来思考一下，原版的在玩家身上的药水效果都有哪些属性：效果的种类、时间以及药水等级。而<code>EffectInstance</code>就是这三种属性的一个集合。从<code>new EffectInstance(Effects.POISON, 3 * 20, 1)</code>之中可以看到我们填入的三种属性分别是：原版的中毒药水效果（原版所有的药水效果都在<code>Effects</code>类内）、持续时间是<code>3*20</code>tick，药水等级为1。</p>
+<p>接下来我们创建了一个<code>Food</code>类型的变量，这个变量规定了这个这个食物的一些属性，比如：<code>saturation</code>方法设置了饱食度，<code>hunger</code>设置了回复的饥饿度，<code>effect</code>方法设置了吃食物时可能会有的药水效果，其中第二个参数代表触发效果的可能性（想想原版的生鸡肉），这里我们设置成<code>1</code>代表100%触发。这里其实用到称为「建造者模式」的设计模式，有兴趣的同学可以自己查阅。</p>
 <p>接下去就是构造方法，相比大家已经很熟悉了，唯一新的一点就是<code>.food(food)</code>，这个方法表明了这个物品是一个食物，最后我们把这个物品放在了「食物」创造模式物品栏里。</p>
 <p>然后我们注册我们的食物，注册名是<code>obsidian_apple</code>:</p>
 <pre><code class="language-java">public static RegistryObject&lt;Item&gt; obsidianIngot = ITEMS.register(&quot;obsidian_apple&quot;, () -&gt; {
@@ -548,8 +548,8 @@ public class Neutrino {
 <p><img src="item/food.assets/image-20200427165949417.png" alt="image-20200427165949417" /></p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/food">源代码</a></p>
 <h1><a class="header" href="#近战武器" id="近战武器">近战武器</a></h1>
-<p>在这一节中，我们讲解如何创建一个新的剑，这里我们以黑曜石剑举例。</p>
-<p>同样的我们先创建一个<code>ObsidianSword</code>但是这次的继承的类有些不一样，这次我们直接继承原版的<code>SwordItem</code>类，如果你查看继承关系图，你就可以发现，<code>SwordItem</code>是<code>Item</code>的子类。</p>
+<p>在这一节中，我们将讲解如何创建一个新的剑，这里我们以黑曜石剑举例。</p>
+<p>同样的，我们先创建一个<code>ObsidianSword</code>，但是这次的继承的类有些不一样，这次我们直接继承原版的<code>SwordItem</code>类，如果你查看继承关系图，你就可以发现，<code>SwordItem</code>是<code>Item</code>的子类。</p>
 <p><img src="item/meleeweapons.assets/image-20200427182723660.png" alt="image-20200427182723660" /></p>
 <p>内容如下:</p>
 <pre><code class="language-java">public class ObsidianSword extends SwordItem {
@@ -590,8 +590,8 @@ public class Neutrino {
     }
 }
 </code></pre>
-<p>同样的，这个内容看上去非常的多，但其实并没有你想象那么复杂。</p>
-<p>首先我们实现一个<code>IItemTier</code>接口的匿名内部类。首先什么是<code>IItemTier</code>呢？Tier的英文意思是「层、等级」，你可以把<code>IItemTier</code>理解成一种材质，比如钻石剑，钻石稿都是钻石做的，同样的铁剑，铁搞都是铁做的。</p>
+<p>同样的，这个内容看上去非常地多，但其实并没有你想象得那么复杂。</p>
+<p>首先我们实现一个<code>IItemTier</code>接口的匿名内部类。首先什么是<code>IItemTier</code>呢？Tier的英文意思是「层、等级」，你可以把<code>IItemTier</code>理解成一种材质，比如钻石剑、钻石镐都是钻石做的，同样的，铁剑、铁搞都是铁做的。</p>
 <p>那么为什么要自己实现这个匿名内部类呢？原因是原版的<code>net.minecraft.item.IItemTier</code>是用enum实现的，我们没法自己向里面添加内容，所以只能自己实现了，原版的所有属性也都在这个类里，大家可以参考。至于这个匿名内部类里的各种方法，我在这里就不多加解释了，有了之前几个物品的经验，相信读者阅读到这里时已经有了通过函数名猜测函数功能的能力了。同样的关于构造函数里的<code>3</code>和<code>-2.4F</code>的作用也请读者参考原版物品的实现（原版所有物品的实例都写在<code>net.minecraft.item.Items</code>类中）猜测功能。</p>
 <p>同样的接下去注册物品</p>
 <pre><code class="language-java">public static RegistryObject&lt;Item&gt; obsidianSword = ITEMS.register(&quot;obsidian_sword&quot;, () -&gt; {
@@ -612,8 +612,8 @@ public class Neutrino {
 <p><img src="item/meleeweapons.assets/image-20200427184918516.png" alt="image-20200427184918516" /></p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/melee_weapons">源代码地址</a></p>
 <h2><a class="header" href="#开发小课堂-3" id="开发小课堂-3">开发小课堂</a></h2>
-<p>在开发的过程中你得熟练使用开发工具，在这里我们的工具是IntelliJ IDEA。有两个快捷键对于理解代码有非常大的帮助。第一个快捷键是<code>Ctrl+N(Windows)</code>，这个快捷键可以让你搜索指定的类，这样你就可寻找原版类里在哪里，有什么内容了。另一个快捷键就是<code>Ctrl+H</code>当你把鼠标指针发在一个类上时，按下这个快捷键，会在右侧显示这个类的继承关系，也可查看某个接口的具体实现，大家可以自己上网搜索IDEA常用快捷键学习使用。</p>
-<p>另外一个技巧是，当你看到某个方法，想要知道这个方法在哪里调用时，可以右键然后点击<code>Find Usages（查找使用</code>，你就可以看见所有调用这个方法的代码了。</p>
+<p>在开发的过程中你得熟练使用开发工具，在这里我们的工具是IntelliJ IDEA。有两个快捷键对于理解代码有非常大的帮助。第一个快捷键是<code>Ctrl+N(Windows)</code>，这个快捷键可以让你搜索指定的类，这样你就可寻找原版类里在哪里，有什么内容了。另一个快捷键就是<code>Ctrl+H</code>当你把鼠标指针放在一个类上时，按下这个快捷键，会在右侧显示这个类的继承关系，也可查看某个接口的具体实现，大家可以自己上网搜索IDEA常用快捷键学习使用。</p>
+<p>另外一个技巧是，当你看到某个方法，想要知道这个方法在哪里调用时，可以右键然后点击<code>Find Usages（查找使用）</code>，你就可以看见所有调用这个方法的代码了。</p>
 <p>还有如果你想查看某个类的源代码，只需要按住<code>Ctrl</code>键，点击那个类就可以进入到那个类内部查看它的源代码。</p>
 <h1><a class="header" href="#自定义创造模式物品栏" id="自定义创造模式物品栏">自定义创造模式物品栏</a></h1>
 <p>在这一节中，我们将研究如何创建一个属于自己的创造模式物品栏，非常简单。</p>
@@ -629,7 +629,7 @@ public class Neutrino {
     }
 }
 </code></pre>
-<p>第一个方法用于设置创造模式物品栏的标题名，第二个提供了创造模式物品栏的图标，这里我们用了黑曜石碇作为图标，请注意这个函数的返回值类型是<code>ItemStac</code>k，而不<code>Item</code>。</p>
+<p>第一个方法用于设置创造模式物品栏的标题名，第二个提供了创造模式物品栏的图标，这里我们用了黑曜石碇作为图标，请注意这个函数的返回值类型是<code>ItemStack</code>，而不是<code>Item</code>。</p>
 <p>然后我们需要在实例化这个类，创建<code>ModGroup</code></p>
 <pre><code class="language-java">public class ModGroup {
     public static ItemGroup itemGroup = new ObsidianGroup();
@@ -662,7 +662,7 @@ public class Neutrino {
 <p>以我们的黑曜石碇举例:</p>
 <p><img src="i18n/i18n.assets/image-20200427213837119.png" alt="image-20200427213837119" /> </p>
 <p>目前我们还没有为它添加名字，它所显示的<code>item.neutrino.obsidian_ingot</code>就是默认的键值。当然大家也可以自定义键值，Item类里有相对应的方法可以实现这点，正如我之前所说的，在Minecraft源代码里和通过函数名猜测功能是Mod开发必备的能力，所以这里相当于一个小测试，请大家自己寻找可以修改这个键的办法。</p>
-<p>但是在有些时候，游戏无法默认的给我的内容自动添加键，这时我们就得自己创建一个键，Minecraft提供了一个叫做<code>I18n.format</code>的方法让我自己创建，具体的使用方式，我们之后会讲到。</p>
+<p>但是在有些时候，游戏无法默认地给我的内容自动添加键，这时我们就得自己创建一个键，Minecraft提供了一个叫做<code>I18n.format</code>的方法让我自己创建，具体的使用方式，我们之后会讲到。</p>
 <p>接下来让我创建语言文件吧。</p>
 <p>首先在<code>neutrino</code>文件夹下创建一个叫做<code>lang</code>的文件夹，创建成功后目录树如下:</p>
 <pre><code>resources
@@ -693,7 +693,7 @@ public class Neutrino {
 }
 </code></pre>
 <p>然后启动游戏，调成简体中文，你应该就可以看见我们的物品有了翻译。<img src="i18n/i18n.assets/image-20200427220407913.png" alt="image-20200427220407913" /></p>
-<p>作为一个简体中文的使用者，你的mod里至少应该有<code>zh_cn.json</code>，<code>en_us.json</code>和<code>zh_tw.json</code>者三个语言文件，所有可用的语言文件列表请在Wiki的<a href="https://minecraft-zh.gamepedia.com/index.php?title=%E8%AF%AD%E8%A8%80&amp;variant=zh#%E5%8F%AF%E7%94%A8%E8%AF%AD%E8%A8%80">语言#可用语言</a>内查看。</p>
+<p>作为一个简体中文的使用者，你的mod里至少应该有<code>zh_cn.json</code>，<code>en_us.json</code>和<code>zh_tw.json</code>这三个语言文件，所有可用的语言文件列表请在Wiki的<a href="https://minecraft-zh.gamepedia.com/index.php?title=%E8%AF%AD%E8%A8%80&amp;variant=zh#%E5%8F%AF%E7%94%A8%E8%AF%AD%E8%A8%80">语言#可用语言</a>内查看。</p>
 <h1><a class="header" href="#方块" id="方块">方块</a></h1>
 <p>我们在这节中终于要进入Minecraft中最为迷人的其中一部分：方块。当然我们会从最为简单的方块开始学起。</p>
 <h1><a class="header" href="#第一个方块" id="第一个方块">第一个方块</a></h1>
@@ -711,8 +711,8 @@ public class Neutrino {
     }
 }
 </code></pre>
-<p>内容非常简单，就和Item有<code>Properties</code>一样，方块也需要一个<code>Properties</code>，和物品的<code>Properties</code>不太一样的是，方块的<code>Propeteis</code>需要调用<code>create</code>方法创建。请注意虽然这两个<code>Properties</code>名字相同，但是它们不在同一个包内，这其实是两个不同的类，<code>create</code>方法需要一个参数，这个参数是一个<code>Materia</code>（材料），<code>Material</code>帮你预设了一些方块的特质，比如是否是实心的，是否是流体等，当然你可以通过调用<code>Properties</code>的方法来覆盖<code>Material</code>带来的特征，这里我们用的是原版的<code>Material.ROCK</code>，如果你想自己创建一个<code>Material</code>也非常简单，请参考原版的实现。然后我们调用<code>hardnessAndResistance</code>方法来为我的方块设置硬度。</p>
-<p>致辞我们的黑曜石方块类已经创建完毕。就如物品需要注册一样，我的方块也需要注册。</p>
+<p>内容非常简单，就和Item有<code>Properties</code>一样，方块也需要一个<code>Properties</code>，和物品的<code>Properties</code>不太一样的是，方块的<code>Propeteis</code>需要调用<code>create</code>方法创建。请注意虽然这两个<code>Properties</code>名字相同，但是它们不在同一个包内，这其实是两个不同的类，<code>create</code>方法需要一个参数，这个参数是一个<code>Material</code>（材料），<code>Material</code>帮你预设了一些方块的特质，比如是否是实心的，是否是流体等，当然你可以通过调用<code>Properties</code>的方法来覆盖<code>Material</code>带来的特征，这里我们用的是原版的<code>Material.ROCK</code>，如果你想自己创建一个<code>Material</code>也非常简单，请参考原版的实现。然后我们调用<code>hardnessAndResistance</code>方法来为我的方块设置硬度。</p>
+<p>至此我们的黑曜石方块类已经创建完毕。就如物品需要注册一样，我的方块也需要注册。</p>
 <p>创建一个新的注册类<code>BlockRegistry</code>，内容如下:</p>
 <pre><code class="language-java">public class BlockRegistry {
     public static final DeferredRegister&lt;Block&gt; BLOCKS = new DeferredRegister&lt;&gt;(ForgeRegistries.BLOCKS, &quot;neutrino&quot;);
@@ -722,7 +722,7 @@ public class Neutrino {
 }
 </code></pre>
 <p>相信之前已经写过注册类的你对这些内容应该相对熟悉了。我们把<code>DeferredRegister&lt;Item&gt; </code>换成了<code>DeferredRegister&lt;Block&gt;</code>（当然后面的实例化参数也需要修改），这样我们就创建了一个方块的注册器。注册方式也和物品注册如出一辙，这里就不多加阐述了。</p>
-<p>当然，你还需要在你的主类构建函数里，将这个注册器注册到<code>mod</code>总线中。</p>
+<p>当然，你还需要在你的主类构造方法里，将这个注册器注册到<code>mod</code>总线中。</p>
 <pre><code class="language-java">@Mod(&quot;neutrino&quot;)
 public class Neutrino {
     public Neutrino() {
@@ -737,27 +737,27 @@ public class Neutrino {
 /setblock ~ ~ ~ neutriono:obsidian_block
 </code></pre>
 <p><img src="block/firstblock.assets/image-20200428162256286.png" alt="image-20200428162256286" /></p>
-<p>当然，只能通过命令放置的方块显然不符合我们的胃口，我们希望有一个物品可以和方块相对应，这样我们就可以不需要使用命令的放置方块了，当然对于这个常见的需求，Minecraft 也提供了一个方便的类来满足，这个类就是<code>BlockItem</code>，我们只需要创建这个实例化一个这个类就行了。</p>
+<p>当然，只能通过命令放置的方块显然不符合我们的胃口，我们希望有一个物品可以和方块相对应，这样我们就可以不需要使用命令的放置方块了，当然对于这个常见的需求，Minecraft 也提供了一个方便的类来满足，这个类就是<code>BlockItem</code>，我们只需要创建并实例化这个类就行了。</p>
 <p>我们回到我们的<code>ItemRegistry</code>，添加如下一行</p>
 <pre><code class="language-java">public static RegistryObject&lt;Item&gt; obsidianBlock = ITEMS.register(&quot;obsidian_block&quot;, () -&gt; {
   return new BlockItem(BlockRegistry.obsidianBlock.get(), new Item.Properties().group(ModGroup.itemGroup));
 });
 </code></pre>
-<p>可以看见我们创建了一个BlockItem的实例，它的构建方法需要两个参数，第一个参数是你注册好的方块的实例，我们可以通过<code>BlockRegistry.obsidianBlock.get()</code>获取到之前注册好的方块实例，第二个参数是一个Item的<code>Properties</code>，这里的<code>Properties</code>非常简单，我们将其添加到里我们之间创建的创造模式物品栏里。</p>
+<p>可以看见我们创建了一个BlockItem的实例，它的构造方法需要两个参数，第一个参数是你注册好的方块的实例，我们可以通过<code>BlockRegistry.obsidianBlock.get()</code>获取到之前注册好的方块实例，第二个参数是一个Item的<code>Properties</code>，这里的<code>Properties</code>非常简单，我们将其添加到里我们之前创建的创造模式物品栏里。</p>
 <p>此时打开游戏，你就可以在我们的创造模式物品栏里看见我们的方块了。</p>
 <p><img src="block/firstblock.assets/image-20200428164024589.png" alt="image-20200428164024589" /></p>
 <p><img src="block/firstblock.assets/image-20200428164037088.png" alt="image-20200428164037088" /></p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/first_block">源代码</a></p>
 <h1><a class="header" href="#block和blockstate" id="block和blockstate">Block和BlockState</a></h1>
 <p>在开始我们接下来的讲解之前我想先来讲一下<code>BlockState</code>这个概念，相信已经对<code>ItemStack</code>有所了解到你，对这个概念应该不会感到难以理解。</p>
-<p>就和在游戏中的所有物品其实是<code>Itemstack</code>一样，在游戏中的所有方块其实是<code>BlockState</code>，而<code>BlockState</code>相比起<code>Block</code>除了多出的XYZ位置信息之外，最为重要的就是<code>state</code>信息，也就是状态信息。状态信息乍一看很难以理解，但是其实非常好懂。我们以原版的栅栏举例，当你把原版的栅栏发在地上，栅栏会根据周围方块的不同自动的改变形状，这其实是栅栏自动的改变了状态，我们可以在F3调试模式下查看方块的状态。</p>
+<p>就和在游戏中的所有物品其实是<code>Itemstack</code>一样，在游戏中的所有方块其实是<code>BlockState</code>，而<code>BlockState</code>相比起<code>Block</code>除了多出的XYZ位置信息之外，最为重要的就是<code>state</code>信息，也就是状态信息。状态信息乍一看很难以理解，但是其实非常好懂。我们以原版的栅栏举例，当你把原版的栅栏放在地上，栅栏会根据周围方块的不同自动地改变形状，这其实是栅栏自动地改变了状态，我们可以在F3调试模式下查看方块的状态。</p>
 <p><img src="block/blockandblockstate.assets/A31FDCB0-F8AC-43BC-BD70-801476111C97.jpeg" alt="A31FDCB0-F8AC-43BC-BD70-801476111C97" /></p>
 <p>这是在默认方块状态下的栅栏模型。</p>
 <p><img src="block/blockandblockstate.assets/EDC215E2-DF26-4764-AE2D-2640C7184482.jpeg" alt="EDC215E2-DF26-4764-AE2D-2640C7184482" /></p>
-<p>可以看到我们使用Debug Stick修改了栅栏的方块状态之后，方块的模型也相应的发生了改变。</p>
+<p>可以看到我们使用Debug Stick修改了栅栏的方块状态之后，方块的模型也相应地发生了改变。</p>
 <p>当然，不是所有的方块都有状态属性的，比如石头就没有，但是位置属性是每个方块都有的。</p>
 <h1><a class="header" href="#方块模型和材质" id="方块模型和材质">方块模型和材质</a></h1>
-<p>我们的已经成功的创建了一个方块，但是这个方块还很丑，就是一个紫黑怪物而已。在这一节中，我们就要来为这个方块添加模型的材质。</p>
+<p>我们已经成功地创建了一个方块，但是这个方块还很丑，就是一个紫黑怪物而已。在这一节中，我们就要来为这个方块添加模型的材质。</p>
 <p>首先我们创建一些文件夹，创建成功后的目录如下显示:</p>
 <pre><code>resources
 ├── META-INF
@@ -783,7 +783,7 @@ public class Neutrino {
 }
 </code></pre>
 <p>这个文件其实就是方块状态和具体要使用的模型的映射表，如果你还不清楚什么是方块状态，请向前翻阅。</p>
-<p>这里我们没有方块状态所以写了<code>&quot;&quot;: { &quot;model&quot;: &quot;neutrino:block/obsidian_block_model” }</code>将默认模型设置成了<code>obsidian_block_model.json</code>。</p>
+<p>这里我们没有方块状态，所以写了<code>&quot;&quot;: { &quot;model&quot;: &quot;neutrino:block/obsidian_block_model” }</code>，将默认模型设置成了<code>obsidian_block_model.json</code>。</p>
 <p>接下来我们在<code>models/block</code>下创建<code>obsidian_block_model.json</code>，内容如下:</p>
 <pre><code class="language-json">{
   &quot;parent&quot;: &quot;block/cube_all&quot;,
@@ -793,12 +793,12 @@ public class Neutrino {
 }
 </code></pre>
 <p>可以看到，和物品模型相比，只是继承的东西不太一样，至于具体模型文件的格式请参考<a href="https://minecraft-zh.gamepedia.com/index.php?title=%E6%A8%A1%E5%9E%8B&amp;variant=zh">Wiki</a>。在模型里，我们调用了<code>obsidian_block_texture.png</code>作为我们的材质。</p>
-<p>接下来让我们在<code>textures/block</code>下添加我们的材质，同样的请注意材质文件的比例是1:1，并且最好不要大于32x32像素。</p>
+<p>接下来让我们在<code>textures/block</code>下添加我们的材质，同样地请注意材质文件的比例是1:1，并且最好不要大于32x32像素。</p>
 <img src="block/modelandtextures.assets/obsdian_block.png" alt="obsdian_block" style="zoom:300%;" />
 <p>这时启动游戏，你应该就可看见我们的方块有对应的材质和模型了。</p>
 <p><img src="block/modelandtextures.assets/image-20200428181816541.png" alt="image-20200428181816541" /></p>
-<p>整个加载过程为：获取游戏中方块的状态，在Blockstates里相对应的映射表获取模型，根据模型加载材质。</p>
-<p>但这是你会发现我们方块相对应的物品还没有材质，接下来我们就要解决这个问题。</p>
+<p>整个加载过程为：获取游戏中方块的状态，在Blockstates相对应的映射表里获取模型，根据模型加载材质。</p>
+<p>但这时你会发现我们方块相对应的物品还没有材质，接下来我们就要解决这个问题。</p>
 <p>在<code>models/item</code>下创建和我们BlockItem注册名同名的json文件，这里是<code>obsidian_block.json</code></p>
 <pre><code class="language-json">{
   &quot;parent&quot;: &quot;neutrino:block/obsidian_block_model&quot;
@@ -809,7 +809,7 @@ public class Neutrino {
 <h2><a class="header" href="#开发小课堂-4" id="开发小课堂-4">开发小课堂</a></h2>
 <p>在调试模型材质或者是某个函数的过程中，你可能需要多次重启，其实是有办法规避这个问题的。首先你需要在「Debug（调试模式」下启动游戏，然后选择上方的「build-&gt;Build(构建项目=&gt;构建项目)」，只要是函数内部的修改，都可以热更新。对于模型和材质还得多一个步骤，在构建项目结束后按F3+T重新载入材质包。当然这个方法也不是万能的，当你发现没法热更新或者热更新不起效时，你还是得重启游戏。</p>
 <h1><a class="header" href="#方块状态" id="方块状态">方块状态</a></h1>
-<p>在之前我们已经稍微的提及了BlockState，但是我们的第一个方块显然是没有状态的，这一节我们将以黑曜石魔方举例来创建一个带有状态的方块。</p>
+<p>在之前我们已经稍微地提及了BlockState，但是我们的第一个方块显然是没有状态的，这一节我们将以黑曜石魔方举例来创建一个带有状态的方块。</p>
 <p>首先创建一个叫做<code>ObsidianRubikCube</code>的类，内容如下:</p>
 <pre><code class="language-java">public class ObsidianRubikCube extends Block {
     private static IntegerProperty STATE = IntegerProperty.create(&quot;face&quot;, 0, 1);
@@ -829,7 +829,7 @@ public class Neutrino {
 <p>这里有三个和之前我创建方块不一样的地方，首先就是：</p>
 <pre><code class="language-java">private static IntegerProperty STATE = IntegerProperty.create(&quot;face&quot;, 0, 1);
 </code></pre>
-<p>在这句话里，我们创建了一个新的方块状态，正如<code>IntegerProperty</code>这个名字暗示的那样，这个是一个整数类型的方块状态，除了``IntegerProperty<code>原版还实现了</code>BooleanProperty<code>和</code>EnumProperty<code>，并且原版还在</code>BlockStateProperties<code>类下实现了很多预设的方块状态，可以按需使用。如果这个类型都不满足你的需求，你还可以继承</code>Property`自己创建一个新的种类的方块状态。</p>
+<p>在这句话里，我们创建了一个新的方块状态，正如<code>IntegerProperty</code>这个名字暗示的那样，这个是一个整数类型的方块状态，除了<code>IntegerProperty</code>原版还实现了<code>BooleanProperty</code>和<code>EnumProperty</code>，并且原版还在<code>BlockStateProperties</code>类下实现了很多预设的方块状态，可以按需使用。如果这些类型都不满足你的需求，你还可以继承<code>Property</code>自己创建一个新的种类的方块状态。</p>
 <pre><code class="language-java">IntegerProperty.create(&quot;face&quot;, 0, 1)
 </code></pre>
 <p>的意思是，这个方块状态的名字叫做<code>face</code>，最小值是<code>0</code>，最大值是<code>1</code>。</p>
@@ -839,7 +839,7 @@ protected void fillStateContainer(StateContainer.Builder&lt;Block, BlockState&gt
   super.fillStateContainer(builder);
 }
 </code></pre>
-<p>然后我们在<code>fillStateContainer</code>，调用传入的<code>builder</code>变量中的<code>add</code>方法给我的方块添加了一个状态。</p>
+<p>然后我们在<code>fillStateContainer</code>里调用传入的<code>builder</code>变量中的<code>add</code>方法给我的方块添加了一个状态。</p>
 <p>最后，我们在构造方法里设置了默认状态（可以不用设置）。</p>
 <pre><code class="language-java">this.setDefaultState(this.stateContainer.getBaseState().with(STATE, 1));
 </code></pre>
@@ -861,8 +861,8 @@ protected void fillStateContainer(StateContainer.Builder&lt;Block, BlockState&gt
   }
 }
 </code></pre>
-<p>可以看到，我们在这里为不同的<code>face</code>值指定了不同的模型，分别是<code>obsidian_rubik_cube_model_0</code>和<code>obsidian_rubik_cube_model_1</code>。请注意，如果你要多个blockstate的值，请用半角逗号隔开中间不要有空格。具体的要求也请参考Wiki中关于<a href="https://minecraft-zh.gamepedia.com/index.php?title=%E6%A8%A1%E5%9E%8B&amp;variant=zh">模型</a>章节。</p>
-<p>然后我们在<code>models/block</code>下创建``obsidian_rubik_cube_model_0.json<code>和</code>obsidian_rubik_cube_model_1.json`这两个模型文件。</p>
+<p>可以看到，我们在这里为不同的<code>face</code>值指定了不同的模型，分别是<code>obsidian_rubik_cube_model_0</code>和<code>obsidian_rubik_cube_model_1</code>。请注意，如果你要定义多个blockstate的值，请用半角逗号隔开，中间不要有空格。具体的要求也请参考Wiki中关于<a href="https://minecraft-zh.gamepedia.com/index.php?title=%E6%A8%A1%E5%9E%8B&amp;variant=zh">模型</a>的章节。</p>
+<p>然后我们在<code>models/block</code>下创建<code>obsidian_rubik_cube_model_0.json</code>和<code>obsidian_rubik_cube_model_1.json</code>这两个模型文件。</p>
 <p><code>obsidian_rubik_cube_model_0.json</code>:</p>
 <pre><code class="language-json">{
   &quot;parent&quot;: &quot;block/cube_all&quot;,
@@ -895,7 +895,7 @@ protected void fillStateContainer(StateContainer.Builder&lt;Block, BlockState&gt
 <p>可以看到，随着我们用debug stick改变了方块的状态，方块的模型和材质也发生了改变。</p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/blockstate">源代码</a></p>
 <h1><a class="header" href="#非实心方块与自定义模型" id="非实心方块与自定义模型">非实心方块与自定义模型</a></h1>
-<p>在这一节中，我们将创建一个讲创建一个有着特殊外形，且是透明的方块，这里我们以黑曜石框架举例。</p>
+<p>在这一节中，我们将创建一个有着特殊外形且是透明的方块，这里我们以黑曜石框架举例。</p>
 <p>首先我们创建一个叫做<code>ObsidianFrame</code>的类，内容如下：</p>
 <pre><code class="language-java">public class ObsidianFrame extends Block {
     public ObsidianFrame() {
@@ -903,7 +903,7 @@ protected void fillStateContainer(StateContainer.Builder&lt;Block, BlockState&gt
     }
 }
 </code></pre>
-<p>可以看见这里最为特别的是调用了<code>noSoild</code>方法，这个方法是告知Minecraft我们的方块不是一个「实心」方块，需要特殊的渲染措施。之所以这么所做的原因是，Minecraft的世界里有非常多的方块，如果方块的每一个面都要渲染，包括哪些被遮挡的面和遮挡起来的方块，那么会非常的耗费性能，所以出于优化的考虑，Minecraft只会渲染那些没有被遮挡起来的面。而<code>noSoild</code>的作用就是告诉Minecraft，要渲染这个方块周围被遮挡起来方块的面。</p>
+<p>可以看见这里最为特别的是调用了<code>noSoild</code>方法，这个方法是告知Minecraft我们的方块不是一个「实心」方块，需要特殊的渲染措施。之所以这么所做，是因为Minecraft的世界里有非常多的方块，如果方块的每一个面都要渲染，包括那些被遮挡的面和遮挡起来的方块，那么会非常地耗费性能，所以出于优化的考虑，Minecraft只会渲染那些没有被遮挡起来的面。而<code>noSoild</code>的作用就是告诉Minecraft，要渲染这个方块周围被遮挡起来方块的面。</p>
 <p>如果不开启这个就会出现这样效果。</p>
 <p><img src="block/nonesoildblock.assets/image-20200428204119348.png" alt="image-20200428204119348" /></p>
 <p>如果对Minecraft方块渲染相关的内容感兴趣，可以阅读这篇博客<a href="https://greyminecraftcoder.blogspot.com/2020/04/block-rendering-1144.html">文章</a>，以及这个博客下其他文章（如果你打不开这个页面，说明你所在的国家或地区封锁了这个网站）。</p>

@@ -165,8 +165,8 @@
     }
 }
 </code></pre>
-<p>内容非常简单，就和Item有<code>Properties</code>一样，方块也需要一个<code>Properties</code>，和物品的<code>Properties</code>不太一样的是，方块的<code>Propeteis</code>需要调用<code>create</code>方法创建。请注意虽然这两个<code>Properties</code>名字相同，但是它们不在同一个包内，这其实是两个不同的类，<code>create</code>方法需要一个参数，这个参数是一个<code>Materia</code>（材料），<code>Material</code>帮你预设了一些方块的特质，比如是否是实心的，是否是流体等，当然你可以通过调用<code>Properties</code>的方法来覆盖<code>Material</code>带来的特征，这里我们用的是原版的<code>Material.ROCK</code>，如果你想自己创建一个<code>Material</code>也非常简单，请参考原版的实现。然后我们调用<code>hardnessAndResistance</code>方法来为我的方块设置硬度。</p>
-<p>致辞我们的黑曜石方块类已经创建完毕。就如物品需要注册一样，我的方块也需要注册。</p>
+<p>内容非常简单，就和Item有<code>Properties</code>一样，方块也需要一个<code>Properties</code>，和物品的<code>Properties</code>不太一样的是，方块的<code>Propeteis</code>需要调用<code>create</code>方法创建。请注意虽然这两个<code>Properties</code>名字相同，但是它们不在同一个包内，这其实是两个不同的类，<code>create</code>方法需要一个参数，这个参数是一个<code>Material</code>（材料），<code>Material</code>帮你预设了一些方块的特质，比如是否是实心的，是否是流体等，当然你可以通过调用<code>Properties</code>的方法来覆盖<code>Material</code>带来的特征，这里我们用的是原版的<code>Material.ROCK</code>，如果你想自己创建一个<code>Material</code>也非常简单，请参考原版的实现。然后我们调用<code>hardnessAndResistance</code>方法来为我的方块设置硬度。</p>
+<p>至此我们的黑曜石方块类已经创建完毕。就如物品需要注册一样，我的方块也需要注册。</p>
 <p>创建一个新的注册类<code>BlockRegistry</code>，内容如下:</p>
 <pre><code class="language-java">public class BlockRegistry {
     public static final DeferredRegister&lt;Block&gt; BLOCKS = new DeferredRegister&lt;&gt;(ForgeRegistries.BLOCKS, &quot;neutrino&quot;);
@@ -176,7 +176,7 @@
 }
 </code></pre>
 <p>相信之前已经写过注册类的你对这些内容应该相对熟悉了。我们把<code>DeferredRegister&lt;Item&gt; </code>换成了<code>DeferredRegister&lt;Block&gt;</code>（当然后面的实例化参数也需要修改），这样我们就创建了一个方块的注册器。注册方式也和物品注册如出一辙，这里就不多加阐述了。</p>
-<p>当然，你还需要在你的主类构建函数里，将这个注册器注册到<code>mod</code>总线中。</p>
+<p>当然，你还需要在你的主类构造方法里，将这个注册器注册到<code>mod</code>总线中。</p>
 <pre><code class="language-java">@Mod(&quot;neutrino&quot;)
 public class Neutrino {
     public Neutrino() {
@@ -191,13 +191,13 @@ public class Neutrino {
 /setblock ~ ~ ~ neutriono:obsidian_block
 </code></pre>
 <p><img src="firstblock.assets/image-20200428162256286.png" alt="image-20200428162256286" /></p>
-<p>当然，只能通过命令放置的方块显然不符合我们的胃口，我们希望有一个物品可以和方块相对应，这样我们就可以不需要使用命令的放置方块了，当然对于这个常见的需求，Minecraft 也提供了一个方便的类来满足，这个类就是<code>BlockItem</code>，我们只需要创建这个实例化一个这个类就行了。</p>
+<p>当然，只能通过命令放置的方块显然不符合我们的胃口，我们希望有一个物品可以和方块相对应，这样我们就可以不需要使用命令的放置方块了，当然对于这个常见的需求，Minecraft 也提供了一个方便的类来满足，这个类就是<code>BlockItem</code>，我们只需要创建并实例化这个类就行了。</p>
 <p>我们回到我们的<code>ItemRegistry</code>，添加如下一行</p>
 <pre><code class="language-java">public static RegistryObject&lt;Item&gt; obsidianBlock = ITEMS.register(&quot;obsidian_block&quot;, () -&gt; {
   return new BlockItem(BlockRegistry.obsidianBlock.get(), new Item.Properties().group(ModGroup.itemGroup));
 });
 </code></pre>
-<p>可以看见我们创建了一个BlockItem的实例，它的构建方法需要两个参数，第一个参数是你注册好的方块的实例，我们可以通过<code>BlockRegistry.obsidianBlock.get()</code>获取到之前注册好的方块实例，第二个参数是一个Item的<code>Properties</code>，这里的<code>Properties</code>非常简单，我们将其添加到里我们之间创建的创造模式物品栏里。</p>
+<p>可以看见我们创建了一个BlockItem的实例，它的构造方法需要两个参数，第一个参数是你注册好的方块的实例，我们可以通过<code>BlockRegistry.obsidianBlock.get()</code>获取到之前注册好的方块实例，第二个参数是一个Item的<code>Properties</code>，这里的<code>Properties</code>非常简单，我们将其添加到里我们之前创建的创造模式物品栏里。</p>
 <p>此时打开游戏，你就可以在我们的创造模式物品栏里看见我们的方块了。</p>
 <p><img src="firstblock.assets/image-20200428164024589.png" alt="image-20200428164024589" /></p>
 <p><img src="firstblock.assets/image-20200428164037088.png" alt="image-20200428164037088" /></p>
