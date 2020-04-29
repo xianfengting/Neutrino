@@ -1120,7 +1120,7 @@ protected void fillStateContainer(StateContainer.Builder&lt;Block, BlockState&gt
         if (!worldIn.isRemote &amp;&amp; handIn == Hand.MAIN_HAND) {
             ObsidianCounterTileEntity obsidianCounterTileEntity = (ObsidianCounterTileEntity) worldIn.getTileEntity(pos);
             int counter = obsidianCounterTileEntity.increase();
-            TranslationTextComponent translationTextComponent = new TranslationTextComponent(&quot;message.tour14.counter&quot;, counter);
+            TranslationTextComponent translationTextComponent = new TranslationTextComponent(&quot;message.neutrino.counter&quot;, counter);
             player.sendStatusMessage(translationTextComponent, false);
         }
         return ActionResultType.SUCCESS;
@@ -1182,7 +1182,7 @@ public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockP
   if (!worldIn.isRemote &amp;&amp; handIn == Hand.MAIN_HAND) {
     ObsidianCounterTileEntity obsidianCounterTileEntity = (ObsidianCounterTileEntity) worldIn.getTileEntity(pos);
     int counter = obsidianCounterTileEntity.increase();
-    TranslationTextComponent translationTextComponent = new TranslationTextComponent(&quot;message.tour14.counter&quot;, counter);
+    TranslationTextComponent translationTextComponent = new TranslationTextComponent(&quot;message.neutrino.counter&quot;, counter);
     player.sendStatusMessage(translationTextComponent, false);
   }
   return ActionResultType.SUCCESS;
@@ -1204,11 +1204,11 @@ public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockP
 }
 </code></pre>
 <p><code>increase</code>方法内容非常简单，相信大家都能看懂。</p>
-<pre><code class="language-java">TranslationTextComponent translationTextComponent = new TranslationTextComponent(&quot;message.tour14.counter&quot;, counter);
+<pre><code class="language-java">TranslationTextComponent translationTextComponent = new TranslationTextComponent(&quot;message.neutrino.counter&quot;, counter);
 </code></pre>
 <p>然后是句话，首先我们创建了一个<code>TranslationTextComponent</code>，这个是一个这里就是我们要发送到玩家聊天框里的内容。正如它的名字暗示的那样，这个是一个翻译文本，所以它的填入一个应该是一个「键」而不是具体的内容，<code>&quot;message.tour14.counter”</code>就是「键」值，后面我们还传入了我们获取到的计数值，这样做的原因，我们先按下不表。</p>
 <p>首先我们在语言文件里添加如下内容（以简体中文举例）。</p>
-<pre><code class="language-json"> &quot;message.tour14.counter&quot;: &quot;计数: %d&quot;
+<pre><code class="language-json"> &quot;message.neutrino.counter&quot;: &quot;计数: %d&quot;
 </code></pre>
 <p>可以看到这里具体内容里有一个<code>%d</code>，如果这时候为什么要传入我们的值的理由就很清楚了，其实就是通过<code>%d</code>，把我们的<code>counter</code>变量的值格式化的显示了出来。</p>
 <pre><code class="language-java">player.sendStatusMessage(translationTextComponent, false);
