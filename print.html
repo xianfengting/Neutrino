@@ -1259,7 +1259,7 @@ public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockP
 <p>我们在这里加入了<code>markDirty()</code>方法，这个方法的意思是标记了我们数据被修改，在游戏关闭的时候要保存调用保存方法。之所以这么做的原因是，相对于CPU的执行速度，硬盘的保存和读写速度是非常慢点，所以如果频繁的进行保存和读写操作会严重拖慢游戏的速度，一个合理的方法就是标记我们需要保存的数据，然后在一个统一的时间点一起保存，<code>markDirty()</code>的作用正是如此。</p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/first_tileentity">源代码</a></p>
 <h2><a class="header" href="#编程小课堂" id="编程小课堂">编程小课堂</a></h2>
-<p>对于CPU来说每个指令大概需要 0.38ns，以此作为对比的基本单位 1s的话，从从磁盘读取 1MB 的连续数据需要 20ms，对比 CPU 的时间是 20 个月，所以磁盘读写速度是非常慢的。</p>
+<p>对于CPU来说每个指令大概需要 0.38ns，以此作为基本单位 1s的话，从从磁盘读取 1MB 的连续数据需要 20ms，对比 CPU 的时间是 20 个月，所以磁盘读写速度是非常慢的。</p>
 <h1><a class="header" href="#itickabletileentity" id="itickabletileentity">ITickableTileEntity</a></h1>
 <h1><a class="header" href="#方块实体内置的数据同步" id="方块实体内置的数据同步">方块实体内置的数据同步</a></h1>
 <h1><a class="header" href="#特殊渲染" id="特殊渲染">特殊渲染</a></h1>
