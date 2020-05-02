@@ -156,7 +156,7 @@
 <p>首先欢迎你来到这个教程，既然你会打开这个教程，想必你心中有了开发一个属于自己的mod的念头吧。</p>
 <p>正好，这个教程也是为这个目的服务的。但是开发一个属于自己的mod并不是一件容易的事情，你需要学习非常多的知识才能达成这个目标，阅读和跟随这个教程只是非常浅显的部分。</p>
 <p>首先我想让你思考一个问题：你需要自己从头开发一个mod吗？</p>
-<p>其实对于大部分人的需求，从0开发一个mod并不是必须的。有非常多其他的办法可以达成他们的目标：原版内置的机制，MCcreater和ZenScript等。</p>
+<p>其实对于大部分人的需求，从0开发一个mod并不是必须的。有非常多其他的办法可以达成他们的目标：原版内置的机制，MCreator和ZenScript等。</p>
 <p>如果你的答案是确定的，那么第二个问题：你真的需要亲自写一个mod吗？</p>
 <p>Mod开发需要编程和一定的计算机科学的基础，要学好这些并不容易，如果你是一个不会编程的人，或者只是初略的学过编程，我的建议是寻找同伴。美工和设计在Mod开发里都是和写程序是同等重要的。</p>
 <p>如果你对上面两个问题的答案都是肯定的，那么我觉得你可以开始阅读这个教程了。在这个教程里，我会假设你有一定的计算机科学常识，熟悉Java编程的基础。</p>
@@ -167,15 +167,15 @@
 <p>本教程是一个基于Forge的Mod开发教程，那么自然而然的要回答一个问题：「Forge是什么？」</p>
 <p>乍一看，这个好像根本就不是一个问题，「Forge？Forge不就是Forge吗？」看到这个问题的你内心中的第一个浮现出的想法估计就是这个。</p>
 <p>但是回答这个问题还是非常有必要的，接下去我会稍微讲一讲Forge是什么，以及Forge的历史。这些看上去和我们教程无关的内容，其实是Mod开发领域的「乡谣（Lore）」，比如srg名和notch名是什么，mcp又是什么？</p>
-<p>首先我们得从Minecraft本身说起，首先我们得明确Minecraft是一个用Java写成的商业软件。这意味着两件事：Minecraft相对于容易被修改，代码本身是不开源而且是被混淆过的。因为长时间的Mojang都没有给Minecraft提供官方API<sup class="footnote-reference"><a href="#1">1</a></sup>，所以「Mod Coder Pack」项目诞生了（以下简称为MCP）。</p>
-<p>还记得我之前说过的，Minecraft的两个特性吗？MCP就利用的着两个特性，实现了一套工具可以让开发者可以直接修改Minecraft jar包里的内容。</p>
-<p>于是 srg 名，notch名和mcp名称诞生了。</p>
+<p>首先我们得从Minecraft本身说起，首先我们得明确Minecraft是一个用Java写成的商业软件。这意味着两件事：Minecraft相对容易被修改，代码本身是不开源而且是被混淆过的。因为长时间Mojang都没有给Minecraft提供官方API<sup class="footnote-reference"><a href="#1">1</a></sup>，所以「Mod Coder Pack」项目诞生了（以下简称为MCP）。</p>
+<p>还记得我之前说过的，Minecraft的两个特性吗？MCP就利用这两个特性，实现了一套工具，可以让开发者可以直接修改Minecraft jar包里的内容。</p>
+<p>于是srg名，notch名和mcp名称诞生了。</p>
 <p>那么这三个是什么呢？</p>
-<p>首先是<code>notch名</code>，他是Minecraft直接反编译反混淆之后的名称，通常是无意义的字母数字组合。你从名称Notch就可以看出，这个名字是直接来自Minecraft（<del>以及对Notch的怨念</del>），举例来说 <code>j</code>就是一个典型的<code>notch名</code>。</p>
+<p>首先是<code>notch名</code>，他是Minecraft直接反编译得到的混淆之后的名称，通常是无意义的字母数字组合。你从名称Notch就可以看出，这个名字是直接来自Minecraft（<del>以及对Notch的怨念</del>），举例来说 <code>j</code>就是一个典型的<code>notch名</code>。</p>
 <p>接下来是<code>srg名</code>，这个名字是和<code>notch名</code>是一一对应的，<code>srg名</code>在一个版本里是不会变动的，之所以叫做<code>srg名</code>，是为了纪念MCP项目开发的领导者Searge。在srg名阶段，Minecraft中的类名已经是可读了，变量方法等名称虽然还是不可读，但是有相对应的前缀和尾缀来区分了。以上面的<code>j</code>为例，它的srg名是<code>func_70114_g</code>。</p>
 <p>最后是<code>mcp名</code>，这个名称也是我们mod开发中接触最多的名称，在<code>mcp名</code>阶段，代码已经是可读的了。和我们正常写Java程序中的名称没什么两样。但是<code>mcp名</code>是会变动的。举例来说上面的<code>func_70114_g</code>它的<code>mcp名</code>是<code>getCollisionBox</code>。<code>mcp名</code>中的类名和<code>srg名</code>中的类名是相同的。</p>
-<p>接下来我们来讲Forge，随着时间的发展，Mod开发者们意识到，直接修改Jar文件写mod的方式太过于粗暴了，而且Mod和Mod之间的兼容性可以说基本没有，Mod开发者们急需一种工具可以方便的开发Mod，而且能保证mod和mod直接的兼容性，于是Forge就诞生了。</p>
-<p>Forge其实就是一套通过修改Minecraft方式实现的第三方API，而且随着时间的发展，MCP现在已经死亡了，除了Forge这套API，Fabric也风头正盛，而Forge本身也在Minecraft 1.13版本到来之后经历了一次重写，添加了引入了大量函数式编程的API。</p>
+<p>接下来我们来讲Forge，随着时间的发展，Mod开发者们意识到，直接修改Jar文件写mod的方式太过于粗暴了，而且Mod和Mod之间的兼容性可以说基本没有，Mod开发者们急需一种工具可以方便地开发Mod，而且能保证mod和mod之间的兼容性，于是Forge就诞生了。</p>
+<p>Forge其实就是一套通过修改Minecraft方式实现的第三方API，而且随着时间的发展，MCP现在已经死亡了，除了Forge这套API，Fabric也风头正盛，而Forge本身也在Minecraft 1.13版本到来之后经历了一次重写，引入了大量函数式编程的API。</p>
 <p>那么我们上面提及的三个名字在Forge中是怎么使用的呢？</p>
 <p>在你安装完Forge之后，游戏的运行过程中，所有的内容都会以<code>srg名</code>运行，你编译好的mod同样也会被混淆成<code>srg名</code>，保证它可以正常运行。</p>
 <hr />
@@ -191,28 +191,28 @@
 <ul>
 <li>
 <p>服务端</p>
-<p>复杂游戏的逻辑，数据的存储和读写。</p>
+<p>负责游戏的逻辑，数据的读写。</p>
 </li>
 <li>
 <p>服务端</p>
-<p>接受用户的输入输出，通过来自服务端的数据渲染游戏画面。</p>
+<p>接受用户的输入输出，根据来自服务端的数据来渲染游戏画面。</p>
 </li>
 </ul>
-<p>值得注意的是，这里客户端和服务端的区分是逻辑上的区分。实际上如果你处于单人模式，那么你的电脑上会同时存在服务端和客户端，而且他们处于不同的线程<sup class="footnote-reference"><a href="#1">1</a></sup>。但是当你连接某个服务器是，你的电脑上只存在客户端，而服务端被转移到了远程的一台服务器上。</p>
+<p>值得注意的是，这里客户端和服务端的区分是逻辑上的区分。实际上如果你处于单人模式，那么你的电脑上会同时存在服务端和客户端，而且他们处于不同的线程<sup class="footnote-reference"><a href="#1">1</a></sup>。但是当你连接某个服务器时，你的电脑上只存在客户端，而服务端被转移到了远程的一台服务器上。</p>
 <p>下面一张图大概的解释了Minecraft是怎么运作的。</p>
 <p><img src="introducation/vanilla.assets/image-20200426110629794.png" alt="image-20200426110629794" /></p>
 <p>看到这张图，你可能觉得奇怪，说好的是服务端负责游戏逻辑的呢，为什么客户端也有数据模型？其实这里的「客户端数据模型」只是「服务端数据模型」一个副本，虽然它们都有独立的游戏Tick，也共享很多相同的代码，但是最终逻辑还是以服务端为准。</p>
-<p>之前我们提到，客户端和服务端是独立运行的，但是它们不可避免的需要同步数据，而在Minecraft里，所有客户端和服务的的数据同步都是通过网络数据包实现的。在大部分时候原版已经实现了数据同步的方法，我们只需要调用设计好的方法就行，但是在一些情况下，原版没有提供这个功能，或者不适合使用原版提供的功能，我们就得自己创建和发送网络数据包来实现数据的同步。</p>
+<p>之前我们提到，客户端和服务端是独立运行的，但是它们不可避免地需要同步数据，而在Minecraft里，所有客户端和服务的的数据同步都是通过网络数据包实现的。在大部分时候原版已经实现了数据同步的方法，我们只需要调用设计好的方法就行，但是在一些情况下，原版没有提供这个功能，或者不适合使用原版提供的功能，我们就得自己创建和发送网络数据包来实现数据的同步。</p>
 <p>那么接下去的问题是，我们怎么在代码中区分我们是处于客户端还是服务端呢？</p>
-<p>Minecraft的<code>World</code>中有一个<code>isRemote</code>方法，当处于客户端是这个变量值为真，当处于服务端时这个变量值为假。</p>
+<p>Minecraft的<code>World</code>中有一个<code>isRemote</code>字段，当处于客户端时这个变量值为<code>true</code>，当处于服务端时这个变量值为<code>false</code>。</p>
 <hr />
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
 <p>线程是程序调度的单位之一，处于不同的线程意味着这两个的逻辑和数据是互相独立的，只能通过特定的方法同步数据。具体来说，服务端处于「Server thread」，客户端处于「Render thread」，如果你有观察过Minecraft启动时的输出日志，应该会看到这两个词。</p>
 </div>
 <h1><a class="header" href="#开发模型" id="开发模型">开发模型</a></h1>
 <p>在这节中，我们将会粗略的讲一讲Minecraft mod的开发模型是什么样子的，理解这个模型将有助于你理解mod开发中的很多操作是为了什么。</p>
-<p>在我看来，Minecraft mod 开发基本上遵循了「事件驱动模式」，这里我们不会详细的讨论纠结什么时「事件驱动模式」你只需要有一个感性的了解即可。</p>
-<p>那么在Minecraft「事件驱动模式」是怎么样子的呢？要回答这个问题，我们得先理清三个概念：「事件」「总线」和「事件处理器」。</p>
+<p>在我看来，Minecraft mod 开发基本上遵循了「事件驱动模式」，这里我们不会详细的讨论纠结什么是「事件驱动模式」，你只需要有一个感性的了解即可。</p>
+<p>那么Minecraft「事件驱动模式」是怎么样子的呢？要回答这个问题，我们得先理清三个概念：「事件」「总线」和「事件处理器」。</p>
 <p>首先什么是「事件」呢？就跟这个词表示的那样，「事件」就是「发生了某件事」。举例来说「当方块被破环」这个就是一个事件，「当玩家死亡」这个也是一个事件，当然我们前面举的都是非常具体的例子，事件也可以很抽象，比如「当渲染模型时」这个也是一个事件。</p>
 <p>接下来什么是「事件处理器」呢？事件处理器就是用来处理「事件」的函数。我们可以创建一个事件处理器来处理「方块破坏事件」，里面的内容是「重新创建一个方块」，可以注册一个事件处理器来处理「玩家死亡事件」，里面的内容是「放置一个墓碑」。</p>
 <p>最后是「总线」，总线是连接「事件」和「事件处理器」的工具，当「事件」发生的时候，「事件」的信息将会被发送到总线上，然后总线会选择监听了这个「事件」的「事件处理器」，执行这个事件处理器。</p>
@@ -227,7 +227,7 @@
 <h2><a class="header" href="#resourcelocation" id="resourcelocation">ResourceLocation</a></h2>
 <p>你可以把ResourceLocation想成一种特殊格式的字符串，它大概长成这样:<code>minecraft:textures/block/stone.png</code>，一个ResouceLocation指定了资源包下的一个特定的文件。举例来说，前面这个这个ResourceLocation代表了原版资源包下的石头的材质图片。ResouceLocation分成两部分，冒号前面的叫做「域（domain）」，在原版中只有一个域即<code>minecraft</code>域，但是如果你开始开发mod，那么每个mod都会有一个或者多个域。冒号的后半部分是和<code>assets</code>文件夹内的目录结构一一对应的。从某种程度上来说，ResourceLocation就是一个特殊的URL。</p>
 <h2><a class="header" href="#模型和材质" id="模型和材质">模型和材质</a></h2>
-<p>在游戏中3d的对象都是基本上都有它的模型，模型和材质组合在一起规定了一个对象具体的样子。模型相当于是骨头，材质相当于是皮肤。在大部分时候，你的材质都是png图片，请注意保证你的材质背景是透明的，其次不要在材质中使用半透明像素，会有不可预知的问题。</p>
+<p>在游戏中3d的对象基本上都有它的模型，模型和材质组合在一起规定了一个对象具体的样子。模型相当于是骨头，材质相当于是皮肤。在大部分时候，你的材质都是png图片，请注意保证你的材质背景是透明的，其次不要在材质中使用半透明像素，会有不可预知的问题。</p>
 <h1><a class="header" href="#环境配置" id="环境配置">环境配置</a></h1>
 <p>在这一节中，我们会讲解如何配置Forge的开发环境。（<del>在这一节会劝退大部分人</del>）</p>
 <h1><a class="header" href="#forge开发环境的配置" id="forge开发环境的配置">Forge开发环境的配置</a></h1>
@@ -237,15 +237,15 @@
 <p><a href="https://www.oracle.com/java/technologies/javase-jdk8-downloads.html">JDK8</a>，出于兼容性的考虑，<strong>请确保你安装的是JDK8</strong>。</p>
 </li>
 <li>
-<p><a href="https://www.jetbrains.com/zh-cn/idea/download/">IntelliJ IDEA 2020.1 社区版</a>，下载完成后请自行安装，介于目标读者的水平，这里有个如何给2020.1之后版本安装官方中文的<a href="https://www.bilibili.com/video/BV1NT4y137nb">教程</a>。</p>
+<p><a href="https://www.jetbrains.com/zh-cn/idea/download/">IntelliJ IDEA 2020.1.1 社区版</a>，下载完成后请自行安装，介于目标读者的水平，这里有个如何给2020.1之后的版本安装官方中文的<a href="https://www.bilibili.com/video/BV1NT4y137nb">教程</a>。</p>
 </li>
 <li>
-<p><a href="https://adfoc.us/serve/sitelinks/?id=271228&amp;url=https://files.minecraftforge.net/maven/net/minecraftforge/forge/1.15.2-31.1.0/forge-1.15.2-31.1.0-mdk.zip">Forge MDK 1.15.2 - 31.1.0</a>，下载后请解压到你喜欢的文件夹。</p>
+<p><a href="https://files.minecraftforge.net/maven/net/minecraftforge/forge/1.15.2-31.1.0/forge-1.15.2-31.1.0-mdk.zip">Forge MDK 1.15.2 - 31.1.0</a>，下载后请解压到你喜欢的文件夹。</p>
 </li>
 </ul>
 <p><strong>注意，介于预想读者的水平，配置过程十有八九是会失败的，建议直接使用<a href="https://v2mcdev.com/t/topic/249/2">离线包</a>，安装完离线包之后继续按照下述教程进行配置。</strong></p>
 <h2><a class="header" href="#总体的介绍" id="总体的介绍">总体的介绍</a></h2>
-<p>Minecraft Forge是一个Gradle项目，Gradle是一个项目构建工具，其主要作用是负责项目的依赖管理，构建等功能。依赖管理指的是帮你自动的下载配置你开发中使用的库，也就是别人写好的方便你自己开发的代码。构建指的是将你写的的mod打包成别人可以安装的jar文件。</p>
+<p>Minecraft Forge是一个Gradle项目，Gradle是一个项目构建工具，其主要作用是负责项目的依赖管理、构建等功能。依赖管理指的是帮你自动地下载和配置你开发中使用的库，也就是别人写好的方便你自己开发的代码。构建指的是将你写的mod打包成别人可以安装的jar文件。</p>
 <p>Forge官方写了一个叫做ForgeGradle（以后简称FG）的插件来负责整个mod开发环境的配置（<del>为什么要说这个呢，让你知道当环境配置失败时该骂谁</del>)。</p>
 <h2><a class="header" href="#idea的编码配置windows用户专用" id="idea的编码配置windows用户专用">IDEA的编码配置（Windows用户专用）</a></h2>
 <p>选择Configure下的<code>设置/首选项</code>。</p>
@@ -272,7 +272,7 @@
 <p><img src="devenvironment/setup.assets/image-20200426193203851.png" alt="image-20200426193203851" /></p>
 <p>配置完成之后，选择<code>调试</code>。</p>
 <p><img src="devenvironment/setup.assets/image-20200426193439272.png" alt="image-20200426193439272" /></p>
-<p>然后选择<code>RunClient</code>即可启动游戏。</p>
+<p>然后选择<code>runClient</code>即可启动游戏。</p>
 <p><img src="devenvironment/setup.assets/image-20200426193520833.png" alt="image-20200426193520833" /></p>
 <p>在没有为Gradle配置代理的情况下，<code>runClient</code>有时候会耗费非常多的时间，推荐大家购买并配置代理，或者<a href="https://v2mcdev.com/t/topic/304">这个教程</a>也是一种解决办法。</p>
 <p>可以看见我们的游戏成功启动了。</p>
@@ -297,9 +297,9 @@
 <p>其中的<code>minecraft </code>闭包下的内容就是关于Forge Gradle的配置。</p>
 <p>其中<code>mappings channel: 'snapshot', version: '20190719-1.14.3’</code>配置项规定了本项目使用的mapping文件版本，这里我强烈建议你经常更新mapping文件，你可以在<a href="http://export.mcpbot.bspk.rs/">这里</a>找到所有的mapping文件。那么什么是mapping文件呢？还记得我们之间提及的<code>srg名</code>和<code>mcp名</code>吗？mapping文件的作用就是提供<code>srg名</code>和<code>mcp名</code>之间的翻译。</p>
 <p><code>channel</code>的意思是mapping文件的分类，在大部分情况下，你都应该使用<code>snapshot</code>（快照版本）来确保你的mcp名字是最新的。而之后的<code>version</code>就是具体的版本了，大部分情况下是高版本游戏兼容低版本mapping的，当然游戏版本号不能相差太远。其中还有两个被注释起来的参数，这里我们暂且不提。</p>
-<p>另外一个你可能会用的就是<code>dependencies</code>配置，如果你的mod需要依赖别的java库或者别的mod，你需要在这里添加内容，具体添加的方式，注释已经给出了详细的例子，这里就不多说了。其中<code>minecraft 'net.minecraftforge:forge:1.15.2-31.1.0’</code>规定了你需要用到的Forge版本，如果你想升级Forge版本可以修改这一行的内容，版本的格式是<code>net.minecraftforge:forge:游戏版本号-Forge版本号</code>。</p>
+<p>另外一个你可能会用的就是<code>dependencies</code>配置，如果你的mod需要依赖别的java库或者别的mod，你需要在这里添加内容，具体添加的方式，注释已经给出了详细的例子，这里就不多说了。其中<code>minecraft 'net.minecraftforge:forge:1.15.2-31.1.0'</code>规定了你需要用到的Forge版本，如果你想升级Forge版本可以修改这一行的内容，版本的格式是<code>net.minecraftforge:forge:游戏版本号-Forge版本号</code>。</p>
 <p>这个文件剩余的部分就和一个普通的<code>build.gradle</code>没什么差别了，如果想知道更详细的知识建议去学习Gradle。</p>
-<p>接下去的就是<code>src</code>文件夹，这里是放我们代码和文件的地方，其中<code>main</code>文件夹是具体运行代码和文件的地方，<code>test</code>文件夹是放测试代码的地方。<code>main</code>文件夹下的<code>java</code>就是放我们写的java代码的地方，而<code>resources</code>文件夹里放的则是我们的材质模型等一些不是代码，但是mod内容一部分的东西。</p>
+<p>接下去的就是<code>src</code>文件夹，这里是放我们代码和文件的地方，其中<code>main</code>文件夹是具体运行代码和文件的地方，<code>test</code>文件夹是放测试代码的地方。<code>main</code>文件夹下的<code>java</code>就是放我们写的java代码的地方，而<code>resources</code>文件夹里放的则是我们的材质模型等一些除了代码之外的属于mod的内容。</p>
 <p>接下去是<code>run</code>文件夹，这个基本上就是一个标准的<code>.minecraft</code>文件夹，值得注意的是，因为开发环境是同时有Minecraft客户端和服务器代码的，它们两个是共用<code>run</code>目录的。</p>
 <p>剩下值得一提的就是<code>build</code>目录，当你在Gradle面板里运行<code>build</code>任务，你的mod就会被打包好放在<code>build=&gt;libs</code>下。</p>
 <p>剩下所有带<code>gradle</code>相关的文件夹和文件都是Gradle所需要的运行和配置文件，请不要随便删除。</p>
@@ -313,9 +313,9 @@
 <p><img src="devenvironment/modinfo.assets/image-20200427085305020.png" alt="image-20200427085305020" /></p>
 <p>然后点击右侧Gradle面板的重新导入按钮，重新导入项目，因为<code>build.gradle</code>文件非常的重要，请注意不要改错。</p>
 <p><img src="devenvironment/modinfo.assets/image-20200427082837751.png" alt="image-20200427082837751" /></p>
-<p>这个过程可能会涉及下载文件（但不会很多），有错误的可能性，出错了请检查你的<code>build.gradle</code>内容有没有填错，然后多试几次。</p>
+<p>这个过程可能会涉及下载文件（但不会很多），有出现错误的可能性，出错了请检查你的<code>build.gradle</code>内容有没有填错，然后多试几次。</p>
 <h2><a class="header" href="#配置" id="配置">配置</a></h2>
-<p>首先我们先选中<code>java</code>文件夹下所有的目录和文件，然后右键删除Java包下的默认类。</p>
+<p>首先我们选中<code>java</code>文件夹下所有的目录和文件，然后右键删除Java包下的默认类。</p>
 <p><img src="devenvironment/modinfo.assets/image-20200427074821172.png" alt="image-20200427074821172" /></p>
 <p>然后再右键新建立一个包</p>
 <p><img src="devenvironment/modinfo.assets/image-20200427074901407.png" alt="image-20200427074901407" /></p>
@@ -330,7 +330,7 @@
         └── neutrino
             └── Neutrino.java
 </code></pre>
-<p>然后进入<code>Neutrino</code>在类名的上方添加一个<code>@Mod()</code>注释，其中填入的参数是你的<code>modId</code>，那么什么是你的<code>modId</code>呢？<code>modId</code>就是你mod名字的唯一标识符，请注意<code>modId</code>和你的mod名字并不是同一个东西，它不允许大写字母，也不允许空格等内容。在这里我们选用的<code>modId</code>是<code>neutrino</code>。添加完成后内容如下:</p>
+<p>然后进入<code>Neutrino</code>在类名的上方添加一个<code>@Mod()</code>注解，其中填入的参数是你的<code>modId</code>，那么什么是你的<code>modId</code>呢？<code>modId</code>就是你mod名字的唯一标识符，请注意<code>modId</code>和你的mod名字并不是同一个东西，它不允许大写字母，也不允许空格等内容。在这里我们选用的<code>modId</code>是<code>neutrino</code>。添加完成后内容如下:</p>
 <pre><code class="language-java">@Mod(&quot;neutrino&quot;)
 public class Neutrino {
 }
@@ -591,7 +591,7 @@ public class Neutrino {
 }
 </code></pre>
 <p>同样的，这个内容看上去非常地多，但其实并没有你想象得那么复杂。</p>
-<p>首先我们实现一个<code>IItemTier</code>接口的匿名内部类。首先什么是<code>IItemTier</code>呢？Tier的英文意思是「层、等级」，你可以把<code>IItemTier</code>理解成一种材质，比如钻石剑、钻石镐都是钻石做的，同样的，铁剑、铁搞都是铁做的。</p>
+<p>首先我们实现一个<code>IItemTier</code>接口的匿名内部类。首先什么是<code>IItemTier</code>呢？Tier的英文意思是「层、等级」，你可以把<code>IItemTier</code>理解成一种材质，比如钻石剑、钻石镐都是钻石做的，同样的，铁剑、铁镐都是铁做的。</p>
 <p>那么为什么要自己实现这个匿名内部类呢？原因是原版的<code>net.minecraft.item.IItemTier</code>是用enum实现的，我们没法自己向里面添加内容，所以只能自己实现了，原版的所有属性也都在这个类里，大家可以参考。至于这个匿名内部类里的各种方法，我在这里就不多加解释了，有了之前几个物品的经验，相信读者阅读到这里时已经有了通过函数名猜测函数功能的能力了。同样的关于构造函数里的<code>3</code>和<code>-2.4F</code>的作用也请读者参考原版物品的实现（原版所有物品的实例都写在<code>net.minecraft.item.Items</code>类中）猜测功能。</p>
 <p>同样的接下去注册物品</p>
 <pre><code class="language-java">public static RegistryObject&lt;Item&gt; obsidianSword = ITEMS.register(&quot;obsidian_sword&quot;, () -&gt; {
@@ -1039,7 +1039,7 @@ protected void fillStateContainer(StateContainer.Builder&lt;Block, BlockState&gt
 <p><img src="block/nonesoildblock.assets/image-20200428214022814.png" alt="image-20200428214022814" /></p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/nonesoildblock">源代码</a></p>
 <h1><a class="header" href="#特殊模型" id="特殊模型">特殊模型</a></h1>
-<p>在这一节中，我们将来学习如何在Minecraft中使用特殊的物品模型，Forge为Minecraft添加了额外两种物品物品模型的支持：OBJ和B3D。</p>
+<p>在这一节中，我们将学习如何在Minecraft中使用特殊的物品模型，Forge为Minecraft添加了额外两种物品模型的支持：OBJ和B3D。</p>
 <h1><a class="header" href="#obj-模型" id="obj-模型">OBJ 模型</a></h1>
 <p>在这一节我我们将学习如何给方块添加OBJ物品模型。</p>
 <p>首先我们先创建我们的方块<code>ObsidianOBJ.java</code>：</p>
@@ -1095,9 +1095,9 @@ protected void fillStateContainer(StateContainer.Builder&lt;Block, BlockState&gt
 <h1><a class="header" href="#b3d-模型" id="b3d-模型">B3D 模型</a></h1>
 <h1><a class="header" href="#动画" id="动画">动画</a></h1>
 <h1><a class="header" href="#方块实体" id="方块实体">方块实体</a></h1>
-<p>欢迎来到方块实体这一张，方块实体（BlockEntity或者TilEntity）是Minecraft中最为迷人的主题之一，原版的熔炉，工业模组里的机器，这些都是通过方块实体实现的，在这节中，我们将要学习如何创建我们自己的方块实体。</p>
+<p>欢迎来到方块实体这一章，方块实体（BlockEntity或者TilEntity）是Minecraft中最为迷人的主题之一，原版的熔炉，工业模组里的机器，这些都是通过方块实体实现的，在这节中，我们将要学习如何创建我们自己的方块实体。</p>
 <h1><a class="header" href="#第一个方块实体和其数据保存" id="第一个方块实体和其数据保存">第一个方块实体和其数据保存</a></h1>
-<p>在这节中，我们将来学习如何创建一个属于自己的方块实体，在这节中结束时，我们会创建一个计数器，它唯一的作用就是当你右击方块时，它会加一然后向你的聊天框里发送相对应的值。</p>
+<p>在这节中，我们将学习如何创建一个属于自己的方块实体，在这节中结束时，我们会创建一个计数器，它唯一的作用就是当你右击方块时，它会加一然后向你的聊天框里发送相对应的值。</p>
 <p>首先我们来创建我们的方块，<code>ObsidianCounter.java</code>：</p>
 <pre><code class="language-java">public class ObsidianCounter extends Block {
     public ObsidianCounter() {
@@ -1127,7 +1127,7 @@ protected void fillStateContainer(StateContainer.Builder&lt;Block, BlockState&gt
     }
 }
 </code></pre>
-<p>注册部分我们就不详细说了，这里我们来讲一讲几个函数。首先我们要讲的是<code>hasTileEntity</code>和<code>createTileEntity</code>这一组函数（请注意，这里的两个方法没有被<code>@Deprecated</code>，，也就是在你重写之后它没有被「划横线」。我们需要重写的是<code>IForgeBlock</code>接口下的方法，请注意不要重写错了方法），这组函数让你的方块可以绑定一个方块实体，<code>hasTileEntity</code>返回值设置为<code>true</code>，说明我们这个方块拥有一个方块实体，<code>createTileEntity</code>而这个函数决定了我们方块的方块实体具体是哪一个，在我们的例子里是<code>ObsidianCounterTileEntity</code>。</p>
+<p>注册部分我们就不详细说了，这里我们来讲一讲几个函数。首先我们要讲的是<code>hasTileEntity</code>和<code>createTileEntity</code>这一组函数（请注意，这里的两个方法没有被<code>@Deprecated</code>，，也就是在你重写之后它没有被「划横线」。我们需要重写的是<code>IForgeBlock</code>接口下的方法，请注意不要重写错了方法），这组函数让你的方块可以绑定一个方块实体，<code>hasTileEntity</code>返回值设置为<code>true</code>，说明我们这个方块拥有一个方块实体，<code>createTileEntity</code>这个函数决定了我们方块的方块实体具体是哪一个，在我们的例子里是<code>ObsidianCounterTileEntity</code>。</p>
 <p>我们先略过<code>onBlockActivated</code>方法，来看我们的方块实体里具体是什么内容。</p>
 <p><code>ObsidianCounterTileEntity</code>:</p>
 <pre><code class="language-java">public class ObsidianCounterTileEntity extends TileEntity {
@@ -1158,8 +1158,8 @@ protected void fillStateContainer(StateContainer.Builder&lt;Block, BlockState&gt
     });
 }
 </code></pre>
-<p>首先里类型，因为<code>TileEntityType</code>是一个含有泛型的类，它的泛型里可以装各种各样的<code>TileEntity</code>，所以我们在定义<code>TILE_ENTITY_TYPE_DEFERRED_REGISTER</code>时，<code>DeferredRegister</code>内的类型是<code>TileEntityType&lt;?&gt;</code>，这里的问号代表<code>TILE_ENTITY_TYPE_DEFERRED_REGISTER</code>里可以注册例如``TileEntityType<AEntity><code>、 </code>TileEntityType<BEntity><code>等各种</code>TileEntityType`。</p>
-<p>然后是我们变量的类型，因为我们注册的是要给<code>ObsidianCounterTileEntity</code>注册<code>TileEntityType</code>，所以我们需要的类型自然是<code>TileEntityType&lt;ObsidianCounterTileEntity&gt;</code>。</p>
+<p>首先是类型，因为<code>TileEntityType</code>是一个含有泛型的类，它的泛型里可以装各种各样的<code>TileEntity</code>，所以我们在定义<code>TILE_ENTITY_TYPE_DEFERRED_REGISTER</code>时，<code>DeferredRegister</code>内的类型是<code>TileEntityType&lt;?&gt;</code>，这里的问号代表<code>TILE_ENTITY_TYPE_DEFERRED_REGISTER</code>里可以注册例如``TileEntityType<AEntity><code>、 </code>TileEntityType<BEntity><code>等各种</code>TileEntityType`。</p>
+<p>然后是我们变量的类型，因为我们是要给<code>ObsidianCounterTileEntity</code>注册<code>TileEntityType</code>，所以我们需要的类型自然是<code>TileEntityType&lt;ObsidianCounterTileEntity&gt;</code>。</p>
 <p>这里面最为复杂的应该就是具体的注册过程了，但是只要我们理解了，注册就是注册名和一个注册物，我们就可以把这个复杂的语句拆拆分开来。</p>
 <pre><code class="language-java">TILE_ENTITY_TYPE_DEFERRED_REGISTER.register(&quot;obsidian_counter_tileentity&quot;,()-&gt;{return ...});
 </code></pre>
@@ -1172,7 +1172,7 @@ protected void fillStateContainer(StateContainer.Builder&lt;Block, BlockState&gt
 </code></pre>
 <p>可以看见，这里我们先是调用了<code>TileEntityType.Builder.create</code>方法，这个方法是Minecraft提供给我的一个创建<code>TileEntityType</code>的方法，然后调用了<code>build</code>方法。我们先来看<code>build</code>方法里的参数，在<code>build</code>里我们传入了一个<code>null</code>，其实这个地方可以填入一个叫做<code>datafix</code>的实例，这个实例是用了做不同版本之前存档转换的。这里我们没有这个需求（大部分mod估计也不会实现），所以就填入了一个<code>null</code>。</p>
 <p>然后我们回过头来看<code>TileEntityType.Builder.create</code>中的两个参数，第一个参数是一个<code>supplier</code>，这个<code>supplier</code>的返回值就是我们写到的<code>TileEntity</code>实例，第二个类型是与之相关联的方块，这里我们填入我们注册好的<code>ObsidianCounterBlock</code>的实例，至于方块的注册，相信看到这里的读者已经有能力自己解决了。</p>
-<p>当然之前的写法看上去非常的复杂，我们可以可以用省略的写法，如下所示:</p>
+<p>当然之前的写法看上去非常复杂，我们可以写得简略一些，如下所示:</p>
 <pre><code class="language-java">public static RegistryObject&lt;TileEntityType&lt;ObsidianCounterTileEntity&gt;&gt; obsidianCounterTileEntity = TILE_ENTITY_TYPE_DEFERRED_REGISTER.register(&quot;obsidian_counter_tileentity&quot;, () -&gt; TileEntityType.Builder.create(() -&gt; new ObsidianCounterTileEntity(), BlockRegistry.obsidianCounterBlock.get()).build(null));
 </code></pre>
 <p>这样内容一下子就少了很多，但是为了读者的理解方便，我还是使用了上面的写法。</p>
@@ -1188,16 +1188,16 @@ public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockP
   return ActionResultType.SUCCESS;
 }
 </code></pre>
-<p>首先是方块的<code>onBlockActivated</code>方法，请注意这里有两个同名的<code>onBlockActivated</code>但是不同返回值的方法，在重写方法时不要重写错了。</p>
+<p>首先是方块的<code>onBlockActivated</code>方法，请注意这里有两个同名但是不同返回值的<code>onBlockActivated</code>方法，在重写方法时不要重写错了。</p>
 <pre><code class="language-java">if (!worldIn.isRemote &amp;&amp; handIn == Hand.MAIN_HAND)
 </code></pre>
-<p>首先我们判断了我们的方法是否在服务端调用，记住任何涉及到数据处理的都应该在服务端执行逻辑，此外我们还判断了传入的<code>hanIn</code>是不是为「主手」之所以要进行这个判断的原因是，这个方法两个手都会执行一次。</p>
+<p>首先我们判断了我们的方法是否在服务端调用，记住任何涉及到数据处理的逻辑都应该在服务端执行，此外我们还判断了传入的<code>handIn</code>是不是「主手」，之所以要进行这个判断，是因为这个方法两个手都会执行一次。</p>
 <pre><code class="language-java">ObsidianCounterTileEntity obsidianCounterTileEntity = (ObsidianCounterTileEntity) worldIn.getTileEntity(pos);
 </code></pre>
-<p>我们在这里通过<code>worldIn.getTileEntity</code>方法，获取到我们方块所对应的<code>TileEntity</code>，一定要通过这个方法调用的原因是，一个方块哪怕绑定了TileEntity，你也不能保证，这个<code>TileEntity</code>是一定存在的。</p>
+<p>我们在这里通过调用<code>worldIn.getTileEntity</code>方法，获取到我们方块所对应的<code>TileEntity</code>，一定要通过这个方法调用的原因是，一个方块哪怕绑定了TileEntity，你也不能保证，这个<code>TileEntity</code>是一定存在的。</p>
 <pre><code class="language-java">int counter = obsidianCounterTileEntity.increase();
 </code></pre>
-<p>然后我们在这里通过调用我们<code>obsidianCounterTileEntity</code>的<code>increase</code>方法，增加了数，并获取了最新的数。</p>
+<p>然后我们在这里通过调用我们<code>obsidianCounterTileEntity</code>的<code>increase</code>方法，增加了数字，并获取了最新的数字。</p>
 <pre><code class="language-java">public int increase() {
   counter++;
   return counter;
@@ -1206,18 +1206,18 @@ public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockP
 <p><code>increase</code>方法内容非常简单，相信大家都能看懂。</p>
 <pre><code class="language-java">TranslationTextComponent translationTextComponent = new TranslationTextComponent(&quot;message.neutrino.counter&quot;, counter);
 </code></pre>
-<p>然后是句话，首先我们创建了一个<code>TranslationTextComponent</code>，这个是一个这里就是我们要发送到玩家聊天框里的内容。正如它的名字暗示的那样，这个是一个翻译文本，所以它的填入一个应该是一个「键」而不是具体的内容，<code>&quot;message.tour14.counter”</code>就是「键」值，后面我们还传入了我们获取到的计数值，这样做的原因，我们先按下不表。</p>
+<p>然后是这条语句，首先我们创建了一个<code>TranslationTextComponent</code>，这里就是我们要发送到玩家聊天框里的内容。正如它的名字暗示的那样，这个是一个翻译文本，所以它应该是一个「键」而不是具体的内容，<code>&quot;message.tour14.counter&quot;</code>就是「键」值，后面我们还传入了我们获取到的计数值，这样做的原因，我们先按下不表。</p>
 <p>首先我们在语言文件里添加如下内容（以简体中文举例）。</p>
 <pre><code class="language-json"> &quot;message.neutrino.counter&quot;: &quot;计数: %d&quot;
 </code></pre>
-<p>可以看到这里具体内容里有一个<code>%d</code>，如果这时候为什么要传入我们的值的理由就很清楚了，其实就是通过<code>%d</code>，把我们的<code>counter</code>变量的值格式化的显示了出来。</p>
+<p>可以看到这里有一个<code>%d</code>，这时候为什么要传入我们的值的理由就很清楚了，其实就是通过<code>%d</code>，把我们的<code>counter</code>变量的值格式化之后显示了出来。</p>
 <pre><code class="language-java">player.sendStatusMessage(translationTextComponent, false);
 </code></pre>
-<p>最后我们调用这句话，向玩家发送了消息，请注意因为我们之前判断过<code>!worldIn.isRemote</code>的原因，所以这段代码是在服务端执行的，但是具体消息的显示是在客户端显示的，所以我们要通过发包的方式给客户端发送消息，幸好Minecraft给我们提供了这个方法可以发送数据，而不用自己实现。</p>
+<p>最后我们调用这条语句，向玩家发送了消息，请注意因为我们之前判断过<code>!worldIn.isRemote</code>，所以虽然这段代码是在服务端执行的，但是因为具体的消息是在客户端显示的，所以我们要通过发包的方式给客户端发送消息，幸好因为Minecraft给我们提供了这个方法可以发送数据，所以不用自己实现。</p>
 <p><img src="tileentity/firsttileentity.assets/image-20200429165945640.png" alt="image-20200429165945640" /></p>
 <p>可以看到我们的方块已经可以成功的计数了。</p>
 <p>但是这个方块还有一个bug，当你退出当前的存档重新进入时，你会发现我们的计数器又从0开始计数了，接下来我们来修复这个问题。</p>
-<p>之所以出现这个bug的原因是当存档运行时，技术器的值在内存中存在，自然可以正常运作，当游戏关闭时，这些内存中重要的数据需要保存到你的硬盘上，这样下次打开游戏时，才能重新加载和恢复这些数据（。当之前我们的TileEntity并没有实现这个保存和恢复功能，接下来我们就要为其添加这个功能。</p>
+<p>之所以出现这个bug，是因为虽然当存档运行时，计数器的值在内存中存在并且可以正常运作，但是当游戏关闭时，因为这些内存中重要的数据没有保存到你的硬盘上，所以下次打开游戏时，无法重新加载和恢复这些数据。之前我们的TileEntity并没有实现这个保存和恢复功能，接下来我们就要为其添加这个功能。</p>
 <p>添加完成后的<code>ObsidianCounterTileEntity</code>内容如下:</p>
 <pre><code class="language-java">public class ObsidianCounterTileEntity extends TileEntity {
     private int counter = 0;
@@ -1246,8 +1246,8 @@ public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockP
     }
 }
 </code></pre>
-<p>可以看见，相比起之前的代码，我们多复写了<code>write</code>和<code>read</code>方法，这两个方法就是用来实现数据的保存和恢复的。在Minecraft里，所以的数据最终都应该以NBT格式保存（除非你自己实现保存方法），在代码里NBT标签就是以<code>CompoundNBT</code>体现的。NBT标签也是一个「键值对」对结构，每一个值都有一个对应的名字。其中的<code>put</code>开头的方法都是向NBT标签里写入值，<code>get</code>开头的方法就是获取值。除去<code>CompoudNBT</code>以外，还有<code>ListNBT</code>类来代表数组类型的NBT标签。</p>
-<p>这里的<code>write</code>就是数据保存的方法，他的传入值就是之前别的类已经保存好的NBT标签，它的返回值就是最终要保存到硬盘上的NBT标签（当然还有别的类要写入），在一般情况下，以都应该调用<code>return super.write(compound);</code>来做最终的返回。</p>
+<p>可以看见，相比起之前的代码，我们多覆写了<code>write</code>和<code>read</code>方法，这两个方法就是用来实现数据的保存和恢复的。在Minecraft里，所有的数据最终都应该以NBT格式保存（除非你自己实现保存方法），在代码里NBT标签就是以<code>CompoundNBT</code>体现的。NBT标签也是一个「键值对」结构，每一个值都有一个对应的名字。其中的<code>put</code>开头的方法都是向NBT标签里写入值，<code>get</code>开头的方法就是获取值。除去<code>CompoudNBT</code>以外，还有<code>ListNBT</code>类来代表数组类型的NBT标签。</p>
+<p>这里的<code>write</code>就是数据保存的方法，它的传入值就是之前别的类已经保存好的NBT标签，它的返回值就是最终要保存到硬盘上的NBT标签（当然还有别的类要写入），在一般情况下，以都应该调用<code>return super.write(compound);</code>来做最终的返回。</p>
 <p><code>read</code>方法正好相反，我们在这里调用了<code>counter = compound.getInt(&quot;counter”);</code>方法，恢复我们计数器的数据。同样的你应该调用<code>super.read(compound);</code>来做最终的返回。</p>
 <p>还有一个非常重要的是</p>
 <pre><code class="language-java">public int increase() {
@@ -1256,13 +1256,13 @@ public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockP
   return counter;
 }
 </code></pre>
-<p>我们在这里加入了<code>markDirty()</code>方法，这个方法的意思是标记了我们数据被修改，在游戏关闭的时候要保存调用保存方法。之所以这么做的原因是，相对于CPU的执行速度，硬盘的保存和读写速度是非常慢点，所以如果频繁的进行保存和读写操作会严重拖慢游戏的速度，一个合理的方法就是标记我们需要保存的数据，然后在一个统一的时间点一起保存，<code>markDirty()</code>的作用正是如此。</p>
+<p>我们在这里加入了<code>markDirty()</code>方法，这个方法的意思是标记了我们数据被修改，在游戏关闭的时候要保存调用保存方法。之所以这么做，是因为相对于CPU的执行速度，硬盘的保存和读写速度是非常慢的，所以如果频繁的进行保存和读写操作会严重拖慢游戏的速度，一个合理的方法就是标记我们需要保存的数据，然后在一个统一的时间点一起保存，<code>markDirty()</code>的作用正是如此。</p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/first_tileentity">源代码</a></p>
 <h2><a class="header" href="#编程小课堂" id="编程小课堂">编程小课堂</a></h2>
 <p>对于CPU来说每个指令大概需要 0.38ns，以此作为基本单位 1s的话，从从磁盘读取 1MB 的连续数据需要 20ms，对比 CPU 的时间是 20 个月，所以磁盘读写速度是非常慢的。</p>
 <h1><a class="header" href="#itickabletileentity" id="itickabletileentity">ITickableTileEntity</a></h1>
-<p>在这一节中，我们来学习TIleEntity中最为重要的一个借口：<code>ITickableTileEntity</code>。</p>
-<p>这一节我们讲制作一个会自动打招呼的方块，来体现这个例子。</p>
+<p>在这一节中，我们来学习TileEntity中最为重要的一个接口：<code>ITickableTileEntity</code>。</p>
+<p>这一节我们将以制作一个会自动打招呼的方块为例，来体现这个接口的功能。</p>
 <p><code>ObsidianHelloBlock</code>:</p>
 <pre><code class="language-java">public class ObsidianHelloBlock extends Block {
     public ObsidianHelloBlock() {
@@ -1306,7 +1306,7 @@ public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockP
     }
 }
 </code></pre>
-<p>实际上这个方块实体的代码要比我们做的第一个方块实体的代码简单许多。可以看到我们在这里实现了<code>ITickableTileEntity</code>接口，这个接口只有一个方法需要实现，就是<code>tick</code>方法，故名思义，这个会在每个游戏tick执行一次，我们的这里做了一技术器，然后通过<code>world.getClosestPlayer</code>方法获取到了这个方块位置周围10格内最近的一个玩家，然后创建了一个<code>StringTextComponent</code>消息（<del>之所以用这个消息的原因是因为我懒得写lang文件</del>），最后调用了<code>player.sendMessage</code>将消息发送给了玩家，<code>sendMessage</code> 接受的是一个<code>ITextComponent</code>，minecraft已经有很多实现这个接口的常用的类。</p>
+<p>实际上这个方块实体的代码要比我们做的第一个方块实体的代码简单许多。可以看到我们在这里实现了<code>ITickableTileEntity</code>接口，这个接口只有一个方法需要实现，就是<code>tick</code>方法，故名思义，这个会在每个游戏tick执行一次，我们这里做了一计数器，然后通过<code>world.getClosestPlayer</code>方法获取到了这个方块位置周围10格内最近的玩家，然后创建了<code>StringTextComponent</code>消息（<del>之所以用这个消息的原因是因为我懒得写lang文件</del>），最后调用了<code>player.sendMessage</code>将消息发送给了玩家，<code>sendMessage</code> 接受的是<code>ITextComponent</code>接口，minecraft已经有很多实现这个接口的常用的类。</p>
 <p>注册<code>TileEntityType</code>：</p>
 <pre><code class="language-java">public static RegistryObject&lt;TileEntityType&lt;ObsidianHelloTileEntity&gt;&gt; obsidianHelloTileentity = TILE_ENTITY_TYPE_DEFERRED_REGISTER.register(&quot;obsidian_hello_tileentity&quot;, () -&gt; {
   return TileEntityType.Builder.create(() -&gt; {
@@ -1322,7 +1322,7 @@ public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockP
 <h2><a class="header" href="#开发小课堂-6" id="开发小课堂-6">开发小课堂</a></h2>
 <p>在很多时候，当函数要求传入的变量的类型是接口时，基本都已经有实现好的类可以使用，大家可以尝试查看这个接口的继承树来寻找可以使用的类。</p>
 <h1><a class="header" href="#方块实体内置的数据同步" id="方块实体内置的数据同步">方块实体内置的数据同步</a></h1>
-<p>在这节中，我们将来学习方块实体中内置的数据同步功能。</p>
+<p>在这节中，我们将学习方块实体中内置的数据同步功能。</p>
 <p>还记得我们之前讲过的服务端和客户端自己的数据同步功能吗？幸运的是，TileEntity给我们内置了两组数据同步的方法，不幸的是这个两组方法只能实现从服务端到客户端的数据同步，而且只能同步少量的数据。</p>
 <p>在这节中，我们讲学习制作一个每隔几秒中就会播放僵尸吼叫声的方法，我们先从方块开始;</p>
 <p><code>ObsidianZombieBlock</code></p>
@@ -1407,7 +1407,7 @@ public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockP
 <li><code>getUpdateTag</code></li>
 <li><code>handleUpdateTag</code></li>
 </ul>
-<p>这两个方法是在区块刚被载入时会被调用的方法，之所以有这两个方法存在，是因为有些方块实体并不需要经常性的同步数据，比如告示牌。这种装饰性的方块实体，只需要在区块被载入时同步一次就行。</p>
+<p>这两个方法是在区块刚被载入时被调用的方法，之所以有这两个方法存在，是因为有些方块实体并不需要经常性地同步数据，比如告示牌。这种装饰性的方块实体，只需要在区块被载入时同步一次就行。</p>
 <p>为了让你的方块实体能在游戏被载入的时候能自动同步数据，你需要先实现<code>getUpdateTag</code>和<code>handleUpdateTag</code>，然后在<code>getUpdatePacket</code>和<code>onDataPacket</code>中调用它们即可。</p>
 <p>如你你需要触发数据同步，你需要在服务端调用<code>world.notifyBlockUpdate</code>方法。</p>
 <p>当然就和数据保存一样，这些方法默认的序列化和反序列化方式是NBT标签。</p>
@@ -1434,8 +1434,8 @@ public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
   handleUpdateTag(pkt.getNbtCompound());
 }
 </code></pre>
-<p>在这次我们只是简单的调用了之前的两个方法而已，<code>SUpdateTileEntityPacket</code>的第二个参数的序列号值，大家可以随便填写。</p>
-<p>然后就是我们的主要逻辑<code>Tick</code>方法:</p>
+<p>在这里我们只是简单的调用了之前的两个方法而已，<code>SUpdateTileEntityPacket</code>的第二个参数的序列号值，大家可以随便填写。</p>
+<p>然后就是我们的主要逻辑<code>tick</code>方法:</p>
 <pre><code class="language-java">@Override
 public void tick() {
   if (world.isRemote &amp;&amp; flag) {
@@ -1454,7 +1454,7 @@ public void tick() {
   }
 }
 </code></pre>
-<p>为了大家理解的方面我这里用了两个<code>if</code>语句将客户端和服务端的逻辑区分了开来</p>
+<p>为了大家方便理解，我这里用了两个<code>if</code>语句将客户端和服务端的逻辑区分开来</p>
 <p>首先是是客户端:</p>
 <pre><code class="language-java">if (world.isRemote &amp;&amp; flag) {
   PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 10, false);
@@ -1463,7 +1463,7 @@ public void tick() {
 }
 </code></pre>
 <p>首先我们判断是否在客户端，并且flag的值是否为真（为真代表要播放声音），然后获取了最近的玩家，使用了<code>this.world.playSound</code>方法播放了声音，请注意，播放声音是只有客户端执行的方法，如果你在服务端执行这个方法就会出现「为什么我的世界没有声音」这种问题。</p>
-<p><code>playSound</code>的第一二个变量很好懂，第三个变量是需要播放的声音，第三个变量是控制这个声音大小是受到哪一个声音控制分类控制的。</p>
+<p><code>playSound</code>的第一个和第二个变量很好懂，第三个变量是需要播放的声音，第三个变量是决定这个声音大小是受到哪一个声音控制分类控制的。</p>
 <p>接下来是服务端:</p>
 <pre><code class="language-java">if (!world.isRemote) {
   if (timer == MAX_TIME) {
@@ -1481,7 +1481,7 @@ public void tick() {
 <p><img src="tileentity/datasync.assets/image-20200429215140877.png" alt="image-20200429215140877" /></p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/tileentitydatasync">源代码</a></p>
 <h1><a class="header" href="#事件系统" id="事件系统">事件系统</a></h1>
-<p>在开始我们接下来的教程之前，我们得先讲讲事件系统。在之前的章节中，我一直用<code>DeferredRegister</code>系统掩盖了掩盖了掩盖了直接的事件系统，可惜的时这已经无法再隐藏下去了，在这一节中，我们将来学习事件系统，为了读者的理解，如果你已经忘了总线，事件和事件处理器是什么的话，请先翻阅之前的内容。</p>
+<p>在开始我们接下来的教程之前，我们得先讲讲事件系统。在之前的章节中，我一直用<code>DeferredRegister</code>系统掩盖了直接的事件系统，可惜的是这已经无法再隐藏下去了，在这一节中，我们将学习事件系统，为了读者方便理解，如果你已经忘了总线，事件和事件处理器是什么的话，请先翻阅之前的内容。</p>
 <p>首先要说明的是这个事件系统并不是Minecraft自带的，这个事件系统是Forge实现的。</p>
 <p>你可以用两种方式来使用事件系统，一种是实例方式，一种是静态的方式。</p>
 <pre><code class="language-java">public class MyForgeEventHandler {
@@ -1491,7 +1491,7 @@ public void tick() {
     }
 }
 </code></pre>
-<p>我们先从实例的方法开始说起。可以看到这里最为特殊的就是<code>@SubscribeEvent</code>注释，这个注释的作用就是标记下方的<code>pickupItem</code> 函数是一个事件处理器，至于它具体监听的事件由它的参数类型决定，在这里它的参数类型是<code>EntityItemPickupEvent</code>，说明它监听的是实体捡起物品这个事件。</p>
+<p>我们先从实例的方法开始说起。可以看到这里最为特殊的就是<code>@SubscribeEvent</code>注解，这个注解的作用就是标记下方的<code>pickupItem</code> 方法是一个事件处理器，至于它具体监听的事件是由它的参数类型决定的，在这里它的参数类型是<code>EntityItemPickupEvent</code>，说明它监听的是实体捡起物品这个事件。</p>
 <p>当然，对于实例方式的事件处理这样还不够，我们还得手动在某个地方实例化它并把它注入到事件总线里，我们之前说过Minecraft里有两条事件总线「Forge总线」和「mod总线」，Mod总线主要负责游戏的生命周期事件，也就是初始化过程的事件，而Forge总线负责的就是除了生命周期事件外的所有事件。你可以用<code>MinecraftForge.EVENT_BUS.register()</code>方法将你的事件实例注册到Forge总线中，也可用<code>FMLJavaModLoadingContext.get().getModEventBus().register()</code>方法将其注册到Mod总线中，一般情况下你应该在你的Mod主类的初始化方法里注册这些事件。</p>
 <p>在我们的例子里就是如下:</p>
 <pre><code class="language-java">MinecraftForge.EVENT_BUS.register(new MyForgeEventHandler());
@@ -1505,21 +1505,21 @@ public class MyStaticClientOnlyEventHandler {
     }
 }
 </code></pre>
-<p>可以看到相比之前的代码这里有两点不同，首先多了一个<code>@Mod.EventBusSubscriber()</code>注释，这个注释就是用来标注这个类里面的所有打了<code> @SubscribeEvent</code>静态方法都是事件处理器，这个注释里有好几个参数，其中最为常用的就是用来指定你所用注入的总线是什么，在默认情况下下面的事件处理注入是Forge总线，你可以用<code>@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)</code>来指定你要注入到Mod总线中。当然这里的参数不止一个，大家可以自行查看<code>@Mod.EventBusSubscriber</code>的具体内容，关于可以使用的变量都要详细的注释。</p>
-<p>这里第二点不同就是我们的事件处理函数也变成了静态的的，这是在你还不熟悉事件系统使用时非常容易出错的地方，请务必注意。</p>
+<p>可以看到相比之前的代码这里有两点不同，首先多了一个<code>@Mod.EventBusSubscriber()</code>注解，这个注解就是用来标注这个类里面的所有打了<code> @SubscribeEvent</code>静态方法都是事件处理器，这个注解里有好几个参数，其中最为常用的就是用来指定你所用注入的总线是什么，在默认情况下下面的事件处理注入是Forge总线，你可以用<code>@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)</code>来指定你要注入到Mod总线中。当然这里的参数不止一个，大家可以自行查看<code>@Mod.EventBusSubscriber</code>的具体内容，关于可以使用的变量都要详细的注释。</p>
+<p>这里第二点不同就是我们的事件处理函数也变成了静态的，这是在你还不熟悉事件系统使用时非常容易出错的地方，请务必注意。</p>
 <p>作为我个人的偏好，我更喜欢后一种静态的事件处理方式，之后的教程也会使用这个方式。</p>
 <p>当然事件系统还有很多功能，比如取消，设置结果以及设置优先级，限于篇幅大家可以自行阅读Forge的<a href="https://mcforge.readthedocs.io/en/latest/events/intro/">文档</a></p>
 <h1><a class="header" href="#自定义网络包" id="自定义网络包">自定义网络包</a></h1>
-<p>在这节中我们将要来学习如何自定义数据包。在之前的内容中我们已经讲过了如何利用Minecraft原版内置的功能来实现数据的同步，但是这些功能或多或少都有限制。在某些时候我们不得不自己来解决数据同步，在这时我们就得使用自定义数据包了。幸运的是Forge已经提供给我了一个类让我们能够简单而且方便的自定义数据包，这个类就是<code>SimpleChannel</code>，我们将来学习如何使用它。</p>
-<p>这一节的内容可能有些无聊，因为我们作出的物品并不能在游戏中产生实际的效果，但是这不代表的这节的内容不重要，让我们开始吧。</p>
+<p>在这节中我们将要来学习如何自定义数据包。在之前的内容中我们已经讲过了如何利用Minecraft原版内置的功能来实现数据的同步，但是这些功能或多或少都有限制。在某些时候我们不得不自己来解决数据同步的问题，在这时我们就得使用自定义数据包了。幸运的是Forge已经提供了一个类让我们能够简单而且方便地自定义数据包，这个类就是<code>SimpleChannel</code>，我们将学习如何使用它。</p>
+<p>这一节的内容可能有些无聊，因为我们做出的物品并不能在游戏中产生实际的效果，但是这不代表的这节的内容不重要，让我们开始吧。</p>
 <p>首先我们讲一下发包的过程，具体过程如下:</p>
 <pre><code>构建数据包=&gt;序列化成字节流 ====通过本地、局域网传输或者因特网传输===&gt; 反序列化成实例 =&gt; 实现操作
 </code></pre>
-<p>在这个过程中，前两项是在你的要发包的端执行的，后两项是在你要接受包的端执行的。</p>
-<p>无论你是想从客户端往服务端发包，还是从服务端往数据端发包，你首先要做的第一件事就是，构建数据包，这个数据包就是你要发送的具体消息。接下来是序列化成字节流，因为在网络中所有的数据都是以字节流的形式传输的，你的数据包也不例外，而又因为数据包的内容是你自己定义的，你得自己实现序列化操作。</p>
-<p>接下来数据流已经传输到了接受包的一端，你在接受时，接受的同样也是字节流，你需要从字节流中获取数据恢复数据，重建你的数据包。让你的数据包恢复成功，接下来你就可以利用这些数据来执行操作了。</p>
-<p>在Mod开发里，所有的数据包都是通过<code>SimpleChannel</code>管理的，正如这个名字暗示的那样，我们构建的数据包将通过一个个自定义的「Channle（频道」传输。</p>
-<p>接下了我们来创建数据包<code>Networking</code>:</p>
+<p>在这个过程中，前两项是在你要发送包的端执行的，后两项是在你要接受包的端执行的。</p>
+<p>无论你是想从客户端往服务端发包，还是从服务端往客户端发包，你要做的第一件事就是——构建数据包，这个数据包就是你要发送的具体消息。接下来是序列化成字节流，因为在网络中所有的数据都是以字节流的形式传输的，你的数据包也不例外，而又因为数据包的内容是你自己定义的，你得自己实现序列化操作。</p>
+<p>接下来数据流已经传输到了接受包的一端，你在接受时，接收的同样也是字节流，你需要从字节流中获取数据并恢复数据，重建你的数据包。让你的数据包恢复成功，接下来你就可以利用这些数据来执行操作了。</p>
+<p>在Mod开发里，所有的数据包都是通过<code>SimpleChannel</code>管理的，正如这个名字暗示的那样，我们构建的数据包将通过一个个自定义的「Channle（频道）」传输。</p>
+<p>接下来我们来创建数据包<code>Networking</code>:</p>
 <pre><code class="language-java">public class Networking {
     public static SimpleChannel INSTANCE;
     private static int ID = 0;
@@ -1569,7 +1569,7 @@ public class MyStaticClientOnlyEventHandler {
   });
 </code></pre>
 <p>首先我们创建了一个SimpleChannel的实例，这个实例就是我们之后发包时需要操作的对象。</p>
-<p>他有如下几个参数，第一参数<code>ResourceLocation</code>时这个<code>SimpleChannle</code>的唯一表示符，因为一个mod里可以有许多个传送数据用的<code>SimplieChannle</code>，所以需要这个标识符。第二个参数是个闭包，第三、四个参数是用来控制能否向服务端，或者向客户传输数据的，这里我们需要向两端传输数据，所以返回值都是<code>true</code>。如上我们的频道就已经构建完成了。</p>
+<p>他有如下几个参数，第一个参数<code>ResourceLocation</code>是这个<code>SimpleChannle</code>的唯一标识符，因为一个mod里可以有许多个传送数据用的<code>SimplieChannle</code>，所以需要这个标识符。第二个参数是个闭包，第三、四个参数是用来控制能否向服务或者向客户传输数据的，这里我们需要向两端传输数据，所以返回值都是<code>true</code>。如上我们的频道就已经构建完成了。</p>
 <p>接下来我们来注册数据包。</p>
 <pre><code class="language-java">INSTANCE.registerMessage(
   nextID(),
@@ -1585,8 +1585,8 @@ public class MyStaticClientOnlyEventHandler {
   }
 );
 </code></pre>
-<p>这个注册方法有5个参数，我们一一来说名，第一个参数是数据包的序号，这个数据序号不能重复，所以我们写了一个自增的函数来提供序号。第二个是一个类，这个类就是我们要自定义数据包的类，第三个参数是用来让我们序列化（把数据包实例转换成字节流）我们的数据包，这里我们不需要返回任何值，其中的pack参数就是我们第二个参数中提供的类的一个实例。第四个参数是用来反序列化数据包的（从字节流构建数据包实例），这里的我们直接调用了一个特殊的构造方法，然后返回了实例。最后一个参数是用来当接受到数据进行一系列操作的，这里的ctx是用来进行线程安全操作用的，至于是什么我们之后再讲。</p>
-<p>当然想上面那样写实在过于麻烦，其实你可以省略成下面的形式。</p>
+<p>这个注册方法有5个参数，我们一一来说明，第一个参数是数据包的序号，这个数据包序号不能重复，所以我们写了一个自增的函数来提供序号。第二个是一个类，这个类就是我们要自定义数据包的类，第三个参数是用来让我们序列化（把数据包实例转换成字节流）我们的数据包，这里我们不需要返回任何值，其中的pack参数就是我们第二个参数中提供的类的一个实例。第四个参数是用来反序列化数据包的（从字节流构建数据包实例），这里我们直接调用了一个特殊的构造方法，然后返回了实例。最后一个参数是用来当接受到数据之后进行一系列操作的，这里的ctx是用来进行线程安全操作用的，至于是什么我们之后再讲。</p>
+<p>当然像上面那样写实在过于麻烦，其实你可以省略成下面的形式。</p>
 <pre><code class="language-java">public class Networking {
     public static SimpleChannel INSTANCE;
     private static int ID = 0;
@@ -1639,8 +1639,8 @@ public class MyStaticClientOnlyEventHandler {
 }
 
 </code></pre>
-<p>首先<code>toBytes</code>和<code>SendPack(PacketBuffer buffer)</code>这个构造构造函数是刚好是一对相反的方法，它们的作用我们之前已经提及就不加赘述了。值得一说的是<code>PacketBuffer</code>下面提供了非常多方便的函数来序列化基本类型，以及在有多个变量序列化时，你得保证这两个函数中调用这些变量的顺序是相同的。</p>
-<p>然后就是<code>handler</code>方法，这个方法作用就是在接收端接收到数据以后，如何使用这些数据。请注意，这里的执行操作你必须放在<code>  ctx.get().enqueueWork</code>这个方法内，以闭包的形式执行。并且在执行完成后需要加上<code>ctx.get().setPacketHandled(true);</code>表示执行成功。之所以这么做的原因是，接受网络数据处在一个独立的进程中，所以网络包的执行需要等待时机，在线程安全的情况下执行。在这里我们只是简单的创建了一个Logger然后调用这个Logger输出了内容。</p>
+<p>首先<code>toBytes</code>方法和<code>SendPack(PacketBuffer buffer)</code>构造方法刚好是一对相反的方法，它们的作用我们之前已经提及就不加赘述了。值得一说的是<code>PacketBuffer</code>下面提供了很多非常方便的方法来序列化基本类型，以及在有多个变量序列化时，你得保证这两个方法中调用这些变量的顺序是相同的。</p>
+<p>然后就是<code>handler</code>方法，这个方法的作用就是在接收端接收到数据以后，如何使用这些数据。请注意，你必须把这里的执行操作放在<code>ctx.get().enqueueWork</code>这个方法内，以闭包的形式呈现。并且在执行完成后需要加上<code>ctx.get().setPacketHandled(true);</code>表示执行成功。之所以这么做，是因为接受网络数据处在一个独立的线程中，所以网络包的执行需要等待时机，在线程安全的情况下执行。在这里我们只是简单的创建了一个Logger然后调用这个Logger输出了内容。</p>
 <p>最后还剩下的构造方法是是用来构建发送数据用的。</p>
 <p>当然光创建了Channel和网络数据包还不够，我们在游戏启动时创建它。</p>
 <p><code>CommonEventHandler.java</code>:</p>
@@ -1694,11 +1694,11 @@ public class CommonEventHandler {
 <p>注：「Server Thread」是服务端，「Render Thread」是客户端。</p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/network">源代码</a></p>
 <h2><a class="header" href="#编程小课堂-1" id="编程小课堂-1">编程小课堂</a></h2>
-<p>在任何开始接触一个你不属性的编程项目，你要做的第一件事永远是通读这个项目的文档（如果有的话），对于我们来说就是<a href="http://mcforge.readthedocs.io/en/latest/">Forge的文档</a>，介于读者可能看不懂英文文档Forge文档也有中文翻译的，请自行搜索。</p>
+<p>在任何开始接触一个你不熟悉的编程项目，你要做的第一件事永远是通读这个项目的文档（如果有的话），对于我们来说就是<a href="http://mcforge.readthedocs.io/en/latest/">Forge的文档</a>，介于读者可能看不懂英文文档，Forge文档也有中文翻译的，请自行搜索。</p>
 <h1><a class="header" href="#gui" id="gui">Gui</a></h1>
 <p>在这节我们将进入很多人期待已久的章节，GUI（图形界面）。</p>
 <h1><a class="header" href="#第一个gui" id="第一个gui">第一个Gui</a></h1>
-<p>在这一节中，我们将来创建一个自定义的Gui，在开始教程之前，我必须要强调一点，打开Gui等操作只能在客户端执行，不能在服务端执行。</p>
+<p>在这一节中，我们将创建一个自定义的Gui，在开始教程之前，我必须要强调一点，打开Gui等操作只能在客户端执行，不能在服务端执行。</p>
 <p>与GUI相关的最直接的一个类就是<code>Screen</code>类，自然我们要创建一个类并继承<code>Screen</code>。</p>
 <p><code>ObsidianFirstGui.java</code>:</p>
 <pre><code class="language-java">public class ObsidianFirstGui extends Screen {
@@ -1771,13 +1771,13 @@ protected void init() {
   super.init();
 }
 </code></pre>
-<p>在这里我们创建了三个「Widget（组件）」——Button（按钮）、TextFieldWidget（文本框）以及Slider（滑条）。Widget 是Minecraft GUI 中最小可交互的对象。在GUI中添加Wdget大体上可以分成两步骤：</p>
+<p>在这里我们创建了三个「Widget（组件）」——Button（按钮）、TextFieldWidget（文本框）以及Slider（滑条）。Widget 是Minecraft GUI中最小可交互的对象。在GUI中添加Wdget大体上可以分成两步骤：</p>
 <ol>
-<li>创建：你需要先创建一个组件，在创建组件时你需要指定它的宽和高、X坐标和Y坐标，对于一个特殊的组件，你还得指定它的回掉函数，也就是你当你操作组件后它需要执行的内容。比如说，当你按下按钮，你需要执行的内容就是一个回调函数。</li>
-<li>添加，为了你的GUI可以使用组件，你需要在创建完组件之后讲组件添加到GUI上，对于绝大部分的组件你只需要调用<code>this.children.add(组件实例)</code>即可，按钮比较特殊，你需要调用<code>this.addButton(按钮实例)</code>。</li>
+<li>创建：你需要先创建一个组件，在创建组件时你需要指定它的宽和高、X坐标和Y坐标，对于一个特殊的组件，你还得指定它的回调函数，也就是当你操作组件后它需要执行的内容。比如说，当你按下按钮，你需要执行的内容就是一个回调函数。</li>
+<li>添加，为了你的GUI可以使用组件，你需要在创建完组件之后将组件添加到GUI上，对于绝大部分的组件你只需要调用<code>this.children.add(组件实例)</code>即可，按钮比较特殊，你需要调用<code>this.addButton(按钮实例)</code>。</li>
 </ol>
 <p>接下来我们来讲解一下窗口布局，对于我们的这个Screen类来说，你可以通过<code>this.width</code>和<code>this.height</code>来获取宽度和高度。请注意，在GUI中，X轴是从左上角向下，Y轴是从左上角向右。</p>
-<p>因为这里涉及到的方法很多，这里我就稍微讲解一下，大体上所以的组件创建的都有X，Y位置设定，以及宽和高的设定，大家可以自己看方法签名。</p>
+<p>因为这里涉及到的方法很多，我就稍微讲解一下，大体上所有的组件创建的都有X、Y位置设定，以及宽和高的设定，大家可以自己看方法签名。</p>
 <p>其中值得一讲的是:</p>
 <pre><code class="language-java">this.button = new Button(this.width / 2 - 40, 96, 80, 20, &quot;Save&quot;, (button) -&gt; {});
 </code></pre>
@@ -1787,8 +1787,8 @@ protected void init() {
  }, (setting, value) -&gt; {
  }, (gameSettings, sliderPercentageOption1) -&gt; &quot;test&quot;);
 </code></pre>
-<p>接下来是滑条，它比较特殊，你得先创建一个<code>SliderPercentageOption</code>，然后调用它的<code>createWidget</code>的组件，之所以这么做的原因是划块必须要和一个数据范围相对应。</p>
-<p>这里的第五和第六个参数是<code>getter</code>和<code>setter</code>，这个是用来设置滑条相对应的数值用的，你可在这里写上非常复杂的逻辑。当你调用它相对应的<code>set</code>和<code>get</code>方法时，会先执行你设置的这两个方法，然后仔获取值。这里我们不进行任何的设置，返回值也设置成0，最后一个方法是用来设置滑条底部文字的，因为要实现滑条处于不同地方，内容不同，所以这里是也是一个闭包（虽然我们没有用到这个功能），其他参数的意义请自行查看函数签名。</p>
+<p>接下来是滚动条，它比较特殊，你得先创建一个<code>SliderPercentageOption</code>，然后调用它的<code>createWidget</code>的组件，之所以这么做是因为滚动条必须要和一个数据范围相对应。</p>
+<p>这里的第五和第六个参数是<code>getter</code>和<code>setter</code>，这个是用来设置滚动条相对应的数值用的，你可在这里写上非常复杂的逻辑。当你调用它相对应的<code>set</code>和<code>get</code>方法时，会先执行你设置的这两个方法，然后获取值。这里我们不进行任何的设置，返回值也设置成0，最后一个方法是用来设置滚动条底部文字的，因为要实现滚动条处于不同地方时呈现不同的内容，所以这里也是一个闭包（虽然我们没有用到这个功能），其他参数的意义请自行查看函数签名。</p>
 <p>接下来就<code>render</code>方法。</p>
 <pre><code class="language-java">@Override
 public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
@@ -1807,7 +1807,7 @@ public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
 }
 </code></pre>
 <p>我们将在这里渲染背景图片。</p>
-<p>首先你需要用<code> this.minecraft.getTextureManager().bindTexture(OBSIDIAN_FIRST_GUI_TEXTURE);</code>帮你需要渲染的图片，这里用<code>ResouceLocation</code>指明了你得图片在资源包中的位置，在我们的例子里是:</p>
+<p>首先你需要用<code>this.minecraft.getTextureManager().bindTexture(OBSIDIAN_FIRST_GUI_TEXTURE);</code>绑定你需要渲染的图片，这里用<code>ResouceLocation</code>指明了你得图片在资源包中的位置，在我们的例子里是:</p>
 <pre><code class="language-java">ResourceLocation OBSIDIAN_FIRST_GUI_TEXTURE = new ResourceLocation(&quot;neutrino&quot;, &quot;textures/gui/first_gui.png&quot;);
 </code></pre>
 <p>其中第一个参数请填入你的<code>ModId</code>，后面的内容就是具体的位置。</p>
@@ -1818,10 +1818,10 @@ public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
 </code></pre>
 <p><img src="gui/firstgui.assets/ABDAB8F2-7777-4249-9249-2278B64FF5BA.jpeg" alt="ABDAB8F2-7777-4249-9249-2278B64FF5BA" /></p>
 <p>这几个参数的作用如上图。</p>
-<p>其中没有讲到的<code>U</code>和<code>V</code>（相当于是XY，用UV是计算机图形学的一个传统）是用来指定你背景图片的在实际图片中的左上角位置的。之所以要这么做的原因是，对于GPU来说切换图片是一个非常耗时的工作，所以如果可能的话，你应该把所以要用的的元素放在同一张图片中，然后通过指定不同的UV，来指定它的位置。</p>
-<p>如果当你的<code>textureHeight</code>和<code>textureWidth</code>小于<code>width</code>和<code>height</code>时，渲染结果如下。</p>
+<p>其中没有讲到的<code>U</code>和<code>V</code>（相当于是XY，用UV是计算机图形学的一个传统）是用来指定你背景图片在实际图片中的左上角位置的。之所以要这么做，是因为对于GPU来说切换图片是一个非常耗时的工作，所以如果可能的话，你应该把所以要用的的元素放在同一张图片中，然后通过指定不同的UV，来指定它的位置。</p>
+<p>当你的<code>textureHeight</code>和<code>textureWidth</code>小于<code>width</code>和<code>height</code>时，渲染结果如下。</p>
 <p><img src="gui/./firstgui.assets/image-20200501210032253.png" alt="image-20200501210032253" /></p>
-<p>如果当你的<code>textureHeight</code>和<code>textureWidth</code>大于<code>width</code>和<code>height</code>时，渲染结果如下。</p>
+<p>当你的<code>textureHeight</code>和<code>textureWidth</code>大于<code>width</code>和<code>height</code>时，渲染结果如下。</p>
 <p><img src="gui/firstgui.assets/image-20200501210423881.png" alt="image-20200501210423881" /></p>
 <p>然后我们调用如下方法，绘制了文字。</p>
 <pre><code class="language-java"> this.drawString(this.font, content, this.width / 2 - 10, 30, 0xeb0505);

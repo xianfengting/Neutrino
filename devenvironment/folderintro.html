@@ -156,9 +156,9 @@
 <p>其中的<code>minecraft </code>闭包下的内容就是关于Forge Gradle的配置。</p>
 <p>其中<code>mappings channel: 'snapshot', version: '20190719-1.14.3’</code>配置项规定了本项目使用的mapping文件版本，这里我强烈建议你经常更新mapping文件，你可以在<a href="http://export.mcpbot.bspk.rs/">这里</a>找到所有的mapping文件。那么什么是mapping文件呢？还记得我们之间提及的<code>srg名</code>和<code>mcp名</code>吗？mapping文件的作用就是提供<code>srg名</code>和<code>mcp名</code>之间的翻译。</p>
 <p><code>channel</code>的意思是mapping文件的分类，在大部分情况下，你都应该使用<code>snapshot</code>（快照版本）来确保你的mcp名字是最新的。而之后的<code>version</code>就是具体的版本了，大部分情况下是高版本游戏兼容低版本mapping的，当然游戏版本号不能相差太远。其中还有两个被注释起来的参数，这里我们暂且不提。</p>
-<p>另外一个你可能会用的就是<code>dependencies</code>配置，如果你的mod需要依赖别的java库或者别的mod，你需要在这里添加内容，具体添加的方式，注释已经给出了详细的例子，这里就不多说了。其中<code>minecraft 'net.minecraftforge:forge:1.15.2-31.1.0’</code>规定了你需要用到的Forge版本，如果你想升级Forge版本可以修改这一行的内容，版本的格式是<code>net.minecraftforge:forge:游戏版本号-Forge版本号</code>。</p>
+<p>另外一个你可能会用的就是<code>dependencies</code>配置，如果你的mod需要依赖别的java库或者别的mod，你需要在这里添加内容，具体添加的方式，注释已经给出了详细的例子，这里就不多说了。其中<code>minecraft 'net.minecraftforge:forge:1.15.2-31.1.0'</code>规定了你需要用到的Forge版本，如果你想升级Forge版本可以修改这一行的内容，版本的格式是<code>net.minecraftforge:forge:游戏版本号-Forge版本号</code>。</p>
 <p>这个文件剩余的部分就和一个普通的<code>build.gradle</code>没什么差别了，如果想知道更详细的知识建议去学习Gradle。</p>
-<p>接下去的就是<code>src</code>文件夹，这里是放我们代码和文件的地方，其中<code>main</code>文件夹是具体运行代码和文件的地方，<code>test</code>文件夹是放测试代码的地方。<code>main</code>文件夹下的<code>java</code>就是放我们写的java代码的地方，而<code>resources</code>文件夹里放的则是我们的材质模型等一些不是代码，但是mod内容一部分的东西。</p>
+<p>接下去的就是<code>src</code>文件夹，这里是放我们代码和文件的地方，其中<code>main</code>文件夹是具体运行代码和文件的地方，<code>test</code>文件夹是放测试代码的地方。<code>main</code>文件夹下的<code>java</code>就是放我们写的java代码的地方，而<code>resources</code>文件夹里放的则是我们的材质模型等一些除了代码之外的属于mod的内容。</p>
 <p>接下去是<code>run</code>文件夹，这个基本上就是一个标准的<code>.minecraft</code>文件夹，值得注意的是，因为开发环境是同时有Minecraft客户端和服务器代码的，它们两个是共用<code>run</code>目录的。</p>
 <p>剩下值得一提的就是<code>build</code>目录，当你在Gradle面板里运行<code>build</code>任务，你的mod就会被打包好放在<code>build=&gt;libs</code>下。</p>
 <p>剩下所有带<code>gradle</code>相关的文件夹和文件都是Gradle所需要的运行和配置文件，请不要随便删除。</p>

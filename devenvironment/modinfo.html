@@ -160,9 +160,9 @@
 <p><img src="modinfo.assets/image-20200427085305020.png" alt="image-20200427085305020" /></p>
 <p>然后点击右侧Gradle面板的重新导入按钮，重新导入项目，因为<code>build.gradle</code>文件非常的重要，请注意不要改错。</p>
 <p><img src="modinfo.assets/image-20200427082837751.png" alt="image-20200427082837751" /></p>
-<p>这个过程可能会涉及下载文件（但不会很多），有错误的可能性，出错了请检查你的<code>build.gradle</code>内容有没有填错，然后多试几次。</p>
+<p>这个过程可能会涉及下载文件（但不会很多），有出现错误的可能性，出错了请检查你的<code>build.gradle</code>内容有没有填错，然后多试几次。</p>
 <h2><a class="header" href="#配置" id="配置">配置</a></h2>
-<p>首先我们先选中<code>java</code>文件夹下所有的目录和文件，然后右键删除Java包下的默认类。</p>
+<p>首先我们选中<code>java</code>文件夹下所有的目录和文件，然后右键删除Java包下的默认类。</p>
 <p><img src="modinfo.assets/image-20200427074821172.png" alt="image-20200427074821172" /></p>
 <p>然后再右键新建立一个包</p>
 <p><img src="modinfo.assets/image-20200427074901407.png" alt="image-20200427074901407" /></p>
@@ -177,7 +177,7 @@
         └── neutrino
             └── Neutrino.java
 </code></pre>
-<p>然后进入<code>Neutrino</code>在类名的上方添加一个<code>@Mod()</code>注释，其中填入的参数是你的<code>modId</code>，那么什么是你的<code>modId</code>呢？<code>modId</code>就是你mod名字的唯一标识符，请注意<code>modId</code>和你的mod名字并不是同一个东西，它不允许大写字母，也不允许空格等内容。在这里我们选用的<code>modId</code>是<code>neutrino</code>。添加完成后内容如下:</p>
+<p>然后进入<code>Neutrino</code>在类名的上方添加一个<code>@Mod()</code>注解，其中填入的参数是你的<code>modId</code>，那么什么是你的<code>modId</code>呢？<code>modId</code>就是你mod名字的唯一标识符，请注意<code>modId</code>和你的mod名字并不是同一个东西，它不允许大写字母，也不允许空格等内容。在这里我们选用的<code>modId</code>是<code>neutrino</code>。添加完成后内容如下:</p>
 <pre><code class="language-java">@Mod(&quot;neutrino&quot;)
 public class Neutrino {
 }
