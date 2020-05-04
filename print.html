@@ -2179,7 +2179,7 @@ public AgeableEntity createChild(AgeableEntity ageable) {
 <p>在这里我们使用了<code>@CapabilityInject</code>注解，来表示我们的定义的变量是Capability，并且会在正式注册完这个Capability后给下面的变量赋值。这里的参数和下方的泛型，都应该是你之前定义的Capability的接口。</p>
 <p>最后我们来正式注册它。</p>
 <pre><code class="language-java">@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class CommonSetUpEventHandler {
+public class CommonSetupEventHandler {
     @SubscribeEvent
     public static void onSetUpEvent(FMLCommonSetupEvent event) {
         CapabilityManager.INSTANCE.register(
