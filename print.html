@@ -2661,7 +2661,7 @@ player.setItemStackToSlot(EquipmentSlotType.MAINHAND, stack);
     }
 
     @Override
-    public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
+    public void render(int mouseX, int mouseY, float particleTick) {
         this.renderBackground();
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bindTexture(OBSIDIAN_FIRST_GUI_TEXTURE);
@@ -2670,10 +2670,10 @@ player.setItemStackToSlot(EquipmentSlotType.MAINHAND, stack);
         this.blit(this.width / 2 - 150, 10, 0, 0, 300, 200, textureWidth, textureHeight);
         this.drawString(this.font, content, this.width / 2 - 10, 30, 0xeb0505);
 
-        this.textFieldWidget.render(p_render_1_, p_render_2_, p_render_3_);
-        this.button.render(p_render_1_, p_render_2_, p_render_3_);
-        this.sliderBar.render(p_render_1_, p_render_2_, p_render_3_);
-        super.render(p_render_1_, p_render_2_, p_render_3_);
+        this.textFieldWidget.render(mouseX, mouseY, particleTick);
+        this.button.render(mouseX, mouseY, particleTick);
+        this.sliderBar.render(mouseX, mouseY, particleTick);
+        super.render(mouseX, mouseY, particleTick);
     }
 }
 </code></pre>
@@ -2726,10 +2726,10 @@ public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
   this.blit(this.width / 2 - 150, 10, 0, 0, 300, 200, textureWidth, textureHeight);
   this.drawString(this.font, content, this.width / 2 - 10, 30, 0xeb0505);
 
-  this.textFieldWidget.render(p_render_1_, p_render_2_, p_render_3_);
-  this.button.render(p_render_1_, p_render_2_, p_render_3_);
-  this.sliderBar.render(p_render_1_, p_render_2_, p_render_3_);
-  super.render(p_render_1_, p_render_2_, p_render_3_);
+  this.textFieldWidget.render(mouseX, mouseY, particleTick);
+  this.button.render(mouseX, mouseY, particleTick);
+  this.sliderBar.render(mouseX, mouseY, particleTick);
+  super.render(mouseX, mouseY, particleTick);
 }
 </code></pre>
 <p>我们将在这里渲染背景图片。</p>
@@ -2753,9 +2753,9 @@ public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
 <pre><code class="language-java"> this.drawString(this.font, content, this.width / 2 - 10, 30, 0xeb0505);
 </code></pre>
 <p>然后调用如下方法绘制了我们的组件:</p>
-<pre><code class="language-java">  this.textFieldWidget.render(p_render_1_, p_render_2_, p_render_3_);
-  this.button.render(p_render_1_, p_render_2_, p_render_3_);
-  this.sliderBar.render(p_render_1_, p_render_2_, p_render_3_);
+<pre><code class="language-java">this.textFieldWidget.render(mouseX, mouseY, particleTick);
+this.button.render(mouseX, mouseY, particleTick);
+this.sliderBar.render(mouseX, mouseY, particleTick);
 </code></pre>
 <p>至于打开一个只存在在客户端的GUI也很简单，<code>ObsidianFirstGuiItem</code>:</p>
 <pre><code class="language-java">public class ObsidianFirstGuiItem extends Item {
@@ -2776,6 +2776,8 @@ public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
 <p>打开游戏你就可以看见我们的GUI被渲染出来了。</p>
 <p><img src="gui/firstgui.assets/image-20200502103302036.png" alt="image-20200502103302036" /></p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/first_gui">源代码</a></p>
+<h2><a class="header" href="#编程小课堂-4" id="编程小课堂-4">编程小课堂</a></h2>
+<p>在Mod开发中请不要使用<code>Time.sleep</code>来计时，这种行为非常非常的愚蠢，如果你需要计时，请使用游戏内置的Tick。</p>
 <h1><a class="header" href="#container" id="container">Container</a></h1>
 <p>在上一节中，我们已经学习了如何创建一个非常简单的GUI，但是那个GUI显然有些功能是实现不了的。在这节中，我们将要来学习GUI中一个非常重要的类，Container。</p>
 <p>在开始之前我们先要回答Container是什么，已经它的存在是为了什么。Container和Screen的关系有点像是，Block和TileEntity的关系，Container本身不会被渲染，它存在的意义就是用来临时的储存数据（Container没法把数据保存到硬盘上）以及数据同步。但是很可惜的是Container所能同步的数据非常有限，不过就是Inventory和IntArray而已，如果你需要更加复杂的数据同步，那只能自己手动发包了。</p>
@@ -3320,7 +3322,7 @@ public static void onModelBaked(ModelBakeEvent event)
 <p>打开游戏，你就可以看到我们创建的「隐藏方块」了。</p>
 <p><img src="specialrender/ibakedmodel.assets/image-20200430173122813.png" alt="image-20200430173122813" /></p>
 <p>在这张图片里上面的方块都是同一种方块。</p>
-<h2><a class="header" href="#编程小课堂-4" id="编程小课堂-4">编程小课堂</a></h2>
+<h2><a class="header" href="#编程小课堂-5" id="编程小课堂-5">编程小课堂</a></h2>
 <p>在Forge里，所以的事件都是<code>Event</code>类的之类，所以你可通过查看<code>Event</code>类继承树的方式查看到Forge提供的所有事件。</p>
 <h1><a class="header" href="#tileentityrenderer方块实体渲染器" id="tileentityrenderer方块实体渲染器">TileEntityRenderer(方块实体渲染器)</a></h1>
 <h1><a class="header" href="#itemstacktileentityrenderer物品特殊渲染" id="itemstacktileentityrenderer物品特殊渲染">ItemStackTileEntityRenderer(物品特殊渲染)</a></h1>
