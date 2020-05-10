@@ -3584,6 +3584,39 @@ public class HudClientEvent {
 <hr />
 <p>在你阅读世界生成相关的代码时可能会看见类似于<code>NetherGenSettings</code>名字末尾带个<code>Settings</code>的类，不用太害怕这种类，他们的作用只是为了配置一些属性。一个种是类似于<code>OverworldBiomeProvider</code>这样名字后面带一个<code>Provider</code>的类，这其实是一种叫做<code>Provider model(提供者模型)</code>的设计模式，当你看到这种类，只需要知道这些类最后会产生出他们去掉名字中<code>Provider</code>部分的类。</p>
 <h1><a class="header" href="#矿物生成" id="矿物生成">矿物生成</a></h1>
+<p>在这节中我们将来学习如何进行矿物生成。在学习这件之前请阅读本章的介绍，对世界生成有个大概的印象。</p>
+<p>正如我们之前所说的，矿物生属于<code>Biome</code> 的个<code>Feature</code>，而如果你想要添加矿物生成，其实也就是向生物群系中添加一个新的<code>Feature</code>。接下来看代码</p>
+<pre><code class="language-java">@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+public class OreGen {
+    @SubscribeEvent
+    public static void onSetUpEvent(FMLCommonSetupEvent event) {
+        for (Biome biome : ForgeRegistries.BIOMES) {
+            biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
+                    Feature.ORE.withConfiguration(
+                            new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                                    BlockRegistry.obsidianBlock.get().getDefaultState(),
+                                    3)
+                    ).withPlacement(Placement.COUNT_DEPTH_AVERAGE.configure(new DepthAverageConfig(30, 30, 20)))
+            );
+        }
+    }
+}
+</code></pre>
+<p>没错就这么简单。</p>
+<p>因为所有的世界生成都是服务端的行为，所以这里我们自然需要订阅<code>FMLCommonSetupEvent</code>事件。</p>
+<p>然后我们通过<code>ForgeRegistries.BIOMES</code>获取所有注册好的生物群系，并且调用<code>biome.addFeature</code>向生物群系中添加<code>Feature</code>（也就是我们的矿物）。<code>Feature</code>有不同的阶段，这里我们填入的是<code>GenerationStage.Decoration.UNDERGROUND_ORES</code>代表矿物生成阶段。然后就是通过<code>Feature.ORE.withConfiguration</code>来创建一个矿物生成的<code>Feature</code>。</p>
+<pre><code class="language-java">Feature.ORE.withConfiguration(
+  new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                       BlockRegistry.obsidianBlock.get().getDefaultState(),
+                       3))
+  .withPlacement(Placement.COUNT_DEPTH_AVERAGE.configure(new DepthAverageConfig(30, 30, 20)))
+)
+</code></pre>
+<p><code>Feature.ORE.withConfiguration</code>需要传入一个<code>OreFeatureConfig</code>用来配置我们的矿物生成<code>Feature</code>,因为我们是在主世界生成矿物，所以一个参数填入的是<code>OreFeatureConfig.FillerBlockType.NATURAL_STONE</code>，第二个参数指定你要生成方块的默认状态，这里我们选择生成我们之前创建的黑曜石方块，第三个参数控制了每次生成的最大数量。</p>
+<p>光这样你的矿物还没发生成，因为你还没有指定你的矿物需要生成在哪里，生成几次。这就是<code>withPlacement</code>的作用，这里你要传入一个<code>Placement</code>，这个<code>Placement</code>是用来控制你的<code>Feature</code>需要生成在哪里的，原版提供了很多的<code>Placement</code>，这里我们使用<code>Placement.COUNT_DEPTH_AVERAGE</code>，调用它的<code>configure</code>的方法，里面需要传入一个<code>DepthAverageConfig</code>，这里的三个参数分别控制的，每个区块的生成次数，最低生成高度，以及生成范围。</p>
+<p>至此，我们的矿物生成以及创建完毕。</p>
+<p><img src="worldgeneration/oregeneration.assets/image-20200510194853386.png" alt="image-20200510194853386" /></p>
+<p>可以看见我们的矿物正常的生成了。</p>
 <h1><a class="header" href="#结构生成" id="结构生成">结构生成</a></h1>
 <h1><a class="header" href="#自定义生物群系" id="自定义生物群系">自定义生物群系</a></h1>
 <h1><a class="header" href="#自定义维度" id="自定义维度">自定义维度</a></h1>
