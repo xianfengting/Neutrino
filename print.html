@@ -646,6 +646,8 @@ public class Neutrino {
 <p>此时打开游戏我们的黑曜石碇应该就在指定的物品栏里了。</p>
 <p><img src="item/group.assets/image-20200427211358242.png" alt="image-20200427211358242" /></p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/group">源代码</a></p>
+<h2><a class="header" href="#编程小课堂" id="编程小课堂">编程小课堂</a></h2>
+<p>如果在编程中遇见了自己不会的事情，第一件事不应该是想着问别人，而是上网搜索，你遇见的绝大部问题别人都以及遇见过了，如果你没有搜索就问别人，是在同时浪费你自己和别人的时间</p>
 <h1><a class="header" href="#语言文件与本地化" id="语言文件与本地化">语言文件与本地化</a></h1>
 <p>在这一节中，我们将学习如何给我的物品添加名称。</p>
 <p>在前面的章节，我们创建的物品都是没有一个有意义的名字的，在这一节中我们将给他们加上一个有意义的名字。</p>
@@ -1258,7 +1260,7 @@ public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockP
 </code></pre>
 <p>我们在这里加入了<code>markDirty()</code>方法，这个方法的意思是标记了我们数据被修改，在游戏关闭的时候要保存调用保存方法。之所以这么做，是因为相对于CPU的执行速度，硬盘的保存和读写速度是非常慢的，所以如果频繁的进行保存和读写操作会严重拖慢游戏的速度，一个合理的方法就是标记我们需要保存的数据，然后在一个统一的时间点一起保存，<code>markDirty()</code>的作用正是如此。</p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/first_tileentity">源代码</a></p>
-<h2><a class="header" href="#编程小课堂" id="编程小课堂">编程小课堂</a></h2>
+<h2><a class="header" href="#编程小课堂-1" id="编程小课堂-1">编程小课堂</a></h2>
 <p>对于CPU来说每个指令大概需要 0.38ns，以此作为基本单位 1s的话，从从磁盘读取 1MB 的连续数据需要 20ms，对比 CPU 的时间是 20 个月，所以磁盘读写速度是非常慢的。</p>
 <h1><a class="header" href="#itickabletileentity" id="itickabletileentity">ITickableTileEntity</a></h1>
 <p>在这一节中，我们来学习TileEntity中最为重要的一个接口：<code>ITickableTileEntity</code>。</p>
@@ -1697,7 +1699,7 @@ public static void onModelBaked(ModelBakeEvent event)
 <p>打开游戏，你就可以看到我们创建的「隐藏方块」了。</p>
 <p><img src="specialrender/ibakedmodel.assets/image-20200430173122813.png" alt="image-20200430173122813" /></p>
 <p>在这张图片里上面的方块都是同一种方块。</p>
-<h2><a class="header" href="#编程小课堂-1" id="编程小课堂-1">编程小课堂</a></h2>
+<h2><a class="header" href="#编程小课堂-2" id="编程小课堂-2">编程小课堂</a></h2>
 <p>在Forge里，所以的事件都是<code>Event</code>类的之类，所以你可通过查看<code>Event</code>类继承树的方式查看到Forge提供的所有事件。</p>
 <h1><a class="header" href="#tileentityrenderer方块实体渲染器" id="tileentityrenderer方块实体渲染器">TileEntityRenderer(方块实体渲染器)</a></h1>
 <p>在这节中，我们将来学习一个非常重要的渲染方式<code>TileEntityRenderer</code>剪成<code>TER</code>。在开始之前我们首先需要知道<code>TER</code>的作用是什么。让我回想一下原版中的箱子、附魔台。它们都有特殊的动画，而<code>TER</code>的作用就是让你也可以实现这些动画。</p>
@@ -2037,7 +2039,7 @@ public class CommonEventHandler {
 <p><img src="networking/intro.assets/image-20200501102439453.png" alt="image-20200501102439453" /></p>
 <p>注：「Server Thread」是服务端，「Render Thread」是客户端。</p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/network">源代码</a></p>
-<h2><a class="header" href="#编程小课堂-2" id="编程小课堂-2">编程小课堂</a></h2>
+<h2><a class="header" href="#编程小课堂-3" id="编程小课堂-3">编程小课堂</a></h2>
 <p>在任何开始接触一个你不熟悉的编程项目，你要做的第一件事永远是通读这个项目的文档（如果有的话），对于我们来说就是<a href="http://mcforge.readthedocs.io/en/latest/">Forge的文档</a>，介于读者可能看不懂英文文档，Forge文档也有中文翻译的，请自行搜索。</p>
 <h1><a class="header" href="#实体" id="实体">实体</a></h1>
 <h1><a class="header" href="#从零构建一个实体和数据同步" id="从零构建一个实体和数据同步">从零构建一个实体和数据同步</a></h1>
@@ -2300,7 +2302,7 @@ public class ClientEventHandler {
 <p><img src="entity/scratchentity.assets/image-20200503201357602.png" alt="image-20200503201357602" /></p>
 <p>并且数据也已经同步了。</p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/first_entity">源代码</a></p>
-<h2><a class="header" href="#编程小课堂-3" id="编程小课堂-3">编程小课堂</a></h2>
+<h2><a class="header" href="#编程小课堂-4" id="编程小课堂-4">编程小课堂</a></h2>
 <p><a href="https://github.com/TheGreyGhost/MinecraftByExample">MinecraftByExample</a>项目的作者<a href="https://github.com/TheGreyGhost/MinecraftByExample/commits?author=TheGreyGhost">TheGreyGhost</a>的<a href="http://greyminecraftcoder.blogspot.com/p/list-of-topics-1144.html">博客</a>里有非常多关于Minecraft渲染相关的内容，大家可以自行阅读。</p>
 <p>如果你打不开这个博客，可能是由于你的国家封锁了这个网站，请自行寻找方法解决。</p>
 <h1><a class="header" href="#创建一个动物和ai" id="创建一个动物和ai">创建一个动物和AI</a></h1>
@@ -2783,7 +2785,7 @@ public static void onPlayerCloned(PlayerEvent.Clone event) {
 <p><img src="capability/attachcapabilityprovider.assets/image-20200505102131455.png" alt="image-20200505102131455" /></p>
 <p>打开游戏，右键相对应的物品，你就能看到等级被显示了。</p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/entity_capabilityprovider">源代码</a></p>
-<h2><a class="header" href="#编程小课堂-4" id="编程小课堂-4">编程小课堂</a></h2>
+<h2><a class="header" href="#编程小课堂-5" id="编程小课堂-5">编程小课堂</a></h2>
 <p>在写Mod的时候，你必须学会看源代码和Debug（比如下断点）等。这些是基本技能。</p>
 <h1><a class="header" href="#worldsaveddata世界数据保存" id="worldsaveddata世界数据保存">WorldSavedData(世界数据保存)</a></h1>
 <p>在这节中，我们将来学习另外一种可以保存数据的方法，这就是World Saved Data。World Saved Data 是Minecraft 提供的一种可以让你保存和共享数据的类。World Saved Data 是在维度级别的，你只能指定某个维度拥有一个WorldSavedData，里面保存的数据是所以玩家通用的，并且用World Saved Data保存的数据与存档数据是分开存放的。</p>
@@ -3124,7 +3126,7 @@ this.sliderBar.render(mouseX, mouseY, particleTick);
 <p>打开游戏你就可以看见我们的GUI被渲染出来了。</p>
 <p><img src="gui/firstgui.assets/image-20200502103302036.png" alt="image-20200502103302036" /></p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/first_gui">源代码</a></p>
-<h2><a class="header" href="#编程小课堂-5" id="编程小课堂-5">编程小课堂</a></h2>
+<h2><a class="header" href="#编程小课堂-6" id="编程小课堂-6">编程小课堂</a></h2>
 <p>在Mod开发中请不要使用<code>Time.sleep</code>来计时，这种行为非常非常的愚蠢，如果你需要计时，请使用游戏内置的Tick。</p>
 <h1><a class="header" href="#container" id="container">Container</a></h1>
 <p>在上一节中，我们已经学习了如何创建一个非常简单的GUI，但是那个GUI显然有些功能是实现不了的。在这节中，我们将要来学习GUI中一个非常重要的类，Container。</p>
