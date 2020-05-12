@@ -148,7 +148,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#结构生成" id="结构生成">结构生成</a></h1>
-<p>在这节中我们将来学习如何创建一个自定义的结构，并且在世界中自动生成它。我们讲以钻石小屋作为例子。</p>
+<p>在这节中我们将来学习如何创建一个自定义的结构，并且在世界中自动生成它。我们将以钻石小屋作为例子。</p>
 <p>首先既然我们的要自定义的是一个结构，那么也就需要创建一个结构，内容如下:</p>
 <pre><code class="language-java">public class DiamondHouseStructure extends Structure&lt;NoFeatureConfig&gt; {
     public DiamondHouseStructure(Function&lt;Dynamic&lt;?&gt;, ? extends NoFeatureConfig&gt; configFactoryIn) {
@@ -195,7 +195,7 @@
     }
 }
 </code></pre>
-<p>首先可以看见我们的<code>DiamondHouseStructure</code>继承了<code>Structure&lt;NoFeatureConfig&gt;</code>，这里的<code>NoFeatureConfig</code>表明了我们的结构是没有配置的。</p>
+<p>首先可以看见我们的<code>DiamondHouseStructure</code>继承了<code>Structure&lt;NoFeatureConfig&gt;</code>，这里的<code>NoFeatureConfig</code>表明了我们的结构是不需要配置文件的。</p>
 <p>其中<code>canBeGenerated</code>代表了结构会生成的可能性，这里我们设置为3%。<code>getStructureName</code>代表了结构的名字，<code>getSize</code>具体作用不明，大部分原版结构值都为3。</p>
 <p>接下来是<code>Start</code>类。</p>
 <pre><code class="language-java">public static class Start extends StructureStart {
@@ -219,6 +219,7 @@
 this.components.add(diamondHouseStructurePiece);
 </code></pre>
 <p>首先我们创建了一个自定义的<code>StructurePiece</code>，然后将它添加到了<code>Structure</code>自带的<code>components</code>中，也就是给我们的结构添加了一个结构组件。</p>
+<p>最后的<code>recalculateStructureSize</code>，用于重新计算结构的边界大小，需要填写。</p>
 <p>接下来我们来看看<code>DiamondHouseStructurePiece</code>具体的内容。</p>
 <pre><code class="language-java">public class DiamondHouseStructurePiece extends ScatteredStructurePiece {
     private static final DiamondHouseStructurePiece.Selector BUILD_STONE_SELECTOR = new DiamondHouseStructurePiece.Selector();
@@ -267,6 +268,7 @@ this.components.add(diamondHouseStructurePiece);
 </code></pre>
 <p>这里和物品、方块的注册没什么太大的区别，值得注意的是，因为<code>Structure</code>其实只是一种特殊的<code>Feature</code>，所以我们填的是<code>DeferredRegister&lt;Feature&lt;?&gt;&gt;</code>。</p>
 <p>然后又因为我们的<code>DiamondHouseStructure</code>是没有配置文件的，所以传入了一个<code>NoFeatureConfig.deserialize</code>。</p>
+<p>同样的，别忘了在你的Mod主类中将<code>FEATURES</code>注册到Mod总线中。</p>
 <p>接下来我们看<code>StructurePiece</code>的注册。</p>
 <pre><code class="language-java">@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonEventHandler {
@@ -287,6 +289,7 @@ public class CommonEventHandler {
 <p>然后就和矿物生成的步骤类似添加结构。但是这里请注意，我们需要调用两个方法首先我们得调用<code>addStructure</code>添加结构，然后调用<code>addFeature</code>让这个结构可以生成，因为我们的<code>Structure</code>是<code>NoFeatureConfig</code>的，所以<code>withConfiguration</code>和<code>withPlacement</code>都填入相对应的<code>NoFeatureConfig</code>就行。</p>
 <p>到此，结构已经注册和添加完毕，打开游戏，新建一个存档看看，你应该就能发现世界中自然生成的钻石小屋了。</p>
 <p><img src="structuregeneration.assets/image-20200512174944649.png" alt="image-20200512174944649" /></p>
+<p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/strcutre">源代码</a></p>
 
                     </main>
 
