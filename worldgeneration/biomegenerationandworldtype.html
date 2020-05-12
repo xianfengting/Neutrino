@@ -148,6 +148,80 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#自定义生物群系和世界类型" id="自定义生物群系和世界类型">自定义生物群系和世界类型</a></h1>
+<p>在这节中，我们将来学习如何添加一个自定义的生物群系，</p>
+<p>和结构类似，首先我们的新建一个类，继承原版的生物群系。</p>
+<pre><code class="language-java">public class ObsidianBiome extends Biome {
+    protected ObsidianBiome(Builder biomeBuilder) {
+        super(biomeBuilder);
+        this.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, Blocks.GOLD_ORE.getDefaultState(), 9)).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(20, 32, 32, 80))));
+        this.addSpawn(EntityClassification.AMBIENT, new SpawnListEntry(EntityType.WITHER_SKELETON, 30, 5, 10));
+        DefaultBiomeFeatures.addCarvers(this);
+    }
+}
+</code></pre>
+<p>可以看到这里的内容非常的简单，不过就是给我的的生物群系添加<code>Feature</code>子类的，之前已经写过自然生成的大家对这些方法并不陌生。唯一一个值得说的是<code>DefaultBiomeFeatures</code>，原版在这里定义了一些预先设置好的<code>Feature</code>、<code>Structure</code>、<code>Carvers</code>和<code>Spawn</code>，大家可以直接调用里面自带的方法。</p>
+<p>接下来就是注册我们的生物群系</p>
+<pre><code class="language-java">public class BiomeRegistry {
+    public static final DeferredRegister&lt;Biome&gt; BIOMES = new DeferredRegister&lt;&gt;(ForgeRegistries.BIOMES, &quot;neutrino&quot;);
+    public static RegistryObject&lt;ObsidianBiome&gt; obsidianBiome = BIOMES.register(&quot;obsidian_biome&quot;, () -&gt; {
+        return new ObsidianBiome(new Biome.Builder().category(Biome.Category.PLAINS)
+                .surfaceBuilder(SurfaceBuilder.DEFAULT,
+                        new SurfaceBuilderConfig(Blocks.OBSIDIAN.getDefaultState(), Blocks.STONE.getDefaultState(), Blocks.END_STONE.getDefaultState())
+                )
+                .scale(3f)
+                .downfall(0.5f)
+                .precipitation(Biome.RainType.SNOW)
+                .depth(1f)
+                .temperature(0.7f)
+                .waterColor(0x0c0a15)
+                .waterFogColor(0x632ebf)
+        );
+    });
+}
+</code></pre>
+<p>这里的内容也类似，因为这里的参数过多，很多参数也没发简单的解释，这里就不多加解释为什么了。我建议大家自行参照原版的实现填写内容。</p>
+<p>当然别忘了在Mod主类中，将<code>BIOMES</code>注册到Mod总线中。</p>
+<p>创建完成之后，接下来就是将我们的生物群系添加到主世界的世界生成中。</p>
+<pre><code class="language-java">@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+public class CommonSetupEvent {
+    @SubscribeEvent
+    public static void onCommonSetup(FMLCommonSetupEvent event) {
+        BiomeManager.addBiome(BiomeManager.BiomeType.COOL, new BiomeManager.BiomeEntry(BiomeRegistry.obsidianBiome.get(), 1000));
+    }
+}
+</code></pre>
+<p>这里我们在<code>FMLCommonSetupEvent</code>世界中，调用<code>BiomeManager.addBiome</code>添加了我们的生物群系，<code>BiomeManager.BiomeEntry</code>构造方法的第二个参数是权重，这里我们填的高点让我们的生物群系更容易被找到。</p>
+<p>打开游戏寻找一下，应该就能看见我们的生物群系了。</p>
+<p><img src="biomegenerationandworldtype.assets/image-20200512183933026.png" alt="image-20200512183933026" /></p>
+<p>但是寻找生物群系有时候是非常麻烦的事情，我们可以创建一个<code>WorldType</code>来帮助我们调试生物群系。所谓的<code>WorldType</code>就是原版中的<code>默认</code>、<code>超平坦</code>、<code>巨大化</code>等。</p>
+<p>当然，创建一个自定义的也非常简单</p>
+<pre><code class="language-java">public class ObsidianWorldType extends WorldType {
+    public ObsidianWorldType() {
+        super(&quot;neutrino_type&quot;);
+    }
+
+    @Override
+    public ChunkGenerator&lt;?&gt; createChunkGenerator(World world) {
+        OverworldGenSettings settings = new OverworldGenSettings();
+        SingleBiomeProvider singleBiomeProvider = new SingleBiomeProvider(new SingleBiomeProviderSettings(world.getWorldInfo()).setBiome(BiomeRegistry.obsidianBiome.get()));
+        return new OverworldChunkGenerator(world, singleBiomeProvider, settings);
+    }
+}
+</code></pre>
+<p>这里我们直接继承了<code>WorldType</code>类。</p>
+<p>它的构造方法里需要填入一个名字，请注意这个名字不能超过16个字符</p>
+<p>然后就是他的<code>createChunkGenerator</code>方法，这里需要返回一个<code>ChunkGenerator</code>，因为我们希望能像原版主世界的一样的地形起伏，所以返回的是<code>OverworldChunkGenerator</code>。因为我们只需要生成一种生物群系，所以在这里用了 <code>SingleBiomeProvider</code>(单一生物群系提供器)。还有一个<code>OverworldGenSettings</code>就没什么好讲的了。</p>
+<p>创建完成之后，我们只需要在你的主类中，创建一个变量实例化它就行。</p>
+<pre><code class="language-java">@Mod(&quot;neutrino&quot;)
+public class Neutrino {
+   public static final ObsidianWorldType obsidianWorldType = new ObsidianWorldType();
+   public Neutrino() {
+   ...代码省略...
+</code></pre>
+<p>此时打开游戏，你应该就能看见新的世界类型了</p>
+<p><img src="biomegenerationandworldtype.assets/image-20200512185020541.png" alt="image-20200512185020541" /></p>
+<p>创建一个存档试试吧。</p>
+<p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/biome">源代码</a></p>
 
                     </main>
 
