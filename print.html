@@ -305,9 +305,9 @@
 <p>剩下所有带<code>gradle</code>相关的文件夹和文件都是Gradle所需要的运行和配置文件，请不要随便删除。</p>
 <h1><a class="header" href="#自定义mod信息" id="自定义mod信息">自定义mod信息</a></h1>
 <p>从这节起我们就会开始正式的写我们mod了！</p>
-<h2><a class="header" href="#更新mapping" id="更新mapping">更新Mapping</a></h2>
+<h2><a class="header" href="#更新mappings" id="更新mappings">更新Mappings</a></h2>
 <p>在开始之前我们需要更新一下Mapping文件，如果不知道Mapping文件的作用，请向前翻阅。再提醒一次，你可以在<a href="http://export.mcpbot.bspk.rs/">这里</a>找到最新的mapping文件。</p>
-<p>在我写这段时，1.15最新的mapping文件是<code>20200426-1.15.1</code>。</p>
+<p><strong>请确保你的mappings文件版本新于<code>20200512-1.15.1</code></strong>。</p>
 <p><img src="devenvironment/modinfo.assets/image-20200427082638163.png" alt="image-20200427082638163" /></p>
 <p>于是我们需要将<code>build.gradle</code>下的<code>mappings channel: 'snapshot', version: '20190719-1.14.3’</code>修改为<code>mappings channel: 'snapshot', version: '20200426-1.15.1’</code>。</p>
 <p><img src="devenvironment/modinfo.assets/image-20200427085305020.png" alt="image-20200427085305020" /></p>
