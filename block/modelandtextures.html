@@ -148,7 +148,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#方块模型和材质" id="方块模型和材质">方块模型和材质</a></h1>
-<p>我们已经成功地创建了一个方块，但是这个方块还很丑，就是一个紫黑怪物而已。在这一节中，我们就要来为这个方块添加模型的材质。</p>
+<p>我们已经成功地创建了一个方块，但是这个方块还很丑，就是一个紫黑块而已。在这一节中，我们就要来为这个方块添加模型和材质。</p>
 <p>首先我们创建一些文件夹，创建成功后的目录如下显示:</p>
 <pre><code>resources
 ├── META-INF
@@ -165,7 +165,7 @@
 │           └── item
 └── pack.mcmeta
 </code></pre>
-<p>然后我们在<code>blockstates</code>文件夹下创建一个和你物品注册名同名的json文件，这里我们要创建<code>obsidian_block.json</code></p>
+<p>然后我们在<code>blockstates</code>文件夹下，创建一个和你物品注册名同名的json文件，这里我们要创建<code>obsidian_block.json</code></p>
 <p>内容如下:</p>
 <pre><code class="language-json">{
   &quot;variants&quot;: {
@@ -188,7 +188,7 @@
 <img src="modelandtextures.assets/obsdian_block.png" alt="obsdian_block" style="zoom:300%;" />
 <p>这时启动游戏，你应该就可看见我们的方块有对应的材质和模型了。</p>
 <p><img src="modelandtextures.assets/image-20200428181816541.png" alt="image-20200428181816541" /></p>
-<p>整个加载过程为：获取游戏中方块的状态，在Blockstates相对应的映射表里获取模型，根据模型加载材质。</p>
+<p><strong>整个加载过程为：获取游戏中方块的状态，在Blockstates相对应的映射表里获取模型，根据模型加载材质。</strong></p>
 <p>但这时你会发现我们方块相对应的物品还没有材质，接下来我们就要解决这个问题。</p>
 <p>在<code>models/item</code>下创建和我们BlockItem注册名同名的json文件，这里是<code>obsidian_block.json</code></p>
 <pre><code class="language-json">{

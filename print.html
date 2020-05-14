@@ -705,7 +705,7 @@ public class Neutrino {
 <p>这个是一个物品</p>
 <p><img src="block/firstblock.assets/image-20200428155435757.png" alt="image-20200428155435757" /></p>
 <p>这个才是一个方块。</p>
-<p>好的，我们已经把物品和方块之间的区别说清楚了。接下来就开始创建第一个方块吧，这里我们以黑曜石块举例。</p>
+<p>好的，我们已经把物品和方块之间的区别说清楚了。接下来就开始创建第一个方块吧，这里我们以黑曜石块为例。</p>
 <p>首先创建一个类，叫做<code>ObsidianBlock</code>，就和所有的自定义物品需要继承<code>Item</code>类一样，所有的自定义方法都需要继承<code>Block</code>类，请确保你的<code>Block</code>类是<code>net.minecraft.block.Block</code>这个类。</p>
 <p>具体内容如下:</p>
 <pre><code class="language-java">public class ObsidianBlock extends Block {
@@ -714,7 +714,7 @@ public class Neutrino {
     }
 }
 </code></pre>
-<p>内容非常简单，就和Item有<code>Properties</code>一样，方块也需要一个<code>Properties</code>，和物品的<code>Properties</code>不太一样的是，方块的<code>Propeteis</code>需要调用<code>create</code>方法创建。请注意虽然这两个<code>Properties</code>名字相同，但是它们不在同一个包内，这其实是两个不同的类，<code>create</code>方法需要一个参数，这个参数是一个<code>Material</code>（材料），<code>Material</code>帮你预设了一些方块的特质，比如是否是实心的，是否是流体等，当然你可以通过调用<code>Properties</code>的方法来覆盖<code>Material</code>带来的特征，这里我们用的是原版的<code>Material.ROCK</code>，如果你想自己创建一个<code>Material</code>也非常简单，请参考原版的实现。然后我们调用<code>hardnessAndResistance</code>方法来为我的方块设置硬度。</p>
+<p>内容非常简单，就和<code>Item</code>有<code>Properties</code>一样，方块也需要一个<code>Properties</code>，和物品的<code>Properties</code>不太一样的是，方块的<code>Propeteis</code>需要调用<code>create</code>方法创建。请注意虽然这两个<code>Properties</code>名字相同，但是它们不在同一个包内，这其实是两个不同的类，<code>create</code>方法需要一个参数，这个参数是一个<code>Material</code>（材料），<code>Material</code>帮你预设了一些方块的特质，比如是否是实心的，是否是流体等，你可以通过调用<code>Properties</code>的方法来覆盖<code>Material</code>带来的特征，这里我们用的是原版的<code>Material.ROCK</code>，如果你想自己创建一个<code>Material</code>也非常简单，请参考原版的实现。最后我们调用<code>hardnessAndResistance</code>方法来为我的方块设置硬度。</p>
 <p>至此我们的黑曜石方块类已经创建完毕。就如物品需要注册一样，我的方块也需要注册。</p>
 <p>创建一个新的注册类<code>BlockRegistry</code>，内容如下:</p>
 <pre><code class="language-java">public class BlockRegistry {
@@ -725,7 +725,7 @@ public class Neutrino {
 }
 </code></pre>
 <p>相信之前已经写过注册类的你对这些内容应该相对熟悉了。我们把<code>DeferredRegister&lt;Item&gt; </code>换成了<code>DeferredRegister&lt;Block&gt;</code>（当然后面的实例化参数也需要修改），这样我们就创建了一个方块的注册器。注册方式也和物品注册如出一辙，这里就不多加阐述了。</p>
-<p>当然，你还需要在你的主类构造方法里，将这个注册器注册到<code>mod</code>总线中。</p>
+<p>你还需要在你的主类构造方法里，将这个注册器注册到<code>mod</code>总线中。</p>
 <pre><code class="language-java">@Mod(&quot;neutrino&quot;)
 public class Neutrino {
     public Neutrino() {
@@ -740,19 +740,19 @@ public class Neutrino {
 /setblock ~ ~ ~ neutriono:obsidian_block
 </code></pre>
 <p><img src="block/firstblock.assets/image-20200428162256286.png" alt="image-20200428162256286" /></p>
-<p>当然，只能通过命令放置的方块显然不符合我们的胃口，我们希望有一个物品可以和方块相对应，这样我们就可以不需要使用命令的放置方块了，当然对于这个常见的需求，Minecraft 也提供了一个方便的类来满足，这个类就是<code>BlockItem</code>，我们只需要创建并实例化这个类就行了。</p>
+<p>但是，只能通过命令放置的方块显然不符合我们的胃口，我们希望有一个物品可以和方块相对应，这样我们就不需要使用命令放置方块了，对于这个常见的需求，Minecraft 也提供了一个方便的类来满足，这个类就是<code>BlockItem</code>，我们只需要创建并实例化这个类就行了。</p>
 <p>我们回到我们的<code>ItemRegistry</code>，添加如下一行</p>
 <pre><code class="language-java">public static RegistryObject&lt;Item&gt; obsidianBlock = ITEMS.register(&quot;obsidian_block&quot;, () -&gt; {
   return new BlockItem(BlockRegistry.obsidianBlock.get(), new Item.Properties().group(ModGroup.itemGroup));
 });
 </code></pre>
-<p>可以看见我们创建了一个BlockItem的实例，它的构造方法需要两个参数，第一个参数是你注册好的方块的实例，我们可以通过<code>BlockRegistry.obsidianBlock.get()</code>获取到之前注册好的方块实例，第二个参数是一个Item的<code>Properties</code>，这里的<code>Properties</code>非常简单，我们将其添加到里我们之前创建的创造模式物品栏里。</p>
+<p>可以看见我们创建了一个BlockItem的实例，它的构造方法需要两个参数，第一个参数是你注册好的方块的实例，我们可以通过<code>BlockRegistry.obsidianBlock.get()</code>获取到之前注册好的方块实例，第二个参数是一个Item的<code>Properties</code>，这里的<code>Properties</code>非常简单，我们将其添加到我们之前创建的创造模式物品栏里。</p>
 <p>此时打开游戏，你就可以在我们的创造模式物品栏里看见我们的方块了。</p>
 <p><img src="block/firstblock.assets/image-20200428164024589.png" alt="image-20200428164024589" /></p>
 <p><img src="block/firstblock.assets/image-20200428164037088.png" alt="image-20200428164037088" /></p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/first_block">源代码</a></p>
 <h1><a class="header" href="#block和blockstate" id="block和blockstate">Block和BlockState</a></h1>
-<p>在开始我们接下来的讲解之前我想先来讲一下<code>BlockState</code>这个概念，相信已经对<code>ItemStack</code>有所了解到你，对这个概念应该不会感到难以理解。</p>
+<p>在开始我们接下来的讲解之前，我想先来讲一下<code>BlockState</code>这个概念，相信已经对<code>ItemStack</code>有所了解到你，应该也能很快理解这个概念。</p>
 <p>就和在游戏中的所有物品其实是<code>Itemstack</code>一样，在游戏中的所有方块其实是<code>BlockState</code>，而<code>BlockState</code>相比起<code>Block</code>除了多出的XYZ位置信息之外，最为重要的就是<code>state</code>信息，也就是状态信息。状态信息乍一看很难以理解，但是其实非常好懂。我们以原版的栅栏举例，当你把原版的栅栏放在地上，栅栏会根据周围方块的不同自动地改变形状，这其实是栅栏自动地改变了状态，我们可以在F3调试模式下查看方块的状态。</p>
 <p><img src="block/blockandblockstate.assets/A31FDCB0-F8AC-43BC-BD70-801476111C97.jpeg" alt="A31FDCB0-F8AC-43BC-BD70-801476111C97" /></p>
 <p>这是在默认方块状态下的栅栏模型。</p>
@@ -760,7 +760,7 @@ public class Neutrino {
 <p>可以看到我们使用Debug Stick修改了栅栏的方块状态之后，方块的模型也相应地发生了改变。</p>
 <p>当然，不是所有的方块都有状态属性的，比如石头就没有，但是位置属性是每个方块都有的。</p>
 <h1><a class="header" href="#方块模型和材质" id="方块模型和材质">方块模型和材质</a></h1>
-<p>我们已经成功地创建了一个方块，但是这个方块还很丑，就是一个紫黑怪物而已。在这一节中，我们就要来为这个方块添加模型的材质。</p>
+<p>我们已经成功地创建了一个方块，但是这个方块还很丑，就是一个紫黑块而已。在这一节中，我们就要来为这个方块添加模型和材质。</p>
 <p>首先我们创建一些文件夹，创建成功后的目录如下显示:</p>
 <pre><code>resources
 ├── META-INF
@@ -777,7 +777,7 @@ public class Neutrino {
 │           └── item
 └── pack.mcmeta
 </code></pre>
-<p>然后我们在<code>blockstates</code>文件夹下创建一个和你物品注册名同名的json文件，这里我们要创建<code>obsidian_block.json</code></p>
+<p>然后我们在<code>blockstates</code>文件夹下，创建一个和你物品注册名同名的json文件，这里我们要创建<code>obsidian_block.json</code></p>
 <p>内容如下:</p>
 <pre><code class="language-json">{
   &quot;variants&quot;: {
@@ -800,7 +800,7 @@ public class Neutrino {
 <img src="block/modelandtextures.assets/obsdian_block.png" alt="obsdian_block" style="zoom:300%;" />
 <p>这时启动游戏，你应该就可看见我们的方块有对应的材质和模型了。</p>
 <p><img src="block/modelandtextures.assets/image-20200428181816541.png" alt="image-20200428181816541" /></p>
-<p>整个加载过程为：获取游戏中方块的状态，在Blockstates相对应的映射表里获取模型，根据模型加载材质。</p>
+<p><strong>整个加载过程为：获取游戏中方块的状态，在Blockstates相对应的映射表里获取模型，根据模型加载材质。</strong></p>
 <p>但这时你会发现我们方块相对应的物品还没有材质，接下来我们就要解决这个问题。</p>
 <p>在<code>models/item</code>下创建和我们BlockItem注册名同名的json文件，这里是<code>obsidian_block.json</code></p>
 <pre><code class="language-json">{
@@ -923,9 +923,8 @@ protected void fillStateContainer(StateContainer.Builder&lt;Block, BlockState&gt
     }
 }
 </code></pre>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-在最上方我们创建了一个<code>VoxelShape</code>，我们将在<code>getShape</code>方法中返回这个形状，这个<code>VoxelShape</code>就是我们方块的碰撞箱，很不幸的是Minecraft的碰撞箱子只能由方块组成，这个方块的大小是<code>16*16*16</code>，所以我们在静态代码块中自己创建了一系列的长方体和立方体拼成了我们方块的碰撞箱，其中<code>Block.makeCuboidShape</code>的6个参数分别是起始点的XYZ和结束点的XYZ。最后我们用<code>VoxelShapes</code>的<code>or</code>方法将这些东西拼在了一起。<code>VoxelShapes</code> 下还有很多好用的空间操作方法，请自行选用。如果你不给你的方块设置合适的的碰撞箱的话，你的方块内部空间会显得非常的暗。</p>
-<p>可以看见这里最为特别的是调用了<code>noSoild</code>方法，这个方法是告知Minecraft我们的方块不是一个「实心」方块，需要特殊的渲染措施。之所以这么所做，是因为Minecraft的世界里有非常多的方块，如果方块的每一个面都要渲染，包括那些被遮挡的面和遮挡起来的方块，那么会非常地耗费性能，所以出于优化的考虑，Minecraft只会渲染那些没有被遮挡起来的面。而<code>noSoild</code>的作用就是告诉Minecraft，要渲染这个方块周围被遮挡起来方块的面。</p>
+<p>在最上方我们创建了一个<code>VoxelShape</code>，我们将在<code>getShape</code>方法中返回这个形状，这个<code>VoxelShape</code>就是我们方块的碰撞箱，很不幸的是Minecraft的碰撞箱子只能由方块组成，这个方块的大小是<code>16*16*16</code>，所以我们在静态代码块中自己创建了一系列的长方体和立方体，拼成了我们方块的碰撞箱，其中<code>Block.makeCuboidShape</code>的6个参数分别是起始点的XYZ和结束点的XYZ。最后我们用<code>VoxelShapes</code>的<code>or</code>方法将这些东西拼在了一起。<code>VoxelShapes</code> 下还有很多好用的空间操作方法，请自行选用。如果你不给你的方块设置合适的的碰撞箱的话，你的方块内部空间会显得非常的暗。</p>
+<p>可以看见这里最为特别的是调用了<code>noSoild</code>方法，这个方法是告知Minecraft我们的方块不是一个「实心」方块，需要进行特殊的对待。之所以这么做，是因为Minecraft的世界里有非常多的方块，如果方块的每一个面都要渲染，包括那些被遮挡的面和遮挡起来的方块，那么会非常地耗费性能，所以出于优化的考虑，Minecraft只会渲染那些没有被遮挡起来的面。而<code>noSoild</code>的作用就是告诉Minecraft，要渲染这个方块遮挡的那些面。</p>
 <p>如果不开启这个就会出现这样效果。</p>
 <p><img src="block/nonesoildblock.assets/image-20200428204119348.png" alt="image-20200428204119348" /></p>
 <p>如果对Minecraft方块渲染相关的内容感兴趣，可以阅读这篇博客<a href="https://greyminecraftcoder.blogspot.com/2020/04/block-rendering-1144.html">文章</a>，以及这个博客下其他文章（如果你打不开这个页面，说明你所在的国家或地区封锁了这个网站）。</p>
@@ -1033,7 +1032,7 @@ protected void fillStateContainer(StateContainer.Builder&lt;Block, BlockState&gt
 <p>材质文件<code>obsidian_frame.png</code>：</p>
 <img src="block/nonesoildblock.assets/obsidian_frame.png" alt="obsidian_frame" style="zoom:300%;" />
 <p>这里我的模型和材质都是用BlockBench制作的。</p>
-<p>最后是物品模型<code>obsidian_frame.json</code>:</p>
+<p>物品模型<code>obsidian_frame.json</code>:</p>
 <pre><code class="language-json">{
   &quot;parent&quot;: &quot;neutrino:block/obsidian_frame&quot;
 }
