@@ -152,10 +152,10 @@
                         <h1><a class="header" href="#导论" id="导论">导论</a></h1>
 <p>首先欢迎你来到这个教程，既然你会打开这个教程，想必你心中有了开发一个属于自己的mod的念头吧。</p>
 <p>正好，这个教程也是为这个目的服务的。但是开发一个属于自己的mod并不是一件容易的事情，你需要学习非常多的知识才能达成这个目标，阅读和跟随这个教程只是非常浅显的部分。</p>
-<p>首先我想让你思考一个问题：你需要自己从头开发一个mod吗？</p>
-<p>其实对于大部分人的需求，从0开发一个mod并不是必须的。有非常多其他的办法可以达成他们的目标：原版内置的机制，MCreator和ZenScript等。</p>
+<p>首先我想让你思考一个问题：<strong>你真的需要自己从头开发一个mod吗？</strong></p>
+<p>其实对于大部分人的需求，不需要从零开发一个Mod。有非常多其他的办法可以达成他们的目标：原版内置的机制，MCreator和ZenScript等。</p>
 <p>如果你的答案是确定的，那么第二个问题：你真的需要亲自写一个mod吗？</p>
-<p>Mod开发需要编程和一定的计算机科学的基础，要学好这些并不容易，如果你是一个不会编程的人，或者只是初略的学过编程，我的建议是寻找同伴。美工和设计在Mod开发里都是和写程序是同等重要的。</p>
+<p>Mod开发需要编程和相当的计算机科学基础，要学好这些并不容易，如果你是一个不会编程的人，或者只是粗略的学过编程，我的建议是寻找同伴。美工和设计在Mod开发中也是不可或缺的一部分。</p>
 <p>如果你对上面两个问题的答案都是肯定的，那么我觉得你可以开始阅读这个教程了。在这个教程里，我会假设你有一定的计算机科学常识，熟悉Java编程的基础。</p>
 <p>那么如果你现在还不会编程怎么办？没关系，这里有个教程推荐给你：<a href="https://v2mcdev.com/t/topic/88">Minecraft mod 开发编程入门 </a></p>
 <p>如果你有任何的问题，请去<a href="https://v2mcdev.com/">论坛</a>上<strong>按照模版</strong>发帖提问。</p>
@@ -164,27 +164,27 @@
 <h1><a class="header" href="#forge是什么" id="forge是什么">Forge是什么</a></h1>
 <p>本教程是一个基于Forge的Mod开发教程，那么自然而然的要回答一个问题：「Forge是什么？」</p>
 <p>乍一看，这个好像根本就不是一个问题，「Forge？Forge不就是Forge吗？」看到这个问题的你内心中的第一个浮现出的想法估计就是这个。</p>
-<p>但是回答这个问题还是非常有必要的，接下去我会稍微讲一讲Forge是什么，以及Forge的历史。这些看上去和我们教程无关的内容，其实是Mod开发领域的「乡谣（Lore）」，比如srg名和notch名是什么，mcp又是什么？</p>
-<p>首先我们得从Minecraft本身说起，首先我们得明确Minecraft是一个用Java写成的商业软件。这意味着两件事：Minecraft相对容易被修改，代码本身是不开源而且是被混淆过的。因为长时间Mojang都没有给Minecraft提供官方API<sup class="footnote-reference"><a href="#1">1</a></sup>，所以「Mod Coder Pack」项目诞生了（以下简称为MCP）。</p>
+<p>但是回答这个问题还是非常有必要的，接下去我会稍微讲一讲Forge是什么，以及Forge的历史。这些看上去和我们教程无关的内容，其实是Mod开发领域的「乡谣（Lore）」，学会这些可以更好的让你和其他人交流。</p>
+<p>我们得从Minecraft本身说起，首先我们得明确Minecraft是一个用Java写成的商业软件。这意味着两件事：第一，Minecraft相对容易修改；第二，代码本身是不开源而且是被混淆过的。在Minecraft历史的早期，因为在Mojang一直都没有给Minecraft提供官方API<sup class="footnote-reference"><a href="#1">1</a></sup>，所以「Mod Coder Pack」项目诞生了（以下简称为MCP）。</p>
 <p>还记得我之前说过的，Minecraft的两个特性吗？MCP就利用这两个特性，实现了一套工具，可以让开发者可以直接修改Minecraft jar包里的内容。</p>
-<p>于是srg名，notch名和mcp名称诞生了。</p>
+<p>于是<code>srg名</code>，<code>notch名</code>和<code>mcp名</code>诞生了。</p>
 <p>那么这三个是什么呢？</p>
-<p>首先是<code>notch名</code>，他是Minecraft直接反编译得到的混淆之后的名称，通常是无意义的字母数字组合。你从名称Notch就可以看出，这个名字是直接来自Minecraft（<del>以及对Notch的怨念</del>），举例来说 <code>j</code>就是一个典型的<code>notch名</code>。</p>
-<p>接下来是<code>srg名</code>，这个名字是和<code>notch名</code>是一一对应的，<code>srg名</code>在一个版本里是不会变动的，之所以叫做<code>srg名</code>，是为了纪念MCP项目开发的领导者Searge。在srg名阶段，Minecraft中的类名已经是可读了，变量方法等名称虽然还是不可读，但是有相对应的前缀和尾缀来区分了。以上面的<code>j</code>为例，它的srg名是<code>func_70114_g</code>。</p>
-<p>最后是<code>mcp名</code>，这个名称也是我们mod开发中接触最多的名称，在<code>mcp名</code>阶段，代码已经是可读的了。和我们正常写Java程序中的名称没什么两样。但是<code>mcp名</code>是会变动的。举例来说上面的<code>func_70114_g</code>它的<code>mcp名</code>是<code>getCollisionBox</code>。<code>mcp名</code>中的类名和<code>srg名</code>中的类名是相同的。</p>
-<p>接下来我们来讲Forge，随着时间的发展，Mod开发者们意识到，直接修改Jar文件写mod的方式太过于粗暴了，而且Mod和Mod之间的兼容性可以说基本没有，Mod开发者们急需一种工具可以方便地开发Mod，而且能保证mod和mod之间的兼容性，于是Forge就诞生了。</p>
+<p>首先是<code>notch名</code>，他是Minecraft直接反编译、反混淆之后的名称，通常是无意义的字母数字组合。你从名称Notch就可以看出，这个名字是直接来自Minecraft（<del>以及对Notch的怨念</del>），举例来说 <code>j</code>就是一个典型的<code>notch名</code>。</p>
+<p>接下来是<code>srg名</code>，这个名字是和<code>notch名</code>是一一对应的，<code>srg名</code>在一个版本里是不会变动的，之所以叫做<code>srg名</code>，是为了纪念MCP项目开发的领导者Searge。在<code>srg名</code>中，Minecraft中的类名已经是可读了，变量方法等名称虽然还是不可读，但是有相对应的前缀和尾缀来区分了。以上面的<code>j</code>为例，它的<code>srg名</code>是<code>func_70114_g</code>。</p>
+<p>最后是<code>mcp名</code>，这个名称也是我们mod开发中接触最多的名称，在<code>mcp名</code>中，代码已经是可读的了。和我们正常写java程序中的名称没什么两样。但是<code>mcp名</code>是会变动的。举例来说上面的<code>func_70114_g</code>它的<code>mcp名</code>是<code>getCollisionBox</code>。<code>mcp名</code>中的类名和<code>srg名</code>中的类名是相同的。</p>
+<p>接下来我们来讲Forge，随着时间的发展，Mod开发者们意识到，直接修改Jar文件写mod的方式太过于粗暴了，而且Mod和Mod之间的兼容性可以说基本没有，Mod开发者们急需一种工具可以方便地开发Mod，并且能保证mod和mod之间的兼容性，于是Forge就诞生了。</p>
 <p>Forge其实就是一套通过修改Minecraft方式实现的第三方API，而且随着时间的发展，MCP现在已经死亡了，除了Forge这套API，Fabric也风头正盛，而Forge本身也在Minecraft 1.13版本到来之后经历了一次重写，引入了大量函数式编程的API。</p>
-<p>那么我们上面提及的三个名字在Forge中是怎么使用的呢？</p>
-<p>在你安装完Forge之后，游戏的运行过程中，所有的内容都会以<code>srg名</code>运行，你编译好的mod同样也会被混淆成<code>srg名</code>，保证它可以正常运行。</p>
+<p>那么Forge是怎么使用我们之前提及的三个名字的呢？</p>
+<p>在你安装完Forge之后，游戏的运行过程中，所有的内容都会反编译成<code>srg名</code>运行，你编译好的mod同样也会被混淆成<code>srg名</code>，保证它可以正常运行。</p>
 <hr />
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
 <p>API 即 「Application programming interface（应用程序接口）」，是程序的提供的一种机制允许第三方修改或者添加功能。</p>
 </div>
 <h1><a class="header" href="#minecraft如何运作的" id="minecraft如何运作的">Minecraft如何运作的</a></h1>
-<p>这节的内容非常重要，你必须在自己的大脑中搭建起Minecraft运行的模型图像，不然之后很多概念你会很难理解。</p>
-<p>在这一节中，我将介绍一下Minecraft大体上是怎么运作的，以及一个非常重要的概念「端」。</p>
+<p>这节的内容非常重要，你必须在自己的大脑中构建起Minecraft运行的模型图像，这将会帮助你理解后面涉及到的概念。</p>
+<p>在这一节中，我将介绍一下Minecraft大体上是怎么运作的，以及一个非常重要的概念：「端」。</p>
 <p>Minecraft大体上属于「C/S架构（客户端/服务端架构）」。那么什么是「服务端」，什么又是「客户端」呢？</p>
-<p>从名字上其实就能看出大概的意思，「服务端」是提供服务的，「客户端」是用户直接使用的。那么这两个端在Minecraft中是怎么体现的呢？</p>
+<p>从名字上其实就能看出大概的意思，「服务端」是用来提供服务的，「客户端」是用户直接使用的。那么这两个端在Minecraft中是怎么体现的呢？</p>
 <p>在Minecraft中两个端的职责区分如下：</p>
 <ul>
 <li>
@@ -192,15 +192,15 @@
 <p>负责游戏的逻辑，数据的读写。</p>
 </li>
 <li>
-<p>服务端</p>
+<p>客户端</p>
 <p>接受用户的输入输出，根据来自服务端的数据来渲染游戏画面。</p>
 </li>
 </ul>
-<p>值得注意的是，这里客户端和服务端的区分是逻辑上的区分。实际上如果你处于单人模式，那么你的电脑上会同时存在服务端和客户端，而且他们处于不同的线程<sup class="footnote-reference"><a href="#1">1</a></sup>。但是当你连接某个服务器时，你的电脑上只存在客户端，而服务端被转移到了远程的一台服务器上。</p>
+<p>值得注意的是，这里客户端和服务端的区分仅是逻辑上的区分。实际上如果你处于单人模式，那么你的电脑上会同时存在服务端和客户端，而且他们处于不同的线程<sup class="footnote-reference"><a href="#1">1</a></sup>。但是当你连接某个服务器时，你的电脑上只存在客户端，服务端被转移到了远程的一台服务器上。</p>
 <p>下面一张图大概的解释了Minecraft是怎么运作的。</p>
 <p><img src="introducation/vanilla.assets/image-20200426110629794.png" alt="image-20200426110629794" /></p>
 <p>看到这张图，你可能觉得奇怪，说好的是服务端负责游戏逻辑的呢，为什么客户端也有数据模型？其实这里的「客户端数据模型」只是「服务端数据模型」一个副本，虽然它们都有独立的游戏Tick，也共享很多相同的代码，但是最终逻辑还是以服务端为准。</p>
-<p>之前我们提到，客户端和服务端是独立运行的，但是它们不可避免地需要同步数据，而在Minecraft里，所有客户端和服务的的数据同步都是通过网络数据包实现的。在大部分时候原版已经实现了数据同步的方法，我们只需要调用设计好的方法就行，但是在一些情况下，原版没有提供这个功能，或者不适合使用原版提供的功能，我们就得自己创建和发送网络数据包来实现数据的同步。</p>
+<p>之前我们提到，客户端和服务端是独立运行的，但是它们不可避免地需要同步数据，而在Minecraft里，所有客户端和服务端的数据同步都是通过网络数据包实现的。在大部分时候原版已经实现好了数据同步的方法，我们只需要调用已经实现好的方法就行，但是在某些情况下，原版没有实现对应的功能，或者不适合使用原版提供的功能，我们就得自己创建和发送网络数据包来完成数据的同步。</p>
 <p>那么接下去的问题是，我们怎么在代码中区分我们是处于客户端还是服务端呢？</p>
 <p>Minecraft的<code>World</code>中有一个<code>isRemote</code>字段，当处于客户端时这个变量值为<code>true</code>，当处于服务端时这个变量值为<code>false</code>。</p>
 <hr />
@@ -223,9 +223,9 @@
 <h2><a class="header" href="#注册" id="注册">注册</a></h2>
 <p>如果你想往Minecraft里添加一些内容，那么你必须做的一件事就是注册。注册是一种机制，告诉游戏本身，有哪东西可以使用。你注册时需要的东西基本上可以分成两个部分：一个注册名和一个实例。</p>
 <h2><a class="header" href="#resourcelocation" id="resourcelocation">ResourceLocation</a></h2>
-<p>你可以把ResourceLocation想成一种特殊格式的字符串，它大概长成这样:<code>minecraft:textures/block/stone.png</code>，一个ResouceLocation指定了资源包下的一个特定的文件。举例来说，前面这个这个ResourceLocation代表了原版资源包下的石头的材质图片。ResouceLocation分成两部分，冒号前面的叫做「域（domain）」，在原版中只有一个域即<code>minecraft</code>域，但是如果你开始开发mod，那么每个mod都会有一个或者多个域。冒号的后半部分是和<code>assets</code>文件夹内的目录结构一一对应的。从某种程度上来说，ResourceLocation就是一个特殊的URL。</p>
+<p>你可以把ResourceLocation想成一种特殊格式的字符串，它大概长成这样:<code>minecraft:textures/block/stone.png</code>，一个ResouceLocation指定了资源包下的一个特定的文件。举例来说，前面这个这个ResourceLocation代表了原版资源包下的石头的材质图片。ResouceLocation分成两部分，冒号前面的叫做「域（domain）」，在原版中只有一个域，即<code>minecraft</code>域，但是如果你开始开发mod，那么每个mod都会有一个或者多个域。冒号的后半部分是和<code>assets</code>文件夹内的目录结构一一对应的。从某种程度上来说，ResourceLocation就是一个特殊的URL。</p>
 <h2><a class="header" href="#模型和材质" id="模型和材质">模型和材质</a></h2>
-<p>在游戏中3d的对象基本上都有它的模型，模型和材质组合在一起规定了一个对象具体的样子。模型相当于是骨头，材质相当于是皮肤。在大部分时候，你的材质都是png图片，请注意保证你的材质背景是透明的，其次不要在材质中使用半透明像素，会有不可预知的问题。</p>
+<p>在游戏中3d的对象基本上都有它的模型，模型和材质组合在一起规定了一个对象具体的样子。模型相当于是骨头，材质相当于是皮肤。在大部分时候，你的材质都是png图片，请注意保证你的材质背景是不透明的，其次不要在材质中使用半透明像素，会有不可预知的问题。</p>
 <h1><a class="header" href="#环境配置" id="环境配置">环境配置</a></h1>
 <p>在这一节中，我们会讲解如何配置Forge的开发环境。（<del>在这一节会劝退大部分人</del>）</p>
 <h1><a class="header" href="#forge开发环境的配置" id="forge开发环境的配置">Forge开发环境的配置</a></h1>
@@ -245,11 +245,6 @@
 <h2><a class="header" href="#总体的介绍" id="总体的介绍">总体的介绍</a></h2>
 <p>Minecraft Forge是一个Gradle项目，Gradle是一个项目构建工具，其主要作用是负责项目的依赖管理、构建等功能。依赖管理指的是帮你自动地下载和配置你开发中使用的库，也就是别人写好的方便你自己开发的代码。构建指的是将你写的mod打包成别人可以安装的jar文件。</p>
 <p>Forge官方写了一个叫做ForgeGradle（以后简称FG）的插件来负责整个mod开发环境的配置（<del>为什么要说这个呢，让你知道当环境配置失败时该骂谁</del>)。</p>
-<h2><a class="header" href="#idea的编码配置windows用户专用" id="idea的编码配置windows用户专用">IDEA的编码配置（Windows用户专用）</a></h2>
-<p>选择Configure下的<code>设置/首选项</code>。</p>
-<p><img src="devenvironment/setup.assets/image-20200426192159954.png" alt="image-20200426192159954" /></p>
-<p>选择<code>编辑器=&gt;文件编码</code>，将右侧所有涉及到编码全部改成<code>UTF-8</code>，并把<code>创建UTF-8文件</code>改成<code>With NO BOM</code>。</p>
-<p><img src="devenvironment/setup.assets/image-20200426192350734.png" alt="image-20200426192350734" /></p>
 <h2><a class="header" href="#开始配置" id="开始配置">开始配置</a></h2>
 <p>首先选择启动页面的<code>打开或导入</code>。</p>
 <p><img src="devenvironment/setup.assets/image-20200426182350327.png" alt="image-20200426182350327" /></p>
@@ -257,11 +252,11 @@
 <p><img src="devenvironment/setup.assets/image-20200426183157784.png" alt="image-20200426183157784" /></p>
 <p>选择作为<code>项目打开</code></p>
 <p><img src="devenvironment/setup.assets/image-20200426184039732.png" alt="image-20200426184039732" /></p>
-<p>打开之后，根据你网络情况和电脑自身的情况，会有或长或短的导入时间，这个过程需要下载很多的依赖包而这些依赖包都存放在海外，介于中国大陆网络封锁策略导致海外网络访问不稳定，这个时间将会持续几分钟至几天不等，而且很有可能失败，对于有代理的同学可以自行搜索「Gradle配置代理」来给Gradle加上代理。</p>
+<p>打开之后，根据你网络和自身电脑的情况，会有或长或短的导入时间，这个过程需要下载很多的依赖包,而这些依赖包都存放在海外，介于中国大陆网络封锁，导致海外网络访问不稳定，这个时间将会持续几分钟至几天不等，而且很有可能失败，对于有代理的同学可以自行搜索「Gradle配置代理」来给Gradle加上代理。</p>
 <p>当导入结束，点击下方的<code>build</code>面板，左侧显示绿勾时说明导入成功。</p>
 <p><img src="devenvironment/setup.assets/image-20200426190531596.png" alt="image-20200426190531596" /></p>
 <p>当导入完成后，点击运行右侧的<code>Gradle</code>面板，选择其中的<code>Tasks</code>下<code>fg_runs</code>下的<code>genIntelliJRuns</code>。<img src="devenvironment/setup.assets/image-20200426190744381.png" alt="image-20200426190744381" /></p>
-<p>在这一步中，会自动下载剩余的一些依赖，以及Minecraft本体和资源文件。出于和上面相同的理由，这个过程耗时会很长，并且非常容易失败。</p>
+<p>在这一步中，会自动下载剩余的一些依赖，以及Minecraft的资源文件。出于和上面相同的理由，这个过程耗时会很长，并且非常容易失败。</p>
 <p>同样的当左侧显示「绿勾」时说明配置成功。</p>
 <p><img src="devenvironment/setup.assets/image-20200426192001511.png" alt="image-20200426192001511" /></p>
 <p>点击上方的<code>运行=&gt;编辑配置</code>。</p>
@@ -272,13 +267,18 @@
 <p><img src="devenvironment/setup.assets/image-20200426193439272.png" alt="image-20200426193439272" /></p>
 <p>然后选择<code>runClient</code>即可启动游戏。</p>
 <p><img src="devenvironment/setup.assets/image-20200426193520833.png" alt="image-20200426193520833" /></p>
-<p>在没有为Gradle配置代理的情况下，<code>runClient</code>有时候会耗费非常多的时间，推荐大家购买并配置代理，或者<a href="https://v2mcdev.com/t/topic/304">这个教程</a>也是一种解决办法。</p>
+<p>在没有为Gradle配置代理的情况下，<code>runClient</code>有时候会耗费非常多的时间，推荐大家购买并配置代理，如果没有代理可以按照<a href="https://v2mcdev.com/t/topic/304">这个教程</a>解决。</p>
 <p>可以看见我们的游戏成功启动了。</p>
 <p><img src="devenvironment/setup.assets/image-20200426200831167.png" alt="image-20200426200831167" /></p>
 <p>如果大家嫌<code>控制台</code>输出太多，可以在<code>虚拟机选项</code>中将<code>-Dforge.logging.console.level=</code>的值改成<code>info</code>。</p>
 <p><img src="devenvironment/setup.assets/image-20200426201131698.png" alt="image-20200426201131698" /></p>
-<p>为了之后建包的方便，按照下图将「拼合包」和「压缩空的中间包」取消选择。</p>
+<p>为了之后创建目录和子包的方便，按照下图将「拼合包」和「压缩空的中间包」取消选择。</p>
 <p><img src="devenvironment/setup.assets/image-20200510143006591.png" alt="image-20200510143006591" /></p>
+<h2><a class="header" href="#idea的编码配置windows用户专用" id="idea的编码配置windows用户专用">IDEA的编码配置（Windows用户专用）</a></h2>
+<p>选择Configure下的<code>设置/首选项</code>。</p>
+<p><img src="devenvironment/setup.assets/image-20200426192159954.png" alt="image-20200426192159954" /></p>
+<p>选择<code>编辑器=&gt;文件编码</code>，将右侧所有涉及到编码全部改成<code>UTF-8</code>，并把<code>创建UTF-8文件</code>改成<code>With NO BOM</code>。</p>
+<p><img src="devenvironment/setup.assets/image-20200426192350734.png" alt="image-20200426192350734" /></p>
 <h2><a class="header" href="#jdk常见错误" id="jdk常见错误">JDK常见错误</a></h2>
 <p>如果你的电脑里有多个JDK，有可能IntelliJ自动选择的JDK是错误的，导致无法导入，你需要手动修改项目的JDK和Gradle运行所需要的JDK。</p>
 <p>选择<code>文件</code>下的<code>项目结构</code>。</p>
@@ -293,13 +293,13 @@
 <p><img src="devenvironment/setup.assets/image-20200426195313225.png" alt="image-20200426195313225" /></p>
 <h1><a class="header" href="#开发环境的介绍" id="开发环境的介绍">开发环境的介绍</a></h1>
 <p>在这一节中，我会介绍一下Mod开发产生的一系列文件和文件夹，以及它们的作用。</p>
-<p>首先最为重要的一个文件便是:<code>build.gradle</code>，这个文件是Gradle的配置文件，它规定了Mod的项目是如何构建，有哪些依赖，如何配置等。</p>
+<p>首先最为重要的一个文件便是：<code>build.gradle</code>，这个文件是Gradle的配置文件，它规定了Mod的项目是如何构建，有哪些依赖，如何配置等。</p>
 <p>其中的<code>minecraft </code>闭包下的内容就是关于Forge Gradle的配置。</p>
 <p>其中<code>mappings channel: 'snapshot', version: '20190719-1.14.3’</code>配置项规定了本项目使用的mapping文件版本，这里我强烈建议你经常更新mapping文件，你可以在<a href="http://export.mcpbot.bspk.rs/">这里</a>找到所有的mapping文件。那么什么是mapping文件呢？还记得我们之间提及的<code>srg名</code>和<code>mcp名</code>吗？mapping文件的作用就是提供<code>srg名</code>和<code>mcp名</code>之间的翻译。</p>
 <p><code>channel</code>的意思是mapping文件的分类，在大部分情况下，你都应该使用<code>snapshot</code>（快照版本）来确保你的mcp名字是最新的。而之后的<code>version</code>就是具体的版本了，大部分情况下是高版本游戏兼容低版本mapping的，当然游戏版本号不能相差太远。其中还有两个被注释起来的参数，这里我们暂且不提。</p>
 <p>另外一个你可能会用的就是<code>dependencies</code>配置，如果你的mod需要依赖别的java库或者别的mod，你需要在这里添加内容，具体添加的方式，注释已经给出了详细的例子，这里就不多说了。其中<code>minecraft 'net.minecraftforge:forge:1.15.2-31.1.0'</code>规定了你需要用到的Forge版本，如果你想升级Forge版本可以修改这一行的内容，版本的格式是<code>net.minecraftforge:forge:游戏版本号-Forge版本号</code>。</p>
 <p>这个文件剩余的部分就和一个普通的<code>build.gradle</code>没什么差别了，如果想知道更详细的知识建议去学习Gradle。</p>
-<p>接下去的就是<code>src</code>文件夹，这里是放我们代码和文件的地方，其中<code>main</code>文件夹是具体运行代码和文件的地方，<code>test</code>文件夹是放测试代码的地方。<code>main</code>文件夹下的<code>java</code>就是放我们写的java代码的地方，而<code>resources</code>文件夹里放的则是我们的材质模型等一些除了代码之外的属于mod的内容。</p>
+<p>接下去的就是<code>src</code>文件夹，这里是放我们代码和资源文件的地方，其中<code>main</code>文件夹是具体运行代码和文件的地方，<code>test</code>文件夹是放测试代码的地方。<code>main</code>文件夹下的<code>java</code>就是放我们写的java代码的地方，而<code>resources</code>文件夹里放的则是我们的材质模型等一些除了代码之外的属于mod的内容。</p>
 <p>接下去是<code>run</code>文件夹，这个基本上就是一个标准的<code>.minecraft</code>文件夹，值得注意的是，因为开发环境是同时有Minecraft客户端和服务器代码的，它们两个是共用<code>run</code>目录的。</p>
 <p>剩下值得一提的就是<code>build</code>目录，当你在Gradle面板里运行<code>build</code>任务，你的mod就会被打包好放在<code>build=&gt;libs</code>下。</p>
 <p>剩下所有带<code>gradle</code>相关的文件夹和文件都是Gradle所需要的运行和配置文件，请不要随便删除。</p>
@@ -309,8 +309,8 @@
 <p>在开始之前我们需要更新一下Mapping文件，如果不知道Mapping文件的作用，请向前翻阅。再提醒一次，你可以在<a href="http://export.mcpbot.bspk.rs/">这里</a>找到最新的mapping文件。</p>
 <p><strong>请确保你的mappings文件版本新于<code>20200512-1.15.1</code></strong>。</p>
 <p><img src="devenvironment/modinfo.assets/image-20200427082638163.png" alt="image-20200427082638163" /></p>
-<p>于是我们需要将<code>build.gradle</code>下的<code>mappings channel: 'snapshot', version: '20190719-1.14.3’</code>修改为<code>mappings channel: 'snapshot', version: '20200426-1.15.1’</code>。</p>
-<p><img src="devenvironment/modinfo.assets/image-20200427085305020.png" alt="image-20200427085305020" /></p>
+<p>于是我们需要将<code>build.gradle</code>下的<code>mappings channel: 'snapshot', version: '20190719-1.14.3’</code>修改为<code>mappings channel: 'snapshot', version: '20200512-1.15.1’</code>。</p>
+<p><img src="devenvironment/modinfo.assets/image-20200514205243616.png" alt="image-20200514205243616" /></p>
 <p>然后点击右侧Gradle面板的重新导入按钮，重新导入项目，因为<code>build.gradle</code>文件非常的重要，请注意不要改错。</p>
 <p><img src="devenvironment/modinfo.assets/image-20200427082837751.png" alt="image-20200427082837751" /></p>
 <p>这个过程可能会涉及下载文件（但不会很多），有出现错误的可能性，出错了请检查你的<code>build.gradle</code>内容有没有填错，然后多试几次。</p>
@@ -330,7 +330,7 @@
         └── neutrino
             └── Neutrino.java
 </code></pre>
-<p>然后进入<code>Neutrino</code>在类名的上方添加一个<code>@Mod()</code>注解，其中填入的参数是你的<code>modId</code>，那么什么是你的<code>modId</code>呢？<code>modId</code>就是你mod名字的唯一标识符，请注意<code>modId</code>和你的mod名字并不是同一个东西，它不允许大写字母，也不允许空格等内容。在这里我们选用的<code>modId</code>是<code>neutrino</code>。添加完成后内容如下:</p>
+<p>然后进入<code>Neutrino</code>在类名的上方添加一个<code>@Mod()</code>注解，其中填入的参数是你的<code>modId</code>，那么什么是你的<code>modId</code>呢？<code>modId</code>就是你mod名字的唯一标识符，请注意<code>modId</code>和你的mod名字不是同一个东西，它不允许大写字母，也不允许空格等内容。在这里我们选用的<code>modId</code>是<code>neutrino</code>。添加完成后内容如下:</p>
 <pre><code class="language-java">@Mod(&quot;neutrino&quot;)
 public class Neutrino {
 }
@@ -379,21 +379,21 @@ description='''
 <h1><a class="header" href="#物品" id="物品">物品</a></h1>
 <p>物品时Minecraft中的基本元素之一，在这一节中，我将介绍如何创建物品。</p>
 <h1><a class="header" href="#第一个物品" id="第一个物品">第一个物品</a></h1>
-<p>从现在开始我们就要正式开始写代码了。首先有几件事要说明，本项目的代码都会开源，每节的代码链接我都会放在文章的后面，而为了之后修正和查看的方便性，我的代码中可能会有大量的重复的类，项目的组织也和正常项目大相径庭，大家请不要照抄，请大家务必手打代码，你复制粘贴代码是学不会的。</p>
-<p>首先我们得明确，创建一个物品需要哪几个步骤。答案是三步：创建自己的物品并继承原版的物品的类，实例化这个物品最后把这个物品注册进游戏。</p>
-<p>注意上面这些步骤是通用的，很多自定义内容的添加都是遵循着上面这个步骤。</p>
+<p>从现在开始我们就要正式开始写代码了。首先有几件事要说明，本项目的代码都会开源，每节的代码链接我都会放在文章的后面，而为了之后修正和查看方便，<strong>我的代码中可能会有大量重复的类，项目的组织也和正常项目大相径庭，大家请不要照抄，请大家务必手打代码，你复制粘贴代码是学不会的。</strong></p>
+<p>首先我们得明确，创建一个物品需要哪几个步骤。答案是三步：创建自己的物品并继承原版的物品的类，实例化这个物品，最后把这个物品注册进游戏。</p>
+<p>注意上面这些步骤是通用的，很多自定义内容的添加都是遵循着上面的步骤。</p>
 <p>知道了上述步骤之后，我们就开始添加我们的第一个物品吧，在这里我们将添加一个黑曜石碇。</p>
-<p>首先我们需要创建一个要创建物品的类，并且让这个类继承原版的<code>Item</code>类（介于目标读者的水平，Item就是物品的英文）。</p>
+<p>首先我们需要创建一个物品的类，并且让这个类继承原版的<code>Item</code>类（介于目标读者的水平，Item就是物品的英文）。</p>
 <pre><code class="language-java">public class ObsidianIngot extends Item {
     public ObsidianIngot() {
         super(new Properties().group(ItemGroup.MATERIALS));
     }
 }
 </code></pre>
-<p>这个类的代码非常简单，就是只有一个构造器。</p>
-<p>这里唯一值得一说的就是<code>new Properties().group(ItemGroup.MATERIALS)</code>，这个<code>Properties</code>规定了物品的一些属性，比如是不是食物又比如这个物品在创造模式的哪一个物品栏。</p>
-<p>在这里我们创建了一个<code>Properties</code>并且调用了<code>group</code>方法然后传入了<code>ItemGroup.MATERIALS</code>的作用是让这个物品可以在原版的「杂项」创造模式物品栏里。当然你也可以不调用 <code>group</code>方法，这样的话就只有通过<code>/give</code>命令才能获取到物品了。</p>
-<p>接下去我们需要实例化和注册这个物品，在以前这个是分开的两步，但是在Forge加入了一个叫做<code>DeferredRegister</code>的机制，使得注册一个物品变得非常的简单。</p>
+<p>这个类的代码非常简单，只有一个构造函数。</p>
+<p>这里唯一值得一说的就是<code>new Properties().group(ItemGroup.MATERIALS)</code>，这个<code>Properties</code>规定了物品的一些属性，比如：是不是食物，或者这个物品在创造模式的哪一个物品栏。</p>
+<p>在这里我们创建了一个<code>Properties</code>并且调用了<code>group</code>方法然后传入了<code>ItemGroup.MATERIALS</code>，这样做是将物品添加进，原版「杂项」创造模式物品栏里。当然你也可以不调用 <code>group</code>方法，如果这样就只能通过<code>/give</code>命令才能获取到物品了。</p>
+<p>接下去我们需要实例化和注册这个物品，在以前这个是分开的两步，但是Forge加入了一个叫做<code>DeferredRegister</code>的机制，使得注册一个物品变得非常的简单。</p>
 <pre><code class="language-java">public class ItemRegistry {
   public static final DeferredRegister&lt;Item&gt; ITEMS = new DeferredRegister&lt;&gt;(ForgeRegistries.ITEMS, &quot;neutrino&quot;);
   public static RegistryObject&lt;Item&gt; obsidianIngot = ITEMS.register(&quot;obsidian_ingot&quot;, () -&gt; {
@@ -401,37 +401,37 @@ description='''
   });
 }
 </code></pre>
-<p>这个就是注册的全部内容，首先我们创建了一个类型为<code>DeferredRegister&lt;Item&gt;</code>名字叫做<code>ITEMS</code>的变量，这个类型表明我们需要注册的东西是物品，然后通过<code>new DeferredRegister&lt;&gt;(ForgeRegistries.ITEMS, &quot;neutrino”);</code>实例化了这个类，这个类里有两个参数<code>ForgeRegistries.ITEMS</code>代表了我们要注册的是物品，第二个参数填入的应该是你的<code>modId</code>。这样我们就创建好了注册器，接下去就是注册我们的物品。</p>
-<p>还记得我之前说过的吗？注册需要的是两个东西，一个是「注册名」，还有一个就是你要注册对象的实例，<code>ITEMS.register</code>里的两个参数就是分别对应了这两个东西。</p>
+<p>这就是注册的全部内容，首先我们创建了一个类型为<code>DeferredRegister&lt;Item&gt;</code>名字叫做<code>ITEMS</code>的变量，这个泛型表明我们需要注册的东西是物品，然后通过<code>new DeferredRegister&lt;&gt;(ForgeRegistries.ITEMS, &quot;neutrino”);</code>实例化了这个类，这个类里有两个参数<code>ForgeRegistries.ITEMS</code>代表了我们要注册的是物品，第二个参数填入的应该是你的<code>modId</code>。这样我们就创建好了注册器，接下去就是注册我们的物品。</p>
+<p>还记得我之前说过的吗？注册需要两个东西，一个是「注册名」，还有一个就是你要注册对象的实例，<code>ITEMS.register</code>里的两个参数就是分别对应了这两个东西。</p>
 <pre><code class="language-java">public static RegistryObject&lt;Item&gt; obsidianIngot = ITEMS.register(&quot;obsidian_ingot&quot;, () -&gt; {
   return new ObsidianIngot();
 });
 </code></pre>
-<p>第一个参数很好理解<code>”obsidian_ingot”</code>就对应着注册名，请注意这里的注册名也不要用大写字母，第二个参数看上去非常复杂，但是其实也挺简单的。</p>
+<p>第一个参数很好理解，<code>”obsidian_ingot”</code>就对应着注册名，请注意这里的注册名也不要用大写字母，第二个参数看上去非常复杂，但是实际上也挺简单的。</p>
 <p>首先我们先来看一下<code>ITEMS</code>的<code>register</code>的函数签名。</p>
 <pre><code class="language-java">public &lt;I extends T&gt; RegistryObject&lt;I&gt; register(final String name, final Supplier&lt;? extends I&gt; sup)
 </code></pre>
-<p>从这个函数签名里可以看见，第二个参数的类型是<code>Supplier&lt;? extends I&gt;</code>，这意味着你要传入的是一个没有参数的「闭包」，而且这个「闭包」是得有返回值的。</p>
-<p>那么什么是「闭包」呢？</p>
+<p>从这个函数签名里可以看见，第二个参数的类型是<code>Supplier&lt;? extends I&gt;</code>，这意味着你要传入的是一个没有参数的「匿名函数」，而且这个「匿名函数」是得有返回值的。</p>
+<p>那么什么是「匿名函数」呢？</p>
 <pre><code class="language-java">() -&gt; {
   return new ObsidianIngot();
 }
 </code></pre>
-<p>这个就是一个闭包，当然这是一个没有传入参数而且有返回值的闭包，闭包也可以有参数，也可不需要返回值。</p>
+<p>这个就是一个匿名函数，当然这是一个没有传入参数而且有返回值的匿名函数，匿名函数也可以有参数，也可不需要返回值。</p>
 <pre><code class="language-java">(T) -&gt;{
   System.out.println(T);
 }
 //这只是演示代码
 </code></pre>
-<p>上面这个「闭包」就是传入一个参数，没有返回值的「闭包」。</p>
+<p>上面这个「匿名函数」就是传入一个参数，没有返回值的「匿名函数」。</p>
 <p>回到我们的mod开发。</p>
 <pre><code class="language-java">() -&gt; {
   return new ObsidianIngot();
 }
 </code></pre>
-<p>这个闭包的意思就是返回一个我们之间创建的黑曜石类的实例。</p>
-<p>你看，虽然我们没有显式声明变量，但是我们还是在注册时实例化了新物品的类。</p>
-<p>还差最后一步，我们就可以添加成功物品了。</p>
+<p>这个匿名函数的意思就是返回一个我们之前创建的黑曜石类的实例。</p>
+<p>你看，虽然我们没有显式声明变量，但是我们还是在注册时实例化了我们物品的类。</p>
+<p>还差最后一步，我们就可以成功添加物品了。</p>
 <pre><code class="language-java">@Mod(&quot;neutrino&quot;)
 public class Neutrino {
     public Neutrino() {
@@ -439,19 +439,19 @@ public class Neutrino {
     }
 }
 </code></pre>
-<p>我们在我们<code>Mod</code>主类的构建方法里添加了一行代码，<code>FMLJavaModLoadingContext.get().getModEventBus()</code>这句话的意思是获取<code>Mod</code>总线，如果你不知什么是<code>Mod</code>总线请向前翻阅。而<code>ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());</code>的意思就是将<code>ITEMS</code>注册进<code>Mod</code>总线里。为什么要注册进<code>Mod</code>总线里呢？原因是，其实<code>DeferredRegister</code>也是基于事件系统实现的。</p>
-<p>到这里，我们要添加的第一个物品的代码已经写完了，打开游戏看看吧。</p>
+<p>我们在<code>Mod</code>主类的构建方法里添加了一行代码，<code>FMLJavaModLoadingContext.get().getModEventBus()</code>这句话的意思是获取<code>Mod</code>总线，如果你不知什么是<code>Mod</code>总线请向前翻阅。而<code>ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());</code>的意思就是将<code>ITEMS</code>注册进<code>Mod</code>总线里。为什么要注册进<code>Mod</code>总线里呢？原因是，<code>DeferredRegister</code>是基于事件系统实现的。</p>
+<p>到这里，我们要添加的物品所需的代码已经写完了，打开游戏看看吧。</p>
 <p><img src="item/firstitem.assets/image-20200427101846434.png" alt="image-20200427101846434" /></p>
 <p><img src="item/firstitem.assets/image-20200427101903271.png" alt="image-20200427101903271" /></p>
 <p><img src="item/firstitem.assets/image-20200427102030250.png" alt="image-20200427102030250" /></p>
 <p>虽然这个物品还是很丑，但这就是我们第一个物品了。</p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/first_item">源码链接</a></p>
 <h2><a class="header" href="#开发小课堂-1" id="开发小课堂-1">开发小课堂</a></h2>
-<p>在开发大型项目的过程中，通过看函数名猜函数功能，这是一个非常重要的能力。当你不清楚一个函数的功能是什么，就翻译翻译它的名字猜猜看它的功能吧。</p>
+<p>在开发大型项目的过程中，通过看函数名猜函数功能，这是一个非常重要的能力。当你不清楚一个函数的功能是什么，就翻译翻译它的名字，猜猜看它的功能吧。</p>
 <p>另外一个就是要学会看函数签名，理解一个函数最重要一点就是要理解它的输入是什么（参数），它的输出是什么（返回值）。</p>
 <h1><a class="header" href="#物品材质与模型" id="物品材质与模型">物品材质与模型</a></h1>
-<p>在上一节中我们已经成功添加了我们的第一个物品，当然那个物品还很丑，在这一节中我们将会为它添加模型和材质。</p>
-<p>首先按照如下目录在<code>resources</code>创建文件夹。</p>
+<p>在上一节中我们已经成功添加了第一个物品，当然那个物品还很丑，在这一节中我们将会为它添加模型和材质。</p>
+<p>首先按照如下目录在<code>resources</code>下创建文件夹。</p>
 <pre><code>resources
 ├── META-INF
 │   └── mods.toml
@@ -464,7 +464,7 @@ public class Neutrino {
 └── pack.mcmeta
 </code></pre>
 <p>其实<code>assets</code>下就是一个属于Mod的材质包，具体的目录结构等，读者可以自行寻找当前游戏版本的材质包制作教程学习。</p>
-<p>接下来我们来添加模型文件，首先在在<code>models</code>下的<code>item</code>里创建一个和你创建的物品相同注册名的json文件，在我们的例子里就是<code>obsidian_ingot.json</code>。</p>
+<p>接下来我们来添加模型文件，首先在在<code>models</code>下的<code>item</code>里，创建一个和你添加的物品，有着相同注册名的json文件，在我们的例子里就是<code>obsidian_ingot.json</code>。</p>
 <p>内容如下:</p>
 <pre><code class="language-json">{
   &quot;parent&quot;: &quot;item/generated&quot;,
@@ -473,11 +473,11 @@ public class Neutrino {
   }
 }
 </code></pre>
-<p>这里的内容非常简单:<code>&quot;parent&quot;: &quot;item/generated”</code>指定了这个模型的「父模型」是什么，而<code>&quot;layer0&quot;: &quot;neutrino:item/obsidian_ingot”</code>指定了具体的材质。<code>neutrino:</code>代表这个是在我们自己的<code>assets</code>文件下，<code>item/obsidian_ingot</code>代表了是<code>textures/item/obsidian_ingot.png</code>这张图片。</p>
+<p>这里的内容非常简单：<code>&quot;parent&quot;: &quot;item/generated”</code>指定了这个模型的「父模型」是什么，而<code>&quot;layer0&quot;: &quot;neutrino:item/obsidian_ingot”</code>指定了具体的材质。<code>neutrino:</code>代表这个是在我们自己的<code>assets</code>文件下，<code>item/obsidian_ingot</code>代表了是<code>textures/item/obsidian_ingot.png</code>这张图片。</p>
 <p>模型文件的详细格式大家可以自行阅读<a href="item/%5Bhttps://minecraft-zh.gamepedia.com/index.php?title=%E6%A8%A1%E5%9E%8B&amp;variant=zh%5D(https://minecraft-zh.gamepedia.com/index.php?title=%E6%A8%A1%E5%9E%8B&amp;variant=zh)">Wiki</a>。</p>
 <p>接下来我们在<code>textures/item/obsidian_ingot.png</code>下放入我们制作好的材质文件，请注意材质文件的比例是1:1，并且最好不要大于32x32像素。</p>
 <img src="item/./modelandtextures.assets/obsidian_ingot.png" style="zoom:300%;" />
-<p>这里的加载流程是：游戏先根据的你注册名获取相对应的模型文件，然后通过模型文件中的<code>textures</code>加载对应的材质文件。</p>
+<p><strong>这里的加载流程是：游戏先根据的你注册名获取相对应的模型文件，然后通过模型文件中的<code>textures</code>加载对应的材质文件。</strong></p>
 <p>创建完成的目录树如下：</p>
 <pre><code>resources
 ├── META-INF
@@ -493,24 +493,24 @@ public class Neutrino {
 └── pack.mcmeta
 
 </code></pre>
-<p>启动游戏之后你就可以看见我们创建的物品了。</p>
+<p>启动游戏之后你就可以看见我们有了模型和材质的物品了。</p>
 <p><img src="item/modelandtextures.assets/image-20200427113433338.png" alt="image-20200427113433338" /></p>
 <h2><a class="header" href="#开发小课堂-2" id="开发小课堂-2">开发小课堂</a></h2>
 <p>一个方便的工具用来制作方块和物品等模型：<a href="https://blockbench.net/">BlockBench</a>。</p>
 <h1><a class="header" href="#item和itemstack" id="item和itemstack">Item和ItemStack</a></h1>
-<p>在这里，我想讲一下Item和ItemStack的区分。我们先从ItemStack开始一步一步思考为什么它们需要区分开。</p>
-<p>ItemStack顾名思义就是「物品堆」。实际上在游戏中，所有物品槽里放着的物品都是单独的ItemStack。</p>
+<p>在这里，我想讲一下<code>Item</code>和<code>ItemStack</code>的区分。我们先从<code>ItemStack</code>开始一步一步思考为什么它们需要区分开。</p>
+<p><code>ItemStack</code>顾名思义就是「物品堆」。实际上在游戏中，所有物品槽里放着的物品都是单独的<code>ItemStack</code>。</p>
 <p><img src="item/itemstack.assets/image-20200428080226198.png" alt="image-20200428080226198" /></p>
-<p>比如在这种情况下，就有三个ItemStack。</p>
+<p>比如在这种情况下，就有三个<code>ItemStack</code>。</p>
 <p>但是这就引出了一个问题，虽然一组苹果和第二组苹果数量不同，但是这个数量其实并不影响他们的实际表现。它们同样可以被吃，吃了以后回复的效果也是相同的。</p>
-<p>于是这些相当于「属性」或者「默认行为」是相同的，这些相同的就应该被抽出来，这就是Item。</p>
-<p>还是以上图举例，这里就只有两种Item：苹果和铁剑。</p>
-<p>你可以想象ItemStack就是Item的一个包装，它比起Item额外提供了数量，NBT标签等属性。</p>
-<p>这里值得注意的是，ItemStack的数量为0，虽然代表是空了，这不代表它就变成null了，所以在你必须得用ItemStack下的<code>isEmpty()</code>方法来判断是否为空。</p>
-<p>ItemStack中所包含的Item其实是同一个实例，原因非常简单，如果不是同一个实例，会无谓地产生非常多相同的实例，处于优化的考虑，当然是共用一个实例合适，这同时意味着你可通过<code>result.getItem() == Items.AIR</code>来判断ItemStack存放了哪一个Item。</p>
+<p>这些相当于「属性」或者「默认行为」是相同的，这些相同的逻辑就应该被抽出来，这就是<code>Item</code>。</p>
+<p>还是以上图举例，这里就只有两种<code>Item</code>：苹果和铁剑。</p>
+<p>你可以想象<code>ItemStack</code>就是<code>Item</code>的一个包装，它比起<code>Item</code>额外提供了数量，NBT标签等属性。</p>
+<p>这里值得注意的是，<code>ItemStack</code>的数量为0，虽然代表是空了，这不代表它就变成<code>null</code>了，所以在你必须得用<code>ItemStack</code>下的<code>isEmpty()</code>方法来判断是否为空。</p>
+<p><code>ItemStack</code>中所包含的<code>Item</code>其实是同一个实例，原因非常简单，如果不是同一个实例，会无意义地产生非常多相同的实例，出于优化的考虑，当然是共用一个实例合适，这同时意味着你可通过<code>result.getItem() == Items.AIR</code>来判断<code>ItemStack</code>存放了哪一个<code>Item</code>。</p>
 <p>至于更加详细的解释，<a href="https://harbinger.covertdragon.team/chapter-04/item-stack.html">harbinger</a>已经写的很清楚了。</p>
 <h1><a class="header" href="#食物" id="食物">食物</a></h1>
-<p>在这一节中我们将会在Minecraft世界中添加一个新的食物：黑曜石苹果，吃了这个苹果以后你可以回复饥饿但是会中毒。和很多人想象的不一样，食物并不是单独的一个东西，对于Minecraft来说，食物只是一种特殊的物品而已。</p>
+<p>在这一节中我们将会在Minecraft世界中添加一个新的食物：黑曜石苹果，吃了这个苹果以后你可以回复饥饿，但是会中毒。和很多人想象的不一样，食物并不是单独的一个东西，对于Minecraft来说，食物只是一种特殊的物品而已。</p>
 <p>同样的我们先来创建一个类，让这个类继承<code>Item</code></p>
 <pre><code class="language-java">public class ObsidianApple extends Item {
     private static EffectInstance effectInstance = new EffectInstance(Effects.POISON, 3 * 20, 1);
@@ -527,9 +527,9 @@ public class Neutrino {
 
 </code></pre>
 <p>我们一行一行的解释。</p>
-<p>首先我们创建了一个<code>EffectInstance</code>，什么是<code>EffectInstance</code>？<code>EffectInstance</code>正如他名字暗示的那样是一个药水效果的实例。我们先来思考一下，原版的在玩家身上的药水效果都有哪些属性：效果的种类、时间以及药水等级。而<code>EffectInstance</code>就是这三种属性的一个集合。从<code>new EffectInstance(Effects.POISON, 3 * 20, 1)</code>之中可以看到我们填入的三种属性分别是：原版的中毒药水效果（原版所有的药水效果都在<code>Effects</code>类内）、持续时间是<code>3*20</code>tick，药水等级为1。</p>
+<p>首先我们创建了一个<code>EffectInstance</code>，什么是<code>EffectInstance</code>？<code>EffectInstance</code>正如他名字暗示的那样是一个药水效果的实例。我们先来思考一下，原版的在玩家身上的药水效果都有哪些属性：效果的种类、时间以及药水等级。而<code>EffectInstance</code>就是这三种属性的一个集合。从<code>new EffectInstance(Effects.POISON, 3 * 20, 1)</code>之中可以看到我们填入的三种属性分别是：原版的中毒药水效果（原版所有的药水效果都在<code>Effects</code>类内）、持续时间是<code>3*20</code>tick，药水等级为<code>1</code>。</p>
 <p>接下来我们创建了一个<code>Food</code>类型的变量，这个变量规定了这个这个食物的一些属性，比如：<code>saturation</code>方法设置了饱食度，<code>hunger</code>设置了回复的饥饿度，<code>effect</code>方法设置了吃食物时可能会有的药水效果，其中第二个参数代表触发效果的可能性（想想原版的生鸡肉），这里我们设置成<code>1</code>代表100%触发。这里其实用到称为「建造者模式」的设计模式，有兴趣的同学可以自己查阅。</p>
-<p>接下去就是构造方法，相比大家已经很熟悉了，唯一新的一点就是<code>.food(food)</code>，这个方法表明了这个物品是一个食物，最后我们把这个物品放在了「食物」创造模式物品栏里。</p>
+<p>接下去就是构造方法，想必大家已经很熟悉了，唯一新的一点就是<code>.food(food)</code>，这个方法表明了物品是一个食物，最后我们把这个物品放在了「食物」创造模式物品栏里。</p>
 <p>然后我们注册我们的食物，注册名是<code>obsidian_apple</code>:</p>
 <pre><code class="language-java">public static RegistryObject&lt;Item&gt; obsidianApple = ITEMS.register(&quot;obsidian_apple&quot;, () -&gt; {
         return new ObsidianApple();
@@ -593,8 +593,8 @@ public class Neutrino {
 </code></pre>
 <p>同样的，这个内容看上去非常地多，但其实并没有你想象得那么复杂。</p>
 <p>首先我们实现一个<code>IItemTier</code>接口的匿名内部类。首先什么是<code>IItemTier</code>呢？Tier的英文意思是「层、等级」，你可以把<code>IItemTier</code>理解成一种材质，比如钻石剑、钻石镐都是钻石做的，同样的，铁剑、铁镐都是铁做的。</p>
-<p>那么为什么要自己实现这个匿名内部类呢？原因是原版的<code>net.minecraft.item.IItemTier</code>是用enum实现的，我们没法自己向里面添加内容，所以只能自己实现了，原版的所有属性也都在这个类里，大家可以参考。至于这个匿名内部类里的各种方法，我在这里就不多加解释了，有了之前几个物品的经验，相信读者阅读到这里时已经有了通过函数名猜测函数功能的能力了。同样的关于构造函数里的<code>3</code>和<code>-2.4F</code>的作用也请读者参考原版物品的实现（原版所有物品的实例都写在<code>net.minecraft.item.Items</code>类中）猜测功能。</p>
-<p>同样的接下去注册物品</p>
+<p>那么为什么要自己实现这个匿名内部类呢？原因是原版的<code>net.minecraft.item.IItemTier</code>是用enum实现的，我们没法自己向里面添加内容，所以只能自己实现了，原版的所有属性也都在这个类里，大家可以参考。至于这个匿名内部类里的各种方法，我在这里就不多加解释了，有了之前几个物品的经验，相信读者阅读到这里时已经有了通过函数名猜测函数功能的能力了。关于构造函数里的<code>3</code>和<code>-2.4F</code>的作用也请读者参考原版物品的实现（原版所有物品的实例都写在<code>net.minecraft.item.Items</code>类中）猜测功能。</p>
+<p>接下去注册物品</p>
 <pre><code class="language-java">public static RegistryObject&lt;Item&gt; obsidianSword = ITEMS.register(&quot;obsidian_sword&quot;, () -&gt; {
   return new ObsidianSword();
 });
