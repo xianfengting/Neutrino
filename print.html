@@ -1486,7 +1486,7 @@ public void tick() {
 <p>在这一节中，我们将来学习一些常见的特殊渲染。</p>
 <h1><a class="header" href="#ibakedmodel烘焙模型" id="ibakedmodel烘焙模型">IBakedModel(烘焙模型)</a></h1>
 <p>首先我们从IBakedModel开始讲起。在开始正式写代码之前，我们先要了解如何一个方块是如何渲染出来的</p>
-<p>首先Minecraft本身会读取<code>json</code>和材质文件将其转换成<code>IModel</code>接口的实例，然后<code>IModel</code>进行了「Bake（烘焙）」处理，变成了<code>IBakedModel</code>，这个<code>IBakedModel</code>会被放入<code>BlockRendererDispatcher</code>中，当游戏需要时会直接从<code>BlockRendererDispatcher</code>取出<code>IBakedModel</code>进行渲染。至于什么是「Bake」，Bake的作用基本上是对模型的材质进行光照计算等操作，让它变成可以直接被GPU渲染的东西。</p>
+<p>Minecraft本身会读取<code>json</code>和材质文件将其转换成<code>IModel</code>接口的实例，然后<code>IModel</code>进行了「Bake（烘焙）」处理，变成了<code>IBakedModel</code>，这个<code>IBakedModel</code>会被放入<code>BlockRendererDispatcher</code>中，当游戏需要时会直接从<code>BlockRendererDispatcher</code>取出<code>IBakedModel</code>进行渲染。至于什么是「Bake」，Bake基本上是对模型的材质进行光照计算等操作，让它变成可以直接被GPU渲染的东西。</p>
 <p>在这节中我们将来研究如何为我们的方块自定义<code>IBakedModel</code>。这节我们将要制作一个「隐藏方块」，这个方块会自动的显示它下方方块的模型的材质（虽然有些Bug，但是为了演示这已经足够了）。</p>
 <p>首先是方块<code>ObsidianHiddenBlock</code>：</p>
 <pre><code class="language-java">public class ObsidianHiddenBlock extends Block {
@@ -1702,7 +1702,7 @@ public static void onModelBaked(ModelBakeEvent event)
 <h2><a class="header" href="#编程小课堂-2" id="编程小课堂-2">编程小课堂</a></h2>
 <p>在Forge里，所以的事件都是<code>Event</code>类的之类，所以你可通过查看<code>Event</code>类继承树的方式查看到Forge提供的所有事件。</p>
 <h1><a class="header" href="#tileentityrenderer方块实体渲染器" id="tileentityrenderer方块实体渲染器">TileEntityRenderer(方块实体渲染器)</a></h1>
-<p>在这节中，我们将来学习一个非常重要的渲染方式<code>TileEntityRenderer</code>剪成<code>TER</code>。在开始之前我们首先需要知道<code>TER</code>的作用是什么。让我回想一下原版中的箱子、附魔台。它们都有特殊的动画，而<code>TER</code>的作用就是让你也可以实现这些动画。</p>
+<p>在这节中，我们将来学习一个非常重要的渲染方式<code>TileEntityRenderer</code>简称<code>TER</code>。在开始之前我们首先需要知道<code>TER</code>的作用是什么。让我回想一下原版中的箱子、附魔台。它们都有特殊的动画，而<code>TER</code>的作用就是让你也可以实现这些动画。</p>
 <p>首先我们从方块开始</p>
 <pre><code class="language-java">public class ObsidianTERBlock extends Block {
 
@@ -1918,8 +1918,9 @@ public class ModBusEventHandler {
     }
 }
 </code></pre>
-<p>可以看到，这里和之前创建的<code>IBakedModel</code>并无太大差别。同样是保存了一个原本的<code>IBakedModel</code>。但是这里有几点不同的。</p>
-<p>第一，对于物品的<code>IBakedModel</code>来说，只会调用<code>IBakedModel#getQuads</code>而不会调用<code>IForgeBakedModel::getQuads</code>，你可以和之前方块的``IBakedModel`做对比，可以发现刚好是相反的。</p>
+<p>可以看到，这里和之前创建的<code>IBakedModel</code>并无太大差别。同样是保存了一个原本的<code>IBakedModel</code>。</p>
+<p>这里我们来说说他们区别：</p>
+<p>第一，对于物品的<code>IBakedModel</code>来说，只会调用<code>IBakedModel#getQuads</code>而不会调用<code>IForgeBakedModel::getQuads</code>，你可以和之前方块的<code>IBakedModel</code>做对比，可以发现刚好是相反的。</p>
 <p>第二，对于物品，你可以通过<code> handlePerspective</code>这个方块来选择不同<code>TransformType</code>下的<code>IBakedModel</code>，具体什<code>TransformType</code>请自行翻阅模型相关的Wiki，这里我们希望在第一人称的视角下用<code>ISTER</code>渲染我们的模型，所以在<code>if</code>语句中返回了<code>this</code>，注意只有当你这里返回了<code>this</code>的<code>TransformType</code>，才会启用<code>ISTER</code>渲染。</p>
 <p>第三，你可以在<code>getOverrides</code>处理物品<code>json</code>文件中的<code>Override</code>，什么是<code>Overrides</code>请执行翻阅wiki。</p>
 <p>第四，也是最重要的，如果你希望你的<code>IBakedModel</code>被<code>ISTER</code>渲染，你必须在<code>isBuiltInRenderer</code>返回<code>true</code>，如果你没有给你的物品中调用<code>setISTER</code>指定自定义的<code>ISTER</code>，默认会使用<code>ItemStackTileEntityRenderer.instance</code>渲染。</p>

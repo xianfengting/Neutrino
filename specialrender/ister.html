@@ -240,8 +240,9 @@ public class ModBusEventHandler {
     }
 }
 </code></pre>
-<p>可以看到，这里和之前创建的<code>IBakedModel</code>并无太大差别。同样是保存了一个原本的<code>IBakedModel</code>。但是这里有几点不同的。</p>
-<p>第一，对于物品的<code>IBakedModel</code>来说，只会调用<code>IBakedModel#getQuads</code>而不会调用<code>IForgeBakedModel::getQuads</code>，你可以和之前方块的``IBakedModel`做对比，可以发现刚好是相反的。</p>
+<p>可以看到，这里和之前创建的<code>IBakedModel</code>并无太大差别。同样是保存了一个原本的<code>IBakedModel</code>。</p>
+<p>这里我们来说说他们区别：</p>
+<p>第一，对于物品的<code>IBakedModel</code>来说，只会调用<code>IBakedModel#getQuads</code>而不会调用<code>IForgeBakedModel::getQuads</code>，你可以和之前方块的<code>IBakedModel</code>做对比，可以发现刚好是相反的。</p>
 <p>第二，对于物品，你可以通过<code> handlePerspective</code>这个方块来选择不同<code>TransformType</code>下的<code>IBakedModel</code>，具体什<code>TransformType</code>请自行翻阅模型相关的Wiki，这里我们希望在第一人称的视角下用<code>ISTER</code>渲染我们的模型，所以在<code>if</code>语句中返回了<code>this</code>，注意只有当你这里返回了<code>this</code>的<code>TransformType</code>，才会启用<code>ISTER</code>渲染。</p>
 <p>第三，你可以在<code>getOverrides</code>处理物品<code>json</code>文件中的<code>Override</code>，什么是<code>Overrides</code>请执行翻阅wiki。</p>
 <p>第四，也是最重要的，如果你希望你的<code>IBakedModel</code>被<code>ISTER</code>渲染，你必须在<code>isBuiltInRenderer</code>返回<code>true</code>，如果你没有给你的物品中调用<code>setISTER</code>指定自定义的<code>ISTER</code>，默认会使用<code>ItemStackTileEntityRenderer.instance</code>渲染。</p>
