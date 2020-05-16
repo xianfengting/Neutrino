@@ -159,7 +159,7 @@
 }
 </code></pre>
 <p>我们先从实例的方法开始说起。可以看到这里最为特殊的就是<code>@SubscribeEvent</code>注解，这个注解的作用就是标记下方的<code>pickupItem</code> 方法是一个事件处理器，至于它具体监听的事件是由它的参数类型决定的，在这里它的参数类型是<code>EntityItemPickupEvent</code>，说明它监听的是实体捡起物品这个事件。</p>
-<p>当然，对于实例方式的事件处理这样还不够，我们还得手动在某个地方实例化它并把它注入到事件总线里，我们之前说过Minecraft里有两条事件总线「Forge总线」和「mod总线」，Mod总线主要负责游戏的生命周期事件，也就是初始化过程的事件，而Forge总线负责的就是除了生命周期事件外的所有事件。你可以用<code>MinecraftForge.EVENT_BUS.register()</code>方法将你的事件实例注册到Forge总线中，也可用<code>FMLJavaModLoadingContext.get().getModEventBus().register()</code>方法将其注册到Mod总线中，一般情况下你应该在你的Mod主类的初始化方法里注册这些事件。</p>
+<p>当然，对于实例方式的事件处理这样还不够，我们还得手动在某个地方实例化它并把它注入到事件总线里，我们之前说过Minecraft里有两条事件总线「Forge总线」和「Mod总线」，Mod总线主要负责游戏的生命周期事件，也就是初始化过程的事件，而Forge总线负责的就是除了生命周期事件外的所有事件。你可以用<code>MinecraftForge.EVENT_BUS.register()</code>方法将你的事件实例注册到Forge总线中，也可用<code>FMLJavaModLoadingContext.get().getModEventBus().register()</code>方法将其注册到Mod总线中，一般情况下你应该在你的Mod主类的初始化方法里注册这些事件。</p>
 <p>在我们的例子里就是如下:</p>
 <pre><code class="language-java">MinecraftForge.EVENT_BUS.register(new MyForgeEventHandler());
 </code></pre>
