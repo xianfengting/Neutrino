@@ -2184,8 +2184,8 @@ public class CommonEventHandler {
 <p>在任何开始接触一个你不熟悉的编程项目，你要做的第一件事永远是通读这个项目的文档（如果有的话），对于我们来说就是<a href="http://mcforge.readthedocs.io/en/latest/">Forge的文档</a>，介于读者可能看不懂英文文档，Forge文档也有中文翻译的，请自行搜索。</p>
 <h1><a class="header" href="#实体" id="实体">实体</a></h1>
 <h1><a class="header" href="#从零构建一个实体和数据同步" id="从零构建一个实体和数据同步">从零构建一个实体和数据同步</a></h1>
-<p>在这节中，我们将从零构建出一个实体，并将学习实体是如何进行数据同步的。</p>
-<p>在这节中，我们将以「飞剑」作为例子，首先我们得要知道构建出一个实体需要那些东西。构建一个实体我们需要以下这些东西:</p>
+<p>在这节中，我们将从零构建出一个实体，并将学习实体是如何进行数据同步的。我们将以「飞剑」作为例子。首先我们得要知道构建出一个实体需要那些东西。</p>
+<p>构建一个实体我们需要以下这些东西:</p>
 <ul>
 <li>实体类，直接或者间接的继承<code>Entity</code>类，这个类决定了实体的是如何工作的</li>
 <li>渲染类，直接或者间接的继承<code>EntityRenderer&lt;T extends Entity&gt;</code>，这个类决定了实体是如何渲染的。</li>
@@ -2447,7 +2447,7 @@ public class ClientEventHandler {
 <p><a href="https://github.com/TheGreyGhost/MinecraftByExample">MinecraftByExample</a>项目的作者<a href="https://github.com/TheGreyGhost/MinecraftByExample/commits?author=TheGreyGhost">TheGreyGhost</a>的<a href="http://greyminecraftcoder.blogspot.com/p/list-of-topics-1144.html">博客</a>里有非常多关于Minecraft渲染相关的内容，大家可以自行阅读。</p>
 <p>如果你打不开这个博客，可能是由于你的国家封锁了这个网站，请自行寻找方法解决。</p>
 <h1><a class="header" href="#创建一个动物和ai" id="创建一个动物和ai">创建一个动物和AI</a></h1>
-<p>虽然上节中，我们从0创建了一个最简单的实体，但是其实你在写mod的大部分时候都不需要直继承<code>Entity</code>类，原版已经写好了非常多的类供你使用。在这节中我们将创建一个黑曜石动物，并且为这个动物添加一个AI。</p>
+<p>虽然上节中，我们从零创建了一个最简单的实体，但是其实你在写mod的大部分时候都不需要直继承<code>Entity</code>类，原版已经写好了非常多的类供你使用。在这节中我们将创建一个黑曜石动物，并且为这个动物添加一个AI。</p>
 <p>这里就引出的第一个问题，什么是AI？AI代表着生物的特殊的行为，比如牛会被玩家用小麦吸引，怪物会攻击玩家，会在村庄里走来走去。这些都是通过AI实现的，请注意不是所有的实体都可以有AI，AI是<code>MobEntity</code> 的子类特有的行为。</p>
 <p>首先我们来创建我们的实体类，<code>ObsidianAnimal</code>：</p>
 <pre><code class="language-java">public class ObsidianAnimal extends AnimalEntity {
