@@ -149,7 +149,7 @@
                     <main>
                         <h1><a class="header" href="#obj-模型" id="obj-模型">OBJ 模型</a></h1>
 <p>在这一节我我们将学习如何给方块添加OBJ物品模型。</p>
-<p>首先我们先创建我们的方块<code>ObsidianOBJ.java</code>：</p>
+<p>首先创建我们的方块<code>ObsidianOBJ.java</code>：</p>
 <pre><code class="language-java">public class ObsidianOBJ extends Block {
     public ObsidianOBJ() {
         super(Properties.create(Material.ROCK).hardnessAndResistance(5).notSolid());
@@ -181,7 +181,7 @@
   &quot;flip-v&quot;: true
 }
 </code></pre>
-<p>可以看到这里开始就有些特殊了，首先我们用<code>loader</code>指定了我们要加载的模型是<code>obj</code>格式的，然后在<code>model</code>里具体指定了我们的OBJ模型，最后将<code>flip-v</code>设置成为<code>true</code>，之所以这么做的原因是minecraft里的材质和你在blender等工具里的材质相比是上下颠倒的，所以你得手动翻转你的材质。</p>
+<p>可以看到，从这里开始就有些特殊了，首先我们用<code>loader</code>指定了我们要加载的模型是<code>obj</code>格式的，然后在<code>model</code>里具体指定了我们的OBJ模型，最后将<code>flip-v</code>设置成为<code>true</code>，这么做的原因是minecraft里的材质和你在blender等工具里的材质是上下颠倒的，所以你得手动翻转你的材质。</p>
 <p>接下来是OBJ模型<code>obsidian_obj.obj</code>，这里只标注需要修改的地方：</p>
 <pre><code>mtllib obsidian_obj.mtl
 </code></pre>
@@ -189,12 +189,12 @@
 <p>接下来是mtl文件``obsidian_obj.mtl`，同样的我在这里只标注需要修改的地方。</p>
 <pre><code>map_Kd neutrino:block/obsidian_obj
 </code></pre>
-<p>你必须通过这样的方式来指定你模型文件的材质。</p>
+<p>你必须这样的方式来指定你模型文件的材质。</p>
 <p>你可在这里获取<a href="obj.assets/obsidian_obj.obj">OBJ文件</a>和<a href="obj.assets/obsidian_obj.mtl">mtl文件</a>。</p>
 <p>最后是我们的材质<code>obsidian_obj.png</code>:</p>
 <img src="obj.assets/obsidian_obj.png" style="zoom:300%;" />
 <p><img src="obj.assets/image-20200429095433074.png" alt="image-20200429095433074" /></p>
-<p>可以看到我们我们的OBJ模型方块已经成功加载出来了。当然我们在这里还没有设置正确的碰撞箱，这就交给读者自己实现了。</p>
+<p>可以看到我们我们的OBJ模型已经成功加载出来了。当然我们在这里还没有设置正确的碰撞箱，这就交给读者自己实现了。</p>
 <p>物品同样也是可以使用OBJ模型的，请读者自行探索。</p>
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/obj">源代码</a></p>
 <h2><a class="header" href="#开发小课堂" id="开发小课堂">开发小课堂</a></h2>
