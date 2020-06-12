@@ -3151,7 +3151,7 @@ player.setItemStackToSlot(EquipmentSlotType.MAINHAND, stack);
     }
 
     @Override
-    public void render(int mouseX, int mouseY, float partialTick) {
+    public void render(int mouseX, int mouseY, float particleTick) {
         this.renderBackground();
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bindTexture(OBSIDIAN_FIRST_GUI_TEXTURE);
@@ -3160,10 +3160,10 @@ player.setItemStackToSlot(EquipmentSlotType.MAINHAND, stack);
         this.blit(this.width / 2 - 150, 10, 0, 0, 300, 200, textureWidth, textureHeight);
         this.drawString(this.font, content, this.width / 2 - 10, 30, 0xeb0505);
 
-        this.textFieldWidget.render(mouseX, mouseY, partialTick);
-        this.button.render(mouseX, mouseY, partialTick);
-        this.sliderBar.render(mouseX, mouseY, partialTick);
-        super.render(mouseX, mouseY, partialTick);
+        this.textFieldWidget.render(mouseX, mouseY, particleTick);
+        this.button.render(mouseX, mouseY, particleTick);
+        this.sliderBar.render(mouseX, mouseY, particleTick);
+        super.render(mouseX, mouseY, particleTick);
     }
 }
 </code></pre>
@@ -3207,7 +3207,7 @@ protected void init() {
 <p>这里的第五和第六个参数是<code>getter</code>和<code>setter</code>，这个是用来设置滚动条相对应的数值用的，你可在这里写上非常复杂的逻辑。当你调用它相对应的<code>set</code>和<code>get</code>方法时，会先执行你设置的这两个方法，然后获取值。这里我们不进行任何的设置，返回值也设置成0，最后一个方法是用来设置滚动条底部文字的，因为要实现滚动条处于不同地方时呈现不同的内容，所以这里也是一个闭包（虽然我们没有用到这个功能），其他参数的意义请自行查看函数签名。</p>
 <p>接下来就<code>render</code>方法。</p>
 <pre><code class="language-java">@Override
-public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
+public void render(int mouseX, int mouseY, float particleTick) {
   this.renderBackground();
   RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
   this.minecraft.getTextureManager().bindTexture(OBSIDIAN_FIRST_GUI_TEXTURE);
