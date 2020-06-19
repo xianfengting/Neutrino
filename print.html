@@ -4769,6 +4769,80 @@ public class KeybindingRegistry {
 <p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/input">源代码</a></p>
 <h1><a class="header" href="#与其他mod的兼容" id="与其他mod的兼容">与其他mod的兼容</a></h1>
 <h1><a class="header" href="#access-transformer" id="access-transformer">Access Transformer</a></h1>
+<p><strong>请注意，在没有确定你必须要使用AT的情况下，请务必不要随意使用AT，会有兼容性风险</strong></p>
+<p>虽然Forge已经为我们做了却大多数的工作来方便我们开发mod，但是在极少数的情况下，我们会发现Forge没有提供给我们接口让我来修改原版的内容，而原版的方法、字段等又是<code>private</code>的，我们没发调用它们。</p>
+<p>在这种情况下，Forge提供给我了一种叫做<code>Access Transformer</code>（简称<code>AT</code>）的工具，让我们能够修改原版内容的调用权限（在大部分时候都是把<code>private</code>改成<code>public</code>）。</p>
+<p>这里我们以给堆肥桶，添加新的物品为例。</p>
+<p>如果你查看过原版<code>ComposterBlock</code>的代码，你会注意到，原版调用了<code>registerCompostable</code>函数来添加堆肥桶运行添加进入的物品，但是这个方法是<code>private</code>的，我们没法直接调用。</p>
+<pre><code class="language-java">private static void registerCompostable(float chance, IItemProvider itemIn) {
+  CHANCES.put(itemIn.asItem(), chance);
+}
+</code></pre>
+<p>这时我们就可以使用AT来把这个<code>private</code>变成<code>public</code>，来向堆肥桶里添加新的物品。</p>
+<p>首先我们需要编辑我们的<code>build.gralde</code>中，如下这部分，将<code>AT</code>相关的注释删除。</p>
+<pre><code class="language-groovy">minecraft {
+    // The mappings can be changed at any time, and must be in the following format.
+    // snapshot_YYYYMMDD   Snapshot are built nightly.
+    // stable_#            Stables are built at the discretion of the MCP team.
+    // Use non-default mappings at your own risk. they may not always work.
+    // Simply re-run your setup task after changing the mappings to update your workspace.
+    mappings channel: 'snapshot', version: '20200512-1.15.1'
+    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+</code></pre>
+<p>然后在<code>META-INF</code>文件夹下，创建<code>accesstransformer.cfg</code>文件。</p>
+<pre><code>.
+├── META-INF
+│   ├── accesstransformer.cfg
+│   └── mods.toml
+├── assets
+├── data
+└── pack.mcmeta
+</code></pre>
+<p>在<code>accesstransformer.cfg</code>里填入的就是你的<code>AT</code>指令。</p>
+<p>具体的格式如下，内容出自<a href="https://docs.spongepowered.org/stable/zh-CN/plugin/internals/access-transformers.html">Sponge 文档</a></p>
+<blockquote>
+<p>有三种不同类型的 AT，分别用于对类、字段、和方法作出修改。Access Transformer配置中的每一行由两个（对于类而言）或三个（对于方法和字段而言）部分，部分与部分之间使用空格隔开。</p>
+<ul>
+<li>用于修改方法或字段的访问级标识符，如 <code>public</code> 或 <code>protected</code> 等。如果你还想同时去除 <code>final</code> 修饰符，你可以在其后添加 <code>-f</code> 标记，如 <code>public-f</code></li>
+<li>一个类的全名，如 <code>net.minecraft.server.MinecraftServer</code></li>
+<li>字段或方法的 Searge 名（方法需要添加相应的方法签名），如 <code>field_54654_a</code> 或 <code>func_4444_a()V</code></li>
+</ul>
+<p>你可以通过添加 <code>#</code> 前缀以添加注释。一个良好的习惯是为每行 AT 都写相应的注释，这样每一个字段或方法的引用就一目了然。</p>
+<p>下面是几行 Access Transformer 的示例：</p>
+<pre><code>public-f net.minecraft.server.MinecraftServer field_71308_o # anvilFile
+public net.minecraft.server.MinecraftServer func_71260_j()V # stopServer
+public-f net.minecraft.item.ItemStack
+</code></pre>
+</blockquote>
+<p>但其实，我们不需要直接写<code>AT</code>，在discord 上有个叫做<code>K9</code>的机器，你可以在MCP Bot的<a href="https://discord.gg/h4whGT9">Discord Server</a>中的<code>#bot-spam</code>找到它，建议是直接私聊它。</p>
+<p>输入<code>!mcp 你要查询的内容</code>，在我们的例子里就是<code>!mcp registerCompostable</code>，它会自动返回相关的SRG名等信息，其中就包括了AT。</p>
+<p><img src="at/intro.assets/image-20200619212440509.png" alt="image-20200619212440509" /></p>
+<p>其中最下面的这一行就是AT。</p>
+<p>然后我们将其复制到<code>accesstransformer.cfg</code>中:</p>
+<pre><code>public net.minecraft.block.ComposterBlock func_220290_a(FLnet/minecraft/util/IItemProvider;)V # registerCompostable
+</code></pre>
+<p>接下来，我们需要刷新我们的Gradle。</p>
+<p><img src="at/intro.assets/image-20200619212602433.png" alt="image-20200619212602433" /></p>
+<p>点击Gradle面板中的<code>Reload All Gradle Projects</code>，等待刷新完成。</p>
+<p>在刷新完成后，你再次查看<code>ComposterBlock</code>的代码，你就会发现<code>registerCompostable</code>这个静态方法变成<code>public</code>的了。</p>
+<p>接下来我们就可以来添加新的物品了。</p>
+<pre><code class="language-java">@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+public class ATDemo {
+    @SubscribeEvent
+    public static void addNewItemToComposterBlock(FMLLoadCompleteEvent event) {
+        ComposterBlock.registerCompostable(0.3F, Items.OAK_LEAVES);
+        ComposterBlock.registerCompostable(0.3F, Items.SPRUCE_LEAVES);
+        ComposterBlock.registerCompostable(0.3F, Items.BIRCH_LEAVES);
+        ComposterBlock.registerCompostable(0.3F, Items.JUNGLE_LEAVES);
+        ComposterBlock.registerCompostable(0.3F, Items.ACACIA_LEAVES);
+        ComposterBlock.registerCompostable(0.3F, Items.DARK_OAK_LEAVES);
+    }
+}
+</code></pre>
+<p>这里我们将原版的一些树叶添加了进去，启动游戏，现在你应该就可以向堆肥器里塞入树叶了。</p>
+<p><a href="https://github.com/FledgeXu/NeutrinoSourceCode/tree/master/src/main/java/com/tutorial/neutrino/at">源代码</a></p>
 <h1><a class="header" href="#coremod" id="coremod">CoreMod</a></h1>
 
                     </main>
